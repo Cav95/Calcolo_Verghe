@@ -3,7 +3,4 @@
 
 # Ignore Gradle build output directory
 build
-.gitignore
-.gitattributes
-gradlewe.bat
-gradlewe
+15-code
