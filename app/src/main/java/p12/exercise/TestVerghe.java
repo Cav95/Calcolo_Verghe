@@ -16,21 +16,27 @@ public class TestVerghe {
       MultiQueue<Integer,String> prova = new MultiQueueImpl<>();
 
 		final JTextField tfCode = new JTextField(10);
-        final JTextField tfLenght = new JTextField(10);
-		final JLabel lbCode = new JLabel("Result: 0");
+        final JTextField tfLenght = new JTextField(20);
+		final JLabel lbResult = new JLabel("Result: 0");
 		final JButton btAdd = new JButton("Add Tubolar");
 		
 		btAdd.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ev) {
 				String s = tfCode.getText(); // "Code"
                 String lengthTubolar = tfLenght.getText(); // "Code"
+
+                try{
                 prova.openNewQueue(s);
+            }
+                catch (IllegalArgumentException e){
+                    System.out.println("");
+                }
+
                 prova.enqueue(Integer.valueOf(lengthTubolar),s);
 
-                lbCode.setText(prova.allEnqueuedElements().toString());
+                lbResult.setText(prova.allEnqueuedElements().toString());
+                prova.printAllQueue();
                 
-				int n = Integer.parseInt(s); // 21
-				lbCode.setText("Result :"+n*2);
 			}
 		});
 		
@@ -38,13 +44,13 @@ public class TestVerghe {
 		final MyFrame frame = new MyFrame("I/O Example",lay);
 		frame.getMainPanel().add(tfCode);
         frame.getMainPanel().add(tfLenght);
-		frame.getMainPanel().add(lbCode);
+		frame.getMainPanel().add(lbResult);
 		frame.getMainPanel().add(btAdd);
 		frame.setVisible(true);
 
 //
 
-/* */
+/* 
         TestVerghe test = new TestVerghe();
         test.testBasic();
         test.testEnqueue();
@@ -236,7 +242,8 @@ public class TestVerghe {
           catch (Exception e){
             fail("wrong exception thrown");
         }
-    }
+    }*/
     
 
+}
 }

@@ -68,5 +68,11 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalArgumentException if queue is not available
      * @throws IllegalStateException if there's no alternative queue for moving elements to
      */
-    void closeQueueAndReallocate(Q queue);       
+    void closeQueueAndReallocate(Q queue);
+    
+        /**
+     * print all queue and its element
+       * @throws IllegalArgumentException if queue is not available
+     */
+    void printAllQueue(); 
 }

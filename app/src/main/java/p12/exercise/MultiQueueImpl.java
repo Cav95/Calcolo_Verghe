@@ -133,4 +133,22 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         }
 
     }
+
+    @Override
+    public void printAllQueue() {
+        if (!availableQueues().isEmpty()) {
+            for(Entry<Q, List<T>> elemEntry : multiQueue.entrySet()){
+                System.out.print(elemEntry.getKey() + " ");
+                for(T elem : elemEntry.getValue()){
+                    System.out.print(elem.toString() + " ");
+                    
+                }
+                System.out.println();
+            }
+            
+        } else {
+            throw new IllegalArgumentException();
+
+        }
+    }
 }

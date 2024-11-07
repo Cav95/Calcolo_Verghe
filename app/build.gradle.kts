@@ -6,8 +6,11 @@
  */
 
 plugins {
+    java
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 repositories {
@@ -34,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "p12.exercise.TestVerghe"
+    mainClass.set("p12.exercise.TestVerghe")
 }
 
 tasks.named<Test>("test") {
