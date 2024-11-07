@@ -13,28 +13,38 @@ public class TestVerghe {
     public static void main(String[] args){
 
       //  
-		final JTextField tf = new JTextField(10);
-		final JLabel lb = new JLabel("Result: 0");
-		final JButton bt = new JButton("Multiply by 2");
+      MultiQueue<Integer,String> prova = new MultiQueueImpl<>();
+
+		final JTextField tfCode = new JTextField(10);
+        final JTextField tfLenght = new JTextField(10);
+		final JLabel lbCode = new JLabel("Result: 0");
+		final JButton btAdd = new JButton("Add Tubolar");
 		
-		bt.addActionListener(new ActionListener(){
+		btAdd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				String s = tf.getText(); // "21"
+				String s = tfCode.getText(); // "Code"
+                String lengthTubolar = tfLenght.getText(); // "Code"
+                prova.openNewQueue(s);
+                prova.enqueue(Integer.valueOf(lengthTubolar),s);
+
+                lbCode.setText(prova.allEnqueuedElements().toString());
+                
 				int n = Integer.parseInt(s); // 21
-				lb.setText("Result :"+n*2);
+				lbCode.setText("Result :"+n*2);
 			}
 		});
 		
 		final FlowLayout lay = new FlowLayout(FlowLayout.CENTER,10,10); 
 		final MyFrame frame = new MyFrame("I/O Example",lay);
-		frame.getMainPanel().add(tf);
-		frame.getMainPanel().add(lb);
-		frame.getMainPanel().add(bt);
+		frame.getMainPanel().add(tfCode);
+        frame.getMainPanel().add(tfLenght);
+		frame.getMainPanel().add(lbCode);
+		frame.getMainPanel().add(btAdd);
 		frame.setVisible(true);
 
 //
 
-
+/* */
         TestVerghe test = new TestVerghe();
         test.testBasic();
         test.testEnqueue();
