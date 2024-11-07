@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "p12.exercise.Test"
+    mainClass = "p12.exercise.TestVerghe"
 }
 
 tasks.named<Test>("test") {

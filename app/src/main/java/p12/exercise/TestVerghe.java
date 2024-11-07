@@ -7,7 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class Test {
+public class TestVerghe {
 
 
     public static void main(String[] args){
@@ -35,7 +35,7 @@ public class Test {
 //
 
 
-        Test test = new Test();
+        TestVerghe test = new TestVerghe();
         test.testBasic();
         test.testEnqueue();
         test.testDequeue();
