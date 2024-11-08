@@ -1,8 +1,10 @@
 package p12.exercise;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,12 +13,12 @@ import java.util.TreeSet;
 
 public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
-    HashMap<Q, List<T>> multiQueue = new HashMap<>();
+    HashMap<Q, Set<T>> multiQueue = new HashMap<>();
 
     @Override
     public Set<Q> availableQueues() {
         Set<Q> queueAvaiable = new HashSet<>();
-        for (Entry<Q, List<T>> elem : multiQueue.entrySet()) {
+        for (Entry<Q, Set<T>> elem : multiQueue.entrySet()) {
             queueAvaiable.add(elem.getKey());
         }
         return queueAvaiable;
@@ -26,7 +28,14 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public void openNewQueue(Q queue) {
 
         if (!availableQueues().contains(queue)) {
-            List<T> newQueue = new ArrayList<>();
+            Set<T> newQueue = new TreeSet<>(new Comparator<T>() {
+
+                @Override
+                public int compare(T o1, T o2) {
+                    return (int)o1-(int)o2;
+                }
+                
+            });
 
             multiQueue.put(queue, newQueue);
         } else {
@@ -50,7 +59,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public void enqueue(T elem, Q queue) {
 
         if (availableQueues().contains(queue)) {
-            multiQueue.get(queue).addLast(elem);
+            multiQueue.get(queue).add(elem);
         } else {
             throw new IllegalArgumentException();
 
@@ -58,11 +67,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     }
 
-    @Override
-    public T dequeue(Q queue) {
+  /*  @Override
+  //  public T dequeue(Q queue) {
         if (availableQueues().contains(queue)) {
             if (!multiQueue.get(queue).isEmpty()) {
-                return multiQueue.get(queue).removeFirst();
+             //   return multiQueue.get(queue).remove(queue);
             } else {
                 return null;
             }
@@ -70,13 +79,14 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
             throw new IllegalArgumentException();
 
         }
+        //TO DO
     }
-
+*/
     @Override
     public Map<Q, T> dequeueOneFromAllQueues() {
         HashMap<Q, T> multiDequeueOne = new HashMap<>();
 
-        for (Entry<Q, List<T>> elem : multiQueue.entrySet()) {
+        for (Entry<Q, Set<T>> elem : multiQueue.entrySet()) {
             multiDequeueOne.put(elem.getKey(), dequeue(elem.getKey()));
         }
         return multiDequeueOne;
@@ -86,7 +96,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public Set<T> allEnqueuedElements() {
         Set<T> allEnqueuedElementsSet = new TreeSet<>();
 
-        for (Entry<Q, List<T>> elemMap : multiQueue.entrySet()) {
+        for (Entry<Q, Set<T>> elemMap : multiQueue.entrySet()) {
             for (T elemT : elemMap.getValue()) {
                 allEnqueuedElementsSet.add(elemT);
             }
@@ -137,7 +147,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public void printAllQueue() {
         if (!availableQueues().isEmpty()) {
-            for(Entry<Q, List<T>> elemEntry : multiQueue.entrySet()){
+            for(Entry<Q, Set<T>> elemEntry : multiQueue.entrySet()){
                 System.out.print(elemEntry.getKey() + " ");
                 for(T elem : elemEntry.getValue()){
                     System.out.print(elem.toString() + " ");
@@ -150,5 +160,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
             throw new IllegalArgumentException();
 
         }
+    }
+
+    @Override
+    public T dequeue(Q queue) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'dequeue'");
     }
 }
