@@ -1,4 +1,4 @@
-package p12.exercise;
+package calcolo_verghe.Frame;
 
 import java.awt.*;
 import javax.swing.*;
