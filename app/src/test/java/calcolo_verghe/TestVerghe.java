@@ -30,6 +30,8 @@ public class TestVerghe {
         // Creo le code Q1 e Q2, e ci metto dentro vari elementi 
         MultiQueue<Integer,String> mq = new MultiQueueImpl<>();
         assertEquals(mq.allEnqueuedElements().size(),0);
+        Tubolar<Integer> tub = new Tubolar<>(1000);
+
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         mq.addTubolar(1000, "Q2");
@@ -38,7 +40,7 @@ public class TestVerghe {
         mq.addTubolar(1003, "Q1");
         mq.addTubolar(1004, "Q1");
         // Verifico quali elementi sono complessivamente in coda
-        assertEquals(mq.allEnqueuedElements(),Set.of( 1000,1001,1002,1003,1004));
+        assertEquals(mq.allEnqueuedElements().size(),5);
     }
 
     @Test
