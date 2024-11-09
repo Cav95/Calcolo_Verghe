@@ -55,7 +55,7 @@ public interface MultiQueue<T,Q> {
      * @return the list of elements enqueued
      * @throws IllegalArgumentException if queue is not available
      */
-    List<Tubolar<T>> dequeueAllFromQueue(Q queue);
+    boolean dequeueAllFromQueue(Q queue);
     
     /**
      * Empties a queue and move all of its elements in some other available queue

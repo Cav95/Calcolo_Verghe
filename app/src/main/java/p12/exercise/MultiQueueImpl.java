@@ -1,11 +1,8 @@
 package p12.exercise;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,11 +24,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public void openNewQueue(Q queue) {
 
         if (!availableQueues().contains(queue)) {
-            Set<Tubolar<T>> newQueue = new TreeSet(new Comparator<T>() {
+            Set<Tubolar<T>> newQueue = new TreeSet<>(new Comparator<Tubolar<T>>() {
 
                 @Override
-                public int compare(T o1, T o2) {
-                    return (int)o1-(int)o2;
+                public int compare(Tubolar<T> o1, Tubolar<T> o2) {
+                    return (int)o1.getLenght() - (int)o2.getLenght();
                 }
                 
             });
@@ -58,7 +55,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public void addTubolar(T elem, Q queue) {
 
         if (availableQueues().contains(queue)) {
-            Tubolar<T> newTubolar = new Tubolar(elem);
+            Tubolar<T> newTubolar = new Tubolar<>(elem);
 
             multiQueue.get(queue).add(newTubolar);
         } else {
@@ -98,15 +95,10 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public List<Tubolar<T>> dequeueAllFromQueue(Q queue) {
+    public boolean dequeueAllFromQueue(Q queue) {
         if (availableQueues().contains(queue)) {
-            List<Tubolar<T>> listDequeue = new ArrayList<>();
-
-            while (!multiQueue.get(queue).isEmpty()) {
-                listDequeue.addLast(multiQueue.get(queue).removeAll(listDequeue));
-            }
-            return listDequeue;
-
+                 
+             return  multiQueue.get(queue).removeAll(multiQueue.get(queue));
         } else {
             throw new IllegalArgumentException();
 

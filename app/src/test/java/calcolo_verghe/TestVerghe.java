@@ -1,11 +1,5 @@
 package calcolo_verghe;
 
-import java.util.*;
-import java.util.List;
-
-import p12.exercise.MultiQueue;
-import p12.exercise.MultiQueueImpl;
-
 //import org . junit . Test ;
 //import static org . junit . Assert .*;
 
