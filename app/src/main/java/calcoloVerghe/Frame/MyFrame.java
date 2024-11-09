@@ -1,4 +1,4 @@
-package calcolo_verghe.Frame;
+package calcoloVerghe.Frame;
 
 import java.awt.*;
 import javax.swing.*;

@@ -64,4 +64,12 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalStateException if there's no alternative queue for moving elements to
      */
     void printAllQueue(); 
+
+
+    /**
+     * Get list
+     * @param , the queue to be emptied
+     * @throws IllegalArgumentException if queue is not available
+     */
+    Set<Tubolar<T>> getTubolarList(Q queue); 
 }

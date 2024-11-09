@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import calcolo_verghe.Frame.MyFrame;
+import calcoloVerghe.Frame.*;
 
 
 public class MainCalcoloTubolare {

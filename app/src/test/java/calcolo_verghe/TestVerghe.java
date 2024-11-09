@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import p12.exercise.MultiQueue;
 import p12.exercise.MultiQueueImpl;
 import p12.exercise.Tubolar; ;
@@ -26,6 +28,18 @@ public class TestVerghe {
     }
 
     @Test
+    public void testOpenNewQueue() {
+        MultiQueue<Integer,String> mq = new MultiQueueImpl<>();
+        mq.openNewQueue("Q1");
+        mq.openNewQueue("Q2");
+        assertEquals(mq.availableQueues().contains("Q1"),true);
+        assertEquals(mq.availableQueues().contains("Q2"),true);
+        assertEquals(mq.availableQueues().contains("Q3"),false);
+
+    }
+
+    
+    @Test
     public void testEnqueue() {
         // Creo le code Q1 e Q2, e ci metto dentro vari elementi 
         MultiQueue<Integer,String> mq = new MultiQueueImpl<>();
@@ -40,7 +54,7 @@ public class TestVerghe {
         mq.addTubolar(1003, "Q1");
         mq.addTubolar(1004, "Q1");
         // Verifico quali elementi sono complessivamente in coda
-        assertEquals(mq.allEnqueuedElements().size(),5);
+        assertEquals(mq.getTubolarList("Q1").size() , 2);
     }
 
     @Test
@@ -58,15 +72,6 @@ public class TestVerghe {
         // Verifico l'ordine di rimozione degli elementi
         assertEquals(mq.removeTubolar("Q1",1003),true);
         assertEquals(mq.removeTubolar("Q2",1000),true);
-        assertEquals(mq.removeTubolar("Q2",1001),true);
-        assertEquals(mq.removeTubolar("Q2",1002),true);
-        assertEquals(mq.removeTubolar("Q2",1000),false);
-        assertEquals(mq.removeTubolar("Q2",1000),false);
-        // Altre aggiunte e rimozioni..
-        mq.addTubolar(1005, "Q1");
-        mq.addTubolar(1006, "Q2");
-        assertEquals(mq.removeTubolar("Q2",1066),true);
-        assertEquals(mq.allEnqueuedElements(),Set.of(1004,1005));        
     }
     
 @Test

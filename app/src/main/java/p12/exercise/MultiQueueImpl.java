@@ -124,5 +124,10 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         }
     }
 
+    @Override
+    public Set<Tubolar<T>> getTubolarList(Q queue) {
+        return multiQueue.get(queue);
+    }
+
     
 }
