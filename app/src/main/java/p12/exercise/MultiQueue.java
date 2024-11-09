@@ -34,25 +34,20 @@ public interface MultiQueue<T,Q> {
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
      */
-    void enqueue(T elem, Q queue);
+    void addTubolar(T elem, Q queue);
     
     /**
      * @param queue, is the queue where to take the next element
      * @return the next element in queue, or null if there's none
      * @throws IllegalArgumentException if queue is not available
      */
-    T dequeue(Q queue);
-    
-    /**
-     * dequeues one element from any queue, where possible
-     * @return a map of dequeued elements, with one entry per dequed element 
-     */
-    Map<Q, T> dequeueOneFromAllQueues();
+    boolean removeTubolar(Q queue , T lenght);
+  
     
     /**
      * @return the set of all enqueued elements
      */
-    Set<T> allEnqueuedElements();
+    Set<Tubolar<T>> allEnqueuedElements();
     
     /**
      * Empties a queue
@@ -60,19 +55,13 @@ public interface MultiQueue<T,Q> {
      * @return the list of elements enqueued
      * @throws IllegalArgumentException if queue is not available
      */
-    List<T> dequeueAllFromQueue(Q queue);
+    List<Tubolar<T>> dequeueAllFromQueue(Q queue);
     
     /**
      * Empties a queue and move all of its elements in some other available queue
      * @param , the queue to be emptied
      * @throws IllegalArgumentException if queue is not available
      * @throws IllegalStateException if there's no alternative queue for moving elements to
-     */
-    void closeQueueAndReallocate(Q queue);
-    
-        /**
-     * print all queue and its element
-       * @throws IllegalArgumentException if queue is not available
      */
     void printAllQueue(); 
 }

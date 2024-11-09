@@ -1,17 +1,24 @@
 package p12.exercise;
 
-public class Tubolar {
+public class Tubolar<T> {
 
-    private int lenght;
+    private T lenght;
     private int quantity;
+
     
-    public void setLenght(int lenght) {
+    
+    public Tubolar(T lenght) {
         this.lenght = lenght;
+        this.quantity = 1;
+    }
+    public void setLenght(T lenght) {
+        this.lenght = lenght;
+
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public int getLenght() {
+    public T getLenght() {
         return lenght;
     }
     public int getQuantity() {

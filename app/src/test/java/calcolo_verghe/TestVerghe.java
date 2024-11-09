@@ -1,58 +1,22 @@
-package p12.exercise;
+package calcolo_verghe;
 
 import java.util.*;
 import java.util.List;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+
+import p12.exercise.MultiQueue;
+import p12.exercise.MultiQueueImpl;
+
+//import org . junit . Test ;
+//import static org . junit . Assert .*;
 
 
+/*
 public class TestVerghe {
 
 
     public static void main(String[] args){
 
-      //  
-      MultiQueue<Integer,String> prova = new MultiQueueImpl<>();
-
-		final JTextField tfCode = new JTextField(10);
-        final JTextField tfLenght = new JTextField(20);
-		final JLabel lbResult = new JLabel("Result: 0");
-		final JButton btAdd = new JButton("Add Tubolar");
-		
-		btAdd.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ev) {
-				String s = tfCode.getText(); // "Code"
-                String lengthTubolar = tfLenght.getText(); // "Code"
-
-                try{
-                prova.openNewQueue(s);
-            }
-                catch (IllegalArgumentException e){
-                    System.out.println("");
-                }
-
-                prova.enqueue(Integer.valueOf(lengthTubolar),s);
-
-                lbResult.setText(prova.allEnqueuedElements().toString());
-                prova.printAllQueue();
-                
-			}
-		});
-		
-		final FlowLayout lay = new FlowLayout(FlowLayout.CENTER,10,10); 
-		final MyFrame frame = new MyFrame("I/O Example",lay);
-		frame.getMainPanel().add(tfCode);
-        frame.getMainPanel().add(tfLenght);
-		frame.getMainPanel().add(lbResult);
-		frame.getMainPanel().add(btAdd);
-		frame.setVisible(true);
-
-//
-
-
-
-/* 
+ 
         TestVerghe test = new TestVerghe();
         test.testBasic();
         test.testEnqueue();
@@ -82,7 +46,7 @@ public class TestVerghe {
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         assertEquals(mq.availableQueues(),Set.of("Q1","Q2"));
-        mq.enqueue(1000, "Q2");
+        mq.addTubolar(1000, "Q2");
         // Verifico quali code sono vuote
         assertEquals(mq.isQueueEmpty("Q1"), true);
         assertEquals(mq.isQueueEmpty("Q2"), false);
@@ -94,11 +58,11 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.enqueue(1000, "Q2");
-        mq.enqueue(1001, "Q2");
-        mq.enqueue(1002, "Q2");
-        mq.enqueue(1003, "Q1");
-        mq.enqueue(1004, "Q1");
+        mq.addTubolar(1000, "Q2");
+        mq.addTubolar(1001, "Q2");
+        mq.addTubolar(1002, "Q2");
+        mq.addTubolar(1003, "Q1");
+        mq.addTubolar(1004, "Q1");
         // Verifico quali elementi sono complessivamente in coda
         assertEquals(mq.allEnqueuedElements(),Set.of(1000,1001,1002,1003,1004));
     }
@@ -109,11 +73,11 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.enqueue(1000, "Q2");
-        mq.enqueue(1001, "Q2");
-        mq.enqueue(1002, "Q2");
-        mq.enqueue(1003, "Q1");
-        mq.enqueue(1004, "Q1");
+        mq.addTubolar(1000, "Q2");
+        mq.addTubolar(1001, "Q2");
+        mq.addTubolar(1002, "Q2");
+        mq.addTubolar(1003, "Q1");
+        mq.addTubolar(1004, "Q1");
         // Verifico l'ordine di rimozione degli elementi
         assertEquals(mq.dequeue("Q1"),1003);
         assertEquals(mq.dequeue("Q2"),1000);
@@ -122,8 +86,8 @@ public class TestVerghe {
         assertEquals(mq.dequeue("Q2"),null);
         assertEquals(mq.dequeue("Q2"),null);
         // Altre aggiunte e rimozioni..
-        mq.enqueue(1005, "Q1");
-        mq.enqueue(1006, "Q2");
+        mq.addTubolar(1005, "Q1");
+        mq.addTubolar(1006, "Q2");
         assertEquals(mq.dequeue("Q2"),1006);
         assertEquals(mq.allEnqueuedElements(),Set.of(1004,1005));        
     }
@@ -135,11 +99,11 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.enqueue(1000, "Q2");
-        mq.enqueue(1001, "Q2");
-        mq.enqueue(1002, "Q2");
-        mq.enqueue(1003, "Q1");
-        mq.enqueue(1004, "Q1");
+        mq.addTubolar(1000, "Q2");
+        mq.addTubolar(1001, "Q2");
+        mq.addTubolar(1002, "Q2");
+        mq.addTubolar(1003, "Q1");
+        mq.addTubolar(1004, "Q1");
         // Rimuovo tutti gli elementi da una coda
         assertEquals(mq.dequeueAllFromQueue("Q2"), List.of(1000,1001,1002));
         assertEquals(mq.dequeueAllFromQueue("Q2").size(),0);
@@ -152,11 +116,11 @@ public class TestVerghe {
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         mq.openNewQueue("Q3"); 
-        mq.enqueue(1000, "Q2");
-        mq.enqueue(1001, "Q2");
-        mq.enqueue(1002, "Q2");
-        mq.enqueue(1003, "Q1");
-        mq.enqueue(1004, "Q1");
+        mq.addTubolar(1000, "Q2");
+        mq.addTubolar(1001, "Q2");
+        mq.addTubolar(1002, "Q2");
+        mq.addTubolar(1003, "Q1");
+        mq.addTubolar(1004, "Q1");
         // Rimuovo un elemento da ogni coda
         Map<String,Integer > map = mq.dequeueOneFromAllQueues();
         assertEquals(map.size(), 3);
@@ -172,12 +136,12 @@ public class TestVerghe {
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         mq.openNewQueue("Q3"); 
-        mq.enqueue(1000, "Q2");
-        mq.enqueue(1001, "Q2");
-        mq.enqueue(1002, "Q2");
-        mq.enqueue(1003, "Q1");
-        mq.enqueue(1004, "Q1");
-        mq.enqueue(1005, "Q3");
+        mq.addTubolar(1000, "Q2");
+        mq.addTubolar(1001, "Q2");
+        mq.addTubolar(1002, "Q2");
+        mq.addTubolar(1003, "Q1");
+        mq.addTubolar(1004, "Q1");
+        mq.addTubolar(1005, "Q3");
         assertEquals(mq.availableQueues(),Set.of("Q1","Q2","Q3"));
         assertEquals(mq.allEnqueuedElements(),Set.of(1000,1001,1002,1003,1004,1005));    
         // Chiudo Q1, i suoi elementi devono finire in qualche altra coda
@@ -192,7 +156,7 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q3");
-        mq.enqueue(1000, "Q1");
+        mq.addTubolar(1000, "Q1");
         try{
             mq.openNewQueue("Q1");
             fail("can't open Q1 again");
@@ -208,7 +172,7 @@ public class TestVerghe {
            fail("wrong exception thrown");
         }
         try{
-            mq.enqueue(100,"Q2");
+            mq.addTubolar(100,"Q2");
             fail("can't add into a non-existing queue");
         } catch (IllegalArgumentException e){}
           catch (Exception e){
@@ -244,8 +208,8 @@ public class TestVerghe {
           catch (Exception e){
             fail("wrong exception thrown");
         }
-    }*/
+    }
     
 
 }
-}
+*/

@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("p12.exercise.TestVerghe")
+    mainClass.set("p12.exercise.MainCalcoloTubolare")
 }
 
 tasks.named<Test>("test") {
