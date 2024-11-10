@@ -18,6 +18,7 @@ public class MainCalcoloTubolare {
         final JTextField tfLenght = new JTextField(20);
 		final JLabel lbResult = new JLabel("Result: 0");
 		final JButton btAdd = new JButton("Add Tubolar");
+        final JButton btRem = new JButton("Remove Tubolar");
 		
 		btAdd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ev) {
@@ -33,11 +34,22 @@ public class MainCalcoloTubolare {
 
                 prova.addTubolar(Integer.valueOf(lengthTubolar),s);
 
-                lbResult.setText(prova.allEnqueuedElements().toString());
                 prova.printAllQueue();
                 
 			}
 		});
+
+        btRem.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = tfCode.getText(); // "Code"
+                String lengthTubolar = tfLenght.getText(); // "Code"       
+                prova.removeTubolar(s, Integer.valueOf(lengthTubolar));
+                prova.printAllQueue();
+            }
+
+        });
 		
 		final FlowLayout lay = new FlowLayout(FlowLayout.CENTER,10,10); 
 		final MyFrame frame = new MyFrame("I/O Example",lay);
@@ -45,6 +57,7 @@ public class MainCalcoloTubolare {
         frame.getMainPanel().add(tfLenght);
 		frame.getMainPanel().add(lbResult);
 		frame.getMainPanel().add(btAdd);
+        frame.getMainPanel().add(btRem);
 		frame.setVisible(true);
 
 

@@ -13,11 +13,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     @Override
     public Set<Q> availableQueues() {
-        Set<Q> queueAvaiable = new HashSet<>();
-        for (Entry<Q, Set<Tubolar<T>>> elem : multiQueue.entrySet()) {
-            queueAvaiable.add(elem.getKey());
-        }
-        return queueAvaiable;
+               
+        return multiQueue.keySet();
     }
 
     @Override
@@ -29,16 +26,12 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                 @Override
                 public int compare(Tubolar<T> o1, Tubolar<T> o2) {
                     return (int)o1.getLenght() - (int)o2.getLenght();
-                }
-                
+                }               
             });
-
             multiQueue.put(queue, newQueue);
         } else {
             throw new IllegalArgumentException();
-
         }
-
     }
 
     @Override
@@ -66,17 +59,19 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public boolean removeTubolar(Q queue , T lenght) {
+    public void removeTubolar(Q queue , T lenght) {
         if (availableQueues().contains(queue)) {
-            if (!multiQueue.get(queue).isEmpty()) {
 
-                return multiQueue.get(queue).remove(lenght);
-
+            for(var myIterator = getTubolarList(queue).iterator() ; myIterator.hasNext() ; ){
+                if(myIterator.next().getLenght().equals(lenght)){
+                     myIterator.remove() ;                    
+                }
+            }
         }
-            throw new IllegalArgumentException();
-    }
-        
-                return false;
+        else{
+            throw new IllegalArgumentException();   
+        }
+            
     }
 
    

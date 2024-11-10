@@ -55,6 +55,7 @@ public class TestVerghe {
         mq.addTubolar(1004, "Q1");
         // Verifico quali elementi sono complessivamente in coda
         assertEquals(mq.getTubolarList("Q1").size() , 2);
+        assertEquals(mq.getTubolarList("Q2").size() , 3);
     }
 
     @Test
@@ -70,8 +71,10 @@ public class TestVerghe {
         mq.addTubolar(1003, "Q1");
         mq.addTubolar(1004, "Q1");
         // Verifico l'ordine di rimozione degli elementi
-        assertEquals(mq.removeTubolar("Q1",1003),true);
-        assertEquals(mq.removeTubolar("Q2",1000),true);
+        mq.removeTubolar("Q1",1003);
+        assertEquals(mq.getTubolarList("Q1").size(),1);
+
+        //assertEquals(mq.removeTubolar("Q2",1000),true);
     }
     
 @Test

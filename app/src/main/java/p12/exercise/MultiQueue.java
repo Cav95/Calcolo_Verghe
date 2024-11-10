@@ -41,7 +41,7 @@ public interface MultiQueue<T,Q> {
      * @return the next element in queue, or null if there's none
      * @throws IllegalArgumentException if queue is not available
      */
-    boolean removeTubolar(Q queue , T lenght);
+    void removeTubolar(Q queue , T lenght);
   
     
     /**
