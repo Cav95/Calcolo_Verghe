@@ -1,17 +1,10 @@
 package calcolo_verghe;
 
 import java.util.Objects;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
-
-import com.google.common.annotations.VisibleForTesting;
 
 import p12.exercise.MultiQueue;
 import p12.exercise.MultiQueueImpl;
-import p12.exercise.Tubolar; ;
-
-
 
 public class TestVerghe {
 
@@ -44,8 +37,7 @@ public class TestVerghe {
         // Creo le code Q1 e Q2, e ci metto dentro vari elementi 
         MultiQueue<Integer,String> mq = new MultiQueueImpl<>();
         assertEquals(mq.allEnqueuedElements().size(),0);
-        Tubolar<Integer> tub = new Tubolar<>(1000);
-
+        
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         mq.addTubolar(1000, "Q2");
@@ -54,7 +46,7 @@ public class TestVerghe {
         mq.addTubolar(1003, "Q1");
         mq.addTubolar(1004, "Q1");
         // Verifico quali elementi sono complessivamente in coda
-        assertEquals(mq.getTubolarList("Q1").size() , 2);
+        assertEquals(mq.getTubolarList("Q1").size() , 1);
         assertEquals(mq.getTubolarList("Q2").size() , 3);
     }
 

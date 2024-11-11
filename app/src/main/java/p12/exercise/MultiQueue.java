@@ -67,8 +67,8 @@ public interface MultiQueue<T,Q> {
 
 
     /**
-     * Get list
-     * @param , the queue to be emptied
+     * Get list of my same tubolare cut
+     * @param , the queue to be cheched
      * @throws IllegalArgumentException if queue is not available
      */
     Set<Tubolar<T>> getTubolarList(Q queue); 
