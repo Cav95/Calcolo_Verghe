@@ -40,11 +40,11 @@ public class TestVerghe {
         
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.addTubolar(1000, "Q2");
-        mq.addTubolar(1001, "Q2");
-        mq.addTubolar(1002, "Q2");
-        mq.addTubolar(1003, "Q1");
-        mq.addTubolar(1004, "Q1");
+        mq.addTubolar(1000, "Q2",1);
+        mq.addTubolar(1001, "Q2",1);
+        mq.addTubolar(1002, "Q2",1);
+        mq.addTubolar(1003, "Q1",1);
+        mq.addTubolar(1004, "Q1",1);
         // Verifico quali elementi sono complessivamente in coda
         assertEquals(mq.getTubolarList("Q1").size() , 1);
         assertEquals(mq.getTubolarList("Q2").size() , 3);
@@ -57,11 +57,11 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.addTubolar(1000, "Q2");
-        mq.addTubolar(1001, "Q2");
-        mq.addTubolar(1002, "Q2");
-        mq.addTubolar(1003, "Q1");
-        mq.addTubolar(1004, "Q1");
+        mq.addTubolar(1000, "Q2",1);
+        mq.addTubolar(1001, "Q2",1);
+        mq.addTubolar(1002, "Q2",1);
+        mq.addTubolar(1003, "Q1",1);
+        mq.addTubolar(1004, "Q1",1);
         // Verifico l'ordine di rimozione degli elementi
         mq.removeTubolar("Q1",1003);
         assertEquals(mq.getTubolarList("Q1").size(),1);
@@ -76,11 +76,11 @@ public class TestVerghe {
         assertEquals(mq.allEnqueuedElements().size(),0);
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
-        mq.addTubolar(1000, "Q2");
-        mq.addTubolar(1001, "Q2");
-        mq.addTubolar(1002, "Q2");
-        mq.addTubolar(1003, "Q1");
-        mq.addTubolar(1004, "Q1");
+        mq.addTubolar(1000, "Q2",1);
+        mq.addTubolar(1001, "Q2",1);
+        mq.addTubolar(1002, "Q2",1);
+        mq.addTubolar(1003, "Q1",1);
+        mq.addTubolar(1004, "Q1",1);
         // Rimuovo tutti gli elementi da una coda
         assertEquals(mq.dequeueAllFromQueue("Q2"), true);
         assertEquals(mq.dequeueAllFromQueue("Q2"),false);

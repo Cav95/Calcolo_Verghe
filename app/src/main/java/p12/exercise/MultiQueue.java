@@ -34,7 +34,7 @@ public interface MultiQueue<T,Q> {
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
      */
-    void addTubolar(T elem, Q queue);
+    void addTubolar(T elem, Q queue , int quantity);
     
     /**
      * @param queue, is the queue where to take the next element

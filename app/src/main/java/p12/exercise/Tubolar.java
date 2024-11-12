@@ -7,9 +7,9 @@ public class Tubolar<T> {
 
     
     
-    public Tubolar(T lenght) {
+    public Tubolar(T lenght , int quantity) {
         this.lenght = lenght;
-        this.quantity = 1;
+        this.quantity = quantity;
     }
     public void setLenght(T lenght) {
         this.lenght = lenght;
