@@ -72,4 +72,17 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalArgumentException if queue is not available
      */
     Set<Tubolar<T>> getTubolarList(Q queue); 
+
+        /**
+     *To do
+     */
+    HashMap<Q,LinkedList<LinkedList<T>>>  calcoloTotal(); 
+
+            /**
+     *To do
+     */
+    LinkedList<LinkedList<T>> calcoloVerga(Q queue); 
+
+
+
 }

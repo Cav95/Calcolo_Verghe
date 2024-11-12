@@ -2,6 +2,8 @@ package p12.exercise;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
@@ -123,6 +125,24 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public Set<Tubolar<T>> getTubolarList(Q queue) {
         return multiQueue.get(queue);
+    }
+
+
+    @Override
+    public HashMap<Q,LinkedList<LinkedList<T>>> calcoloTotal() {
+
+        for(Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()){
+            calcoloTotal();
+        }
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calcoloTotata'");
+    }
+
+    @Override
+    public LinkedList<LinkedList<T>> calcoloVerga(Q queue) {
+        
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calcoloVerga'");
     }
 
     

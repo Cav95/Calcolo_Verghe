@@ -17,8 +17,11 @@ public class MainCalcoloTubolare {
         final JLabel lbResult = new JLabel("Result: 0");
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
-        String[] optionsToChoose = { NameTubolar.TBQ12023.getactualName(), NameTubolar.TBQ14023.getactualName(),
-                NameTubolar.TBQ15023.getactualName() };
+        String[] optionsToChoose = new String[NameTubolar.values().length];
+        
+        for(NameTubolar elem : NameTubolar.values()){
+            optionsToChoose[elem.ordinal()] = elem.getactualName();
+        }
 
         JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
 
