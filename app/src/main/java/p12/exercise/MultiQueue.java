@@ -63,7 +63,7 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalArgumentException if queue is not available
      * @throws IllegalStateException if there's no alternative queue for moving elements to
      */
-    void printAllQueue(); 
+    String printAllQueue(); 
 
 
     /**

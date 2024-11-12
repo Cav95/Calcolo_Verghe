@@ -3,7 +3,6 @@ package p12.exercise;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 import calcoloVerghe.Frame.*;
 
 public class MainCalcoloTubolare {
@@ -14,7 +13,7 @@ public class MainCalcoloTubolare {
 
         final JTextField tfLenght = new JTextField(20);
         final JTextField tfQuantity = new JTextField(5);
-        final JLabel lbResult = new JLabel("Result: 0");
+        final JTextArea lbResult = new JTextArea();
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
         final JButton btCalc = new JButton("See the cut tubolar");
@@ -40,8 +39,9 @@ public class MainCalcoloTubolare {
                 }
 
                 prova.addTubolar(Integer.valueOf(lengthTubolar), s, quantity);
+                lbResult.setText(prova.printAllQueue());
 
-                prova.printAllQueue();
+                //prova.printAllQueue();
 
             }
         });

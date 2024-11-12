@@ -25,10 +25,9 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
                 @Override
                 public int compare(Tubolar<T> o1, Tubolar<T> o2) {
-                    if((int) o1.getLenght() < (int) o2.getLenght()){
+                    if ((int) o1.getLenght() < (int) o2.getLenght()) {
                         return 1;
-                    }
-                    else{
+                    } else {
                         return -1;
                     }
                 }
@@ -104,21 +103,25 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public void printAllQueue() {
+    public String printAllQueue() {
+        String out = "";
         if (!availableQueues().isEmpty()) {
             for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
+                out = out + elemEntry.getKey() + " ";
                 System.out.print(elemEntry.getKey() + " ");
                 for (Tubolar<T> elem : elemEntry.getValue()) {
+                    out = out + elem.toString() + " ";
                     System.out.print(elem.toString() + " ");
-
                 }
-                System.out.println();
-            }
+                out = out  + "\n";
+                    System.out.print("\n");
 
+            
+            }
         } else {
             throw new IllegalArgumentException();
-
         }
+        return out;
     }
 
     @Override
@@ -155,12 +158,12 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
                     list.add(elem.getLenght());
                     elem.setQuantity(elem.getQuantity() - 1);
-                 total1 = (int) total1 - (int) elem.getLenght();
+                    total1 = (int) total1 - (int) elem.getLenght();
 
                 }
             }
-            for(var myIterator = multiQueue.get(queue).iterator() ; myIterator.hasNext() ;  ){
-                if(myIterator.next().getQuantity() == 0 ){
+            for (var myIterator = multiQueue.get(queue).iterator(); myIterator.hasNext();) {
+                if (myIterator.next().getQuantity() == 0) {
                     myIterator.remove();
                 }
             }
