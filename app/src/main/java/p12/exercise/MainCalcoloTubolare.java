@@ -17,6 +17,8 @@ public class MainCalcoloTubolare {
         final JLabel lbResult = new JLabel("Result: 0");
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
+        final JButton btCalc = new JButton("See the cut tubolar");
+
         String[] optionsToChoose = new String[NameTubolar.values().length];
         
         for(NameTubolar elem : NameTubolar.values()){
@@ -56,6 +58,16 @@ public class MainCalcoloTubolare {
 
         });
 
+        btCalc.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                prova.calcoloTotal();
+                prova.printAllQueue();
+            }
+
+        });
+
         final FlowLayout lay = new FlowLayout(FlowLayout.CENTER, 10, 10);
         final MyFrame frame = new MyFrame("I/O Example", lay);
         frame.getMainPanel().add(jComboBox);
@@ -64,6 +76,7 @@ public class MainCalcoloTubolare {
         frame.getMainPanel().add(lbResult);
         frame.getMainPanel().add(btAdd);
         frame.getMainPanel().add(btRem);
+        frame.getMainPanel().add(btCalc);
         frame.setVisible(true);
 
     }

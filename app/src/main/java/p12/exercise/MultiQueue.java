@@ -81,7 +81,7 @@ public interface MultiQueue<T,Q> {
             /**
      *To do
      */
-    LinkedList<LinkedList<T>> calcoloVerga(Q queue); 
+    LinkedList<LinkedList<T>> calcoloVerga(Q queue , int lenght); 
 
 
 
