@@ -12,7 +12,7 @@ public enum NameTubolar {
         return actualName;
     }
 
-    public String[] stringEnum() {
+    public static String[] stringEnum() {
         String[] optionsToChoose = new String[NameTubolar.values().length];
 
         for (NameTubolar elem : NameTubolar.values()) {

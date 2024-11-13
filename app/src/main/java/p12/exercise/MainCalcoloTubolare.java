@@ -18,7 +18,7 @@ public class MainCalcoloTubolare {
         final JButton btRem = new JButton("Remove Tubolar");
         final JButton btCalc = new JButton("See the cut tubolar");
 
-        JComboBox<String> jComboBox = new JComboBox<>( NameTubolar.TBQ11023.stringEnum());
+        JComboBox<String> jComboBox = new JComboBox<>( NameTubolar.stringEnum());
 
         btAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
