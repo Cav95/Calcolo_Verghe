@@ -4,10 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import calcoloVerghe.Frame.*;
+import java.io.*;
 
 public class MainCalcoloTubolare {
+    public static final String SEP = File.separator;
+    public static final String FILE_NAME = "resources.prova.txt" ;
 
     public static void main(String[] args) {
+        System.out.println(FILE_NAME);
 
         MultiQueue<Integer, String> prova = new MultiQueueImpl<>();
 
@@ -18,7 +22,7 @@ public class MainCalcoloTubolare {
         final JButton btRem = new JButton("Remove Tubolar");
         final JButton btCalc = new JButton("See the cut tubolar");
 
-        JComboBox<String> jComboBox = new JComboBox<>( NameTubolar.stringEnum());
+        JComboBox<String> jComboBox = new JComboBox<>(NameTubolar.stringEnum());
 
         btAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -33,10 +37,14 @@ public class MainCalcoloTubolare {
                 }
 
                 prova.addTubolar(Integer.valueOf(lengthTubolar), s, quantity);
-                lbResult.setText(prova.printAllQueue());
+                String outPut = prova.printAllQueue();
+                lbResult.setText(outPut);
 
-                //prova.printAllQueue();
-
+                try (
+                        final OutputStream file = new FileOutputStream( FILE_NAME );
+                        final DataOutputStream dstream = new DataOutputStream(file);) {
+                         dstream.writeUTF(outPut);
+                }
             }
         });
 
