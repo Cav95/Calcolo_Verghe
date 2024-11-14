@@ -1,4 +1,4 @@
-package calcoloVerghe.Frame;
+package Frame;
 
 import java.awt.*;
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class MyFrame extends JFrame{
 	public MyFrame(String title, LayoutManager lm){
 		super(title); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(320,200);
+		this.setSize(500,400);
 		// Il layout-manager può essere passato al costruttore di JPanel
 		this.jp = new JPanel(lm);
 		this.getContentPane().add(this.jp);
