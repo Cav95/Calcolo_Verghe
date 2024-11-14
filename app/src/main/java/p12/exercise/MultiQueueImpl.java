@@ -176,4 +176,25 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     }
 
+    @Override
+    public String printCuttedTubolar(HashMap<Q, LinkedList<LinkedList<T>>> mapCut) {
+        String out = "";
+        if (!availableQueues().isEmpty()) {
+            for (Entry<Q, LinkedList<LinkedList<T>>> elemEntry : mapCut.entrySet()) {
+                out = out + elemEntry.getKey() + " ";
+                System.out.print(elemEntry.getKey() + " ");
+                for (LinkedList<T> elem : elemEntry.getValue()) {
+                    out = out + elem.toString() + " ";
+                    System.out.print(elem.toString() + " ");
+                }
+                out = out  +"Numero Tubolari:" +elemEntry.getValue().size() + "\n";
+                    System.out.print("\n");
+        
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+        return out;
+    }
+
 }

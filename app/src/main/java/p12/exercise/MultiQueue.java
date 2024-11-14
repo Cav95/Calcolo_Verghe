@@ -83,6 +83,8 @@ public interface MultiQueue<T,Q> {
      */
     LinkedList<LinkedList<T>> calcoloVerga(Q queue , int lenght); 
 
+    public String printCuttedTubolar(HashMap<Q, LinkedList<LinkedList<T>>> mapCut);
+
 
 
 }

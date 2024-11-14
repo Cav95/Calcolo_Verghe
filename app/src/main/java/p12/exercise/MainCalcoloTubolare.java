@@ -21,6 +21,7 @@ public class MainCalcoloTubolare {
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
         final JButton btCalc = new JButton("See the cut tubolar");
+        final JTextArea lbResultFinal = new JTextArea();
 
         JComboBox<String> jComboBox = new JComboBox<>(NameTubolar.stringEnum());
 
@@ -40,11 +41,11 @@ public class MainCalcoloTubolare {
                 String outPut = prova.printAllQueue();
                 lbResult.setText(outPut);
 
-                try (
+                /*try (
                         final OutputStream file = new FileOutputStream( FILE_NAME );
                         final DataOutputStream dstream = new DataOutputStream(file);) {
                          dstream.writeUTF(outPut);
-                }
+                }*/
             }
         });
 
@@ -64,7 +65,7 @@ public class MainCalcoloTubolare {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                prova.calcoloTotal();
+                lbResultFinal.setText(prova.printCuttedTubolar(prova.calcoloTotal()));
                 prova.printAllQueue();
             }
 
@@ -79,6 +80,7 @@ public class MainCalcoloTubolare {
         frame.getMainPanel().add(btAdd);
         frame.getMainPanel().add(btRem);
         frame.getMainPanel().add(btCalc);
+        frame.getMainPanel().add(lbResultFinal);
         frame.setVisible(true);
 
     }
