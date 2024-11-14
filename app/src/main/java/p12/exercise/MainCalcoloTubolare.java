@@ -8,7 +8,7 @@ import java.io.*;
 
 public class MainCalcoloTubolare {
     public static final String SEP = File.separator;
-    public static final String FILE_NAME = "resources.prova.txt" ;
+    public static final String FILE_NAME = "app" + SEP +"src" + SEP +"main" + SEP + "resources" + SEP + "prova.txt" ;//app\src\main\resources\prova.txt
 
     public static void main(String[] args) {
         System.out.println(FILE_NAME);
@@ -41,11 +41,14 @@ public class MainCalcoloTubolare {
                 String outPut = prova.printAllQueue();
                 lbResult.setText(outPut);
 
-                /*try (
+                try (
                         final OutputStream file = new FileOutputStream( FILE_NAME );
                         final DataOutputStream dstream = new DataOutputStream(file);) {
                          dstream.writeUTF(outPut);
-                }*/
+                } catch (IOException e) {
+                                    
+                                    e.printStackTrace();
+                                }
             }
         });
 
