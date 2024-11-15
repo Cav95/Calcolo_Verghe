@@ -2,7 +2,6 @@ package p12.exercise;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -145,42 +144,13 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     @Override
     public LinkedList<LinkedList<T>> calcoloVerga(Q queue, int lenght) {
-        //Set<Tubolar<T>> tempShort = new HashSet<>(multiQueue.get(queue));
-       // Set<Tubolar<T>> tempLong = new HashSet<>(multiQueue.get(queue));
 
         
         LinkedList<LinkedList<T>> listShort = tubConfronto( multiQueue.get(queue) , 6000);
-        //LinkedList<LinkedList<T>> listLong =  tubConfronto( multiQueue.get(queue) , 12000);;
+        LinkedList<LinkedList<T>> listLong =  tubConfronto( multiQueue.get(queue) , 12000);;
 
-     /*   while (!multiQueue.get(queue).isEmpty()) {
 
-            int total1 = lenght;
-            LinkedList<T> list = new LinkedList<>();
-
-            for (Tubolar<T> elem : multiQueue.get(queue)) {
-
-                while (elem.getQuantity() > 0 && ((int) total1 - (int) elem.getLenght()) >= 0) {
-
-                    list.add(elem.getLenght());
-                    elem.setQuantity(elem.getQuantity() - 1);
-                    total1 = (int) total1 - (int) elem.getLenght();
-
-                }
-            }
-            for (var myIterator = multiQueue.get(queue).iterator(); myIterator.hasNext();) {
-                if (myIterator.next().getQuantity() == 0) {
-                    myIterator.remove();
-                }
-            }
-
-            System.out.println(list);// da rimuovere
-
-            listShort.add(list);
-        }
-            */
-
-        return  listShort;
-      //  return listShort.size()>(listLong.size()/2)? listShort : listLong;
+        return listShort.size()>(listLong.size()/2)? listShort : listLong;
 
     }
 
@@ -205,10 +175,25 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
    
-    private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int lenght ){
+private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int lenght ){
         LinkedList<LinkedList<T>> listList = new LinkedList<>();
-        Set<Tubolar<T>> temp = new HashSet<>();
-        temp.addAll(tempList);//= new HashSet<>(tempList);
+
+        Set<Tubolar<T>> temp = new TreeSet<>(new Comparator<Tubolar<T>>() {
+
+            @Override
+            public int compare(Tubolar<T> o1, Tubolar<T> o2) {
+                if ((int) o1.getLenght() < (int) o2.getLenght()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
+        
+        for(Tubolar<T> elemTubolar : tempList){
+            temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
+        }
+            //= new HashSet<>(tempList);
 
 
         while (!temp.isEmpty()) {
