@@ -2,6 +2,7 @@ package p12.exercise;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -144,10 +145,14 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     @Override
     public LinkedList<LinkedList<T>> calcoloVerga(Q queue, int lenght) {
-        LinkedList<LinkedList<T>> listShort = new LinkedList<>();
-        // LinkedList<LinkedList<T>> listLong = new LinkedList<>();
+        //Set<Tubolar<T>> tempShort = new HashSet<>(multiQueue.get(queue));
+       // Set<Tubolar<T>> tempLong = new HashSet<>(multiQueue.get(queue));
 
-        while (!multiQueue.get(queue).isEmpty()) {
+        
+        LinkedList<LinkedList<T>> listShort = tubConfronto( multiQueue.get(queue) , 6000);
+        //LinkedList<LinkedList<T>> listLong =  tubConfronto( multiQueue.get(queue) , 12000);;
+
+     /*   while (!multiQueue.get(queue).isEmpty()) {
 
             int total1 = lenght;
             LinkedList<T> list = new LinkedList<>();
@@ -172,7 +177,10 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
             listShort.add(list);
         }
-        return listShort;
+            */
+
+        return  listShort;
+      //  return listShort.size()>(listLong.size()/2)? listShort : listLong;
 
     }
 
@@ -184,17 +192,52 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                 out = out + elemEntry.getKey() + " ";
                 System.out.print(elemEntry.getKey() + " ");
                 for (LinkedList<T> elem : elemEntry.getValue()) {
-                    out = out + elem.toString() + " ";
+                    out = out + elem.toString() + "\n";
                     System.out.print(elem.toString() + " ");
                 }
                 out = out  +"Numero Tubolari:" +elemEntry.getValue().size() + "\n";
                     System.out.print("\n");
-        
             }
         } else {
             throw new IllegalArgumentException();
         }
         return out;
+    }
+
+   
+    private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int lenght ){
+        LinkedList<LinkedList<T>> listList = new LinkedList<>();
+        Set<Tubolar<T>> temp = new HashSet<>();
+        temp.addAll(tempList);//= new HashSet<>(tempList);
+
+
+        while (!temp.isEmpty()) {
+
+            int total1 = lenght;
+            LinkedList<T> list = new LinkedList<>();
+
+            for (Tubolar<T> elem : temp) {
+
+                while (elem.getQuantity() > 0 && ((int) total1 - (int) elem.getLenght()) >= 0) {
+
+                    list.add(elem.getLenght());
+                    elem.setQuantity(elem.getQuantity() - 1);
+                    total1 = (int) total1 - (int) elem.getLenght();
+
+                }
+            }
+            for (var myIterator = temp.iterator(); myIterator.hasNext();) {
+                if (myIterator.next().getQuantity() == 0) {
+                    myIterator.remove();
+                }
+            }
+
+            System.out.println(list);// da rimuovere
+
+            listList.add(list);
+        }
+
+        return listList;
     }
 
 }
