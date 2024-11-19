@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import org.javatuples.Pair;
 
 public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
@@ -14,7 +15,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public Set<Q> availableQueues() {
 
-        return multiQueue.keySet();
+        return multiQueue.keySet(); 
     }
 
     @Override
@@ -95,7 +96,13 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public boolean dequeueAllFromQueue(Q queue) {
         if (availableQueues().contains(queue)) {
 
-            return multiQueue.get(queue).removeAll(multiQueue.get(queue));
+            if (!multiQueue.get(queue).isEmpty()) {
+                multiQueue.get(queue).clear();
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             throw new IllegalArgumentException();
 
@@ -113,10 +120,9 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                     out = out + elem.toString() + " ";
                     System.out.print(elem.toString() + " ");
                 }
-                out = out  + "\n";
-                    System.out.print("\n");
+                out = out + "\n";
+                System.out.print("\n");
 
-            
             }
         } else {
             throw new IllegalArgumentException();
@@ -145,12 +151,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public LinkedList<LinkedList<T>> calcoloVerga(Q queue, int lenght) {
 
-        
-        LinkedList<LinkedList<T>> listShort = tubConfronto( multiQueue.get(queue) , 6000);
-        LinkedList<LinkedList<T>> listLong =  tubConfronto( multiQueue.get(queue) , 12000);;
+        LinkedList<LinkedList<T>> listShort = tubConfronto(multiQueue.get(queue), 6000);
+        LinkedList<LinkedList<T>> listLong = tubConfronto(multiQueue.get(queue), 12000);
+        ;
 
-
-        return listShort.size()>(listLong.size()/2)? listShort : listLong;
+        return listShort.size() > (listLong.size() / 2) ? listShort : listLong;
 
     }
 
@@ -165,8 +170,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                     out = out + elem.toString() + "\n";
                     System.out.print(elem.toString() + " ");
                 }
-                out = out  +"Numero Tubolari:" +elemEntry.getValue().size() + "\n";
-                    System.out.print("\n");
+                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
+                System.out.print("\n");
             }
         } else {
             throw new IllegalArgumentException();
@@ -174,23 +179,12 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         return out;
     }
 
-   
-private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int lenght ){
+    private LinkedList<LinkedList<T>> tubConfronto(Set<Tubolar<T>> tempList, int lenght) {
         LinkedList<LinkedList<T>> listList = new LinkedList<>();
 
-        Set<Tubolar<T>> temp = new TreeSet<>(new Comparator<Tubolar<T>>() {
+        Set<Tubolar<T>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
-            @Override
-            public int compare(Tubolar<T> o1, Tubolar<T> o2) {
-                if ((int) o1.getLenght() < (int) o2.getLenght()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
-        
-        for(Tubolar<T> elemTubolar : tempList){
+        for (Tubolar<T> elemTubolar : tempList) {
             temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
         }
 
@@ -201,7 +195,7 @@ private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int l
 
             for (Tubolar<T> elem : temp) {
 
-                while (elem.getQuantity() > 0 && ( total1 - (int) elem.getLenght()) >= 0) {
+                while (elem.getQuantity() > 0 && (total1 - (int) elem.getLenght()) >= 0) {
                     list.add(elem.getLenght());
                     elem.setQuantity(elem.getQuantity() - 1);
                     total1 = total1 - (int) elem.getLenght();
