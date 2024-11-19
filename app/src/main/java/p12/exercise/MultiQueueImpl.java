@@ -193,8 +193,6 @@ private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int l
         for(Tubolar<T> elemTubolar : tempList){
             temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
         }
-            //= new HashSet<>(tempList);
-
 
         while (!temp.isEmpty()) {
 
@@ -203,12 +201,10 @@ private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int l
 
             for (Tubolar<T> elem : temp) {
 
-                while (elem.getQuantity() > 0 && ((int) total1 - (int) elem.getLenght()) >= 0) {
-
+                while (elem.getQuantity() > 0 && ( total1 - (int) elem.getLenght()) >= 0) {
                     list.add(elem.getLenght());
                     elem.setQuantity(elem.getQuantity() - 1);
-                    total1 = (int) total1 - (int) elem.getLenght();
-
+                    total1 = total1 - (int) elem.getLenght();
                 }
             }
             for (var myIterator = temp.iterator(); myIterator.hasNext();) {
@@ -216,12 +212,8 @@ private LinkedList<LinkedList<T>> tubConfronto (Set<Tubolar<T>> tempList , int l
                     myIterator.remove();
                 }
             }
-
-            System.out.println(list);// da rimuovere
-
             listList.add(list);
         }
-
         return listList;
     }
 

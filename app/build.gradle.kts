@@ -11,6 +11,8 @@ plugins {
     application
 
     id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("org.danilopianini.gradle-java-qa") version "0.40.0"
+
 }
 
 repositories {
@@ -21,7 +23,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3") // Use the latest version
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
