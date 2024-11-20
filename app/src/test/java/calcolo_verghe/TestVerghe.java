@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import p12.exercise.MultiQueue;
 import p12.exercise.MultiQueueImpl;
+import org.javatuples.Pair;
 
 public class TestVerghe {
 
@@ -101,11 +102,10 @@ public class TestVerghe {
         mq.addTubolar(150, "Q1",30);
         mq.addTubolar(6000, "Q1",2);
 
-        LinkedList<LinkedList<Integer>> test = new LinkedList<>();
+        LinkedList<Pair<Integer,LinkedList<Integer>>> test = new LinkedList<>();
         test =  mq.calcoloVerga("Q2", 6000);
         assertEquals(test.size(),2);
     }
-    
-    
+   
 
 }

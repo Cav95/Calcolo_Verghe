@@ -31,7 +31,7 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
 
-// https://mvnrepository.com/artifact/org.javatuples/javatuples
+    // https://mvnrepository.com/artifact/org.javatuples/javatuples
 implementation("org.javatuples:javatuples:1.2")
 
 }
