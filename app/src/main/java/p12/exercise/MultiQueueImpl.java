@@ -15,24 +15,15 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public Set<Q> availableQueues() {
 
-        return multiQueue.keySet(); 
+        return multiQueue.keySet();
     }
 
     @Override
     public void openNewQueue(Q queue) {
 
         if (!availableQueues().contains(queue)) {
-            Set<Tubolar<T>> newQueue = new TreeSet<>(new Comparator<Tubolar<T>>() {
-
-                @Override
-                public int compare(Tubolar<T> o1, Tubolar<T> o2) {
-                    if ((int) o1.getLenght() < (int) o2.getLenght()) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                }
-            });
+            Set<Tubolar<T>> newQueue = new TreeSet<>(
+                    (o1, o2) -> ((int) o1.getLenght() < (int) o2.getLenght()) ? 1 : -1);
             multiQueue.put(queue, newQueue);
         } else {
             throw new IllegalArgumentException();
@@ -136,8 +127,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> calcoloTotal() {
-        HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> mapCut = new HashMap<>();
+    public HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> calcoloTotal() {
+        HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut = new HashMap<>();
 
         for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
             System.out.println(elemEntry.getKey());
@@ -149,28 +140,28 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public LinkedList<Pair<Integer,LinkedList<T>>> calcoloVerga(Q queue, int lenght) {
+    public LinkedList<Pair<Integer, LinkedList<T>>> calcoloVerga(Q queue, int lenght) {
 
-        LinkedList<Pair<Integer,LinkedList<T>>> listShort = tubConfronto(multiQueue.get(queue), 6000);
-        LinkedList<Pair<Integer,LinkedList<T>>> listLong = tubConfronto(multiQueue.get(queue), 12000);
-        ;
+        LinkedList<Pair<Integer, LinkedList<T>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
+        LinkedList<Pair<Integer, LinkedList<T>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
 
-        return listShort.size() > (listLong.size() / 2) ? listShort : listLong;
+        return listShort.size() > (listLong.size() * 2) ? listShort : listLong;
 
     }
 
     @Override
-    public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> mapCut) {
+    public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut) {
         String out = "";
         if (!availableQueues().isEmpty()) {
-            for (Entry<Q, LinkedList<Pair<Integer,LinkedList<T>>>> elemEntry : mapCut.entrySet()) {
-                out = out + elemEntry.getKey() + " ";
+            for (Entry<Q, LinkedList<Pair<Integer, LinkedList<T>>>> elemEntry : mapCut.entrySet()) {
+                out = out + elemEntry.getKey() + "\n";
                 System.out.print(elemEntry.getKey() + " ");
-                
-                for (Pair<Integer,LinkedList<T>> elem : elemEntry.getValue()) {
-                    System.out.println(elem.getValue(1));
-                    out = out + elem.toString() + "\n";
-                    System.out.print(elem.toString() + " ");
+
+                for (Pair<Integer, LinkedList<T>> elem : elemEntry.getValue()) {
+                    System.out.println(elem.getValue0());
+                    out = out +"Lunghezza tubolare:" + elem.getValue0() + "\n";
+                    out = out + elem.getValue1().toString() + "\n";
+                    System.out.print(elem.getValue1().toString() + " ");
                 }
                 out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
                 System.out.print("\n");
@@ -181,9 +172,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         return out;
     }
 
-    private LinkedList<Pair<Integer,LinkedList<T>>> tubConfronto(Set<Tubolar<T>> tempList, int lenght) {
-        LinkedList<Pair<Integer,LinkedList<T>>> listList = new LinkedList<>();
-        
+    private LinkedList<Pair<Integer, LinkedList<T>>> tubConfronto(Set<Tubolar<T>> tempList, int lenght) {
+        LinkedList<Pair<Integer, LinkedList<T>>> listList = new LinkedList<>();
 
         Set<Tubolar<T>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
@@ -194,13 +184,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         while (!temp.isEmpty()) {
 
             int total1 = lenght;
-            
-            
+
             LinkedList<T> list = new LinkedList<>();
-            Pair<Integer,LinkedList<T>> pairList = new Pair<Integer,LinkedList<T>>(lenght, list);
+            Pair<Integer, LinkedList<T>> pairList = new Pair<Integer, LinkedList<T>>(Integer.valueOf(lenght), list);
 
             for (Tubolar<T> elem : temp) {
-                
 
                 while (elem.getQuantity() > 0 && (total1 - (int) elem.getLenght()) >= 0) {
                     list.add(elem.getLenght());

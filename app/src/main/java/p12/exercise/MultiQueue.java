@@ -2,6 +2,8 @@ package p12.exercise;
 
 import java.util.*;
 
+import org.javatuples.Pair;
+
 
 /**
  * A multiple (FIFO) queue, e.g., to manage people paying at the supermarket
@@ -76,14 +78,21 @@ public interface MultiQueue<T,Q> {
         /**
      *To do
      */
-    HashMap<Q,LinkedList<LinkedList<T>>>  calcoloTotal(); 
+    public HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> calcoloTotal(); 
 
-            /**
+    
+    /**
      *To do
      */
-    LinkedList<LinkedList<T>> calcoloVerga(Q queue , int lenght); 
+    public LinkedList<Pair<Integer,LinkedList<T>>> calcoloVerga(Q queue, int lenght); 
 
-    public String printCuttedTubolar(HashMap<Q, LinkedList<LinkedList<T>>> mapCut);
+    /**
+     * 
+     * @param mapCut
+     * @return
+     */
+
+    public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> mapCut);
 
 
 
