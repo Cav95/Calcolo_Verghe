@@ -1,6 +1,5 @@
 package p12.exercise;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
@@ -145,7 +144,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         LinkedList<Pair<Integer, LinkedList<T>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
         LinkedList<Pair<Integer, LinkedList<T>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
 
-        return listShort.size() > (listLong.size() * 2) ? listShort : listLong;
+        return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
 
     }
 
