@@ -78,19 +78,12 @@ public interface MultiQueue<T,Q> {
         /**
      *To do
      */
-    public HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> calcoloTotal(); 
+    HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> calcoloTotal(); 
 
-    
-    /**
+            /**
      *To do
      */
-    public LinkedList<Pair<Integer,LinkedList<T>>> calcoloVerga(Q queue, int lenght); 
-
-    /**
-     * 
-     * @param mapCut
-     * @return
-     */
+    LinkedList<Pair<Integer,LinkedList<T>>> calcoloVerga(Q queue , int lenght); 
 
     public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> mapCut);
 

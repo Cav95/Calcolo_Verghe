@@ -12,9 +12,6 @@ plugins {
 
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("org.danilopianini.gradle-java-qa") version "0.40.0"
-
-
-
 }
 
 repositories {
@@ -32,7 +29,7 @@ dependencies {
     implementation(libs.guava)
 
     // https://mvnrepository.com/artifact/org.javatuples/javatuples
-implementation("org.javatuples:javatuples:1.2")
+    implementation("org.javatuples:javatuples:1.2")
 
 }
 

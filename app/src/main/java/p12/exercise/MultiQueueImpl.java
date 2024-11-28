@@ -105,19 +105,14 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         if (!availableQueues().isEmpty()) {
             for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
                 out = out + elemEntry.getKey() + " ";
-                System.out.print(elemEntry.getKey() + " ");
-                //System.out.println(elemEntry.getValue().stream().map( t -> " L=" + t.getLenght() +  " QT=" + t.getQuantity()).toList().toString());
-                for (Tubolar<T> elem : elemEntry.getValue()) {
-                    out = out + elem.toString() + " ";
-                    System.out.print(elem.toString() + " ");
-                }
+                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
+                        .toList().toString();
                 out = out + "\n";
-                System.out.print("\n");
-
             }
         } else {
             throw new IllegalArgumentException();
         }
+        System.out.print(out);
         return out;
     }
 
@@ -144,9 +139,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
         LinkedList<Pair<Integer, LinkedList<T>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
         LinkedList<Pair<Integer, LinkedList<T>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
-
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
-
     }
 
     @Override
@@ -156,20 +149,16 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
             for (Entry<Q, LinkedList<Pair<Integer, LinkedList<T>>>> elemEntry : mapCut.entrySet()) {
                 out = out + elemEntry.getKey() + "\n";
-                System.out.print(elemEntry.getKey() + " ");
-
                 for (Pair<Integer, LinkedList<T>> elem : elemEntry.getValue()) {
-                    System.out.println(elem.getValue0());
-                    out = out +"Lunghezza tubolare:" + elem.getValue0() + "\n";
+                    out = out + "Lunghezza tubolare:" + elem.getValue0() + "\n";
                     out = out + elem.getValue1().toString() + "\n";
-                    System.out.print(elem.getValue1().toString() + " ");
                 }
                 out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
-                System.out.print("\n");
             }
         } else {
             throw new IllegalArgumentException();
         }
+        System.out.print(out);
         return out;
     }
 

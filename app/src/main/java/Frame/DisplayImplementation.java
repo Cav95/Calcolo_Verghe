@@ -40,7 +40,7 @@ public class DisplayImplementation {
                 String outPut = prova.printAllQueue();
                 lbResult.setText(outPut);
 
-                try (
+               /* try (
                         final DataOutputStream dstream = new DataOutputStream(
                                 new BufferedOutputStream(
                                         new FileOutputStream(FILE_NAME)))) {
@@ -49,7 +49,7 @@ public class DisplayImplementation {
                 } catch (IOException e) {
 
                     e.printStackTrace();
-                }
+                }*/
             }
         });
 
