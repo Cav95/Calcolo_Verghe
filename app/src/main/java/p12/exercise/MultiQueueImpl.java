@@ -13,7 +13,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     @Override
     public Set<Q> availableQueues() {
-
         return multiQueue.keySet();
     }
 
@@ -76,10 +75,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
             for (Tubolar<T> elemT : elemMap.getValue()) {
                 allEnqueuedElementsSet.add(elemT);
             }
-
         }
         return allEnqueuedElementsSet;
-
     }
 
     @Override
@@ -126,12 +123,9 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut = new HashMap<>();
 
         for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
-            System.out.println(elemEntry.getKey());
             mapCut.put(elemEntry.getKey(), calcoloVerga(elemEntry.getKey(), 6000));
-
         }
         return mapCut;
-
     }
 
     @Override
@@ -167,17 +161,17 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
         Set<Tubolar<T>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
-        for (Tubolar<T> elemTubolar : tempList) {
+        temp = Set.copyOf(tempList);
+        /*for (Tubolar<T> elemTubolar : tempList) {
             temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
-        }
+        }*/
 
-        while (!temp.isEmpty()) {
+        while (temp.stream().mapToInt( t -> t.getQuantity()).sum() != 0) {
 
             int total1 = lenght;
 
             LinkedList<T> list = new LinkedList<>();
             Pair<Integer, LinkedList<T>> pairList = new Pair<Integer, LinkedList<T>>(Integer.valueOf(lenght), list);
-
             for (Tubolar<T> elem : temp) {
 
                 while (elem.getQuantity() > 0 && (total1 - (int) elem.getLenght()) >= 0) {
@@ -185,12 +179,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                     elem.setQuantity(elem.getQuantity() - 1);
                     total1 = total1 - (int) elem.getLenght();
                 }
-            }
-            for (var myIterator = temp.iterator(); myIterator.hasNext();) {
-                if (myIterator.next().getQuantity() == 0) {
-                    myIterator.remove();
-                }
-            }
+            }         
             listList.add(pairList);
         }
         return listList;
