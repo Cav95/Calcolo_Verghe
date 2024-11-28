@@ -106,6 +106,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
             for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
                 out = out + elemEntry.getKey() + " ";
                 System.out.print(elemEntry.getKey() + " ");
+                //System.out.println(elemEntry.getValue().stream().map( t -> " L=" + t.getLenght() +  " QT=" + t.getQuantity()).toList().toString());
                 for (Tubolar<T> elem : elemEntry.getValue()) {
                     out = out + elem.toString() + " ";
                     System.out.print(elem.toString() + " ");
@@ -152,6 +153,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut) {
         String out = "";
         if (!availableQueues().isEmpty()) {
+
             for (Entry<Q, LinkedList<Pair<Integer, LinkedList<T>>>> elemEntry : mapCut.entrySet()) {
                 out = out + elemEntry.getKey() + "\n";
                 System.out.print(elemEntry.getKey() + " ");

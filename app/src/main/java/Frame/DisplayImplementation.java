@@ -8,7 +8,7 @@ import p12.exercise.*;
 
 public class DisplayImplementation {
     public static final String SEP = File.separator;
-    public static final String FILE_NAME ="resources" + SEP + "prova.txt"; // app\src\main\resources\prova.txt
+    public static final String FILE_NAME ="app" + SEP + "main" + SEP + "resources" + SEP + "prova.txt"; // app\src\main\resources\prova.txt
 
     public static void display() {
 
