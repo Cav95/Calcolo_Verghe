@@ -161,10 +161,9 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
         Set<Tubolar<T>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
-        temp = Set.copyOf(tempList);
-        /*for (Tubolar<T> elemTubolar : tempList) {
+        for (Tubolar<T> elemTubolar : tempList) {
             temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
-        }*/
+        }
 
         while (temp.stream().mapToInt( t -> t.getQuantity()).sum() != 0) {
 
