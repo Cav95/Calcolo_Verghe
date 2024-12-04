@@ -12,7 +12,7 @@ public class DisplayImplementation {
 
     public static void display() {
 
-        MultiQueue<Integer, String> prova = new MultiQueueImpl<>();
+        CalcolatorTubolarInterface<Integer, String> prova = new CalcolatorTubolar<>();
 
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
         final JTextField tfQuantity = new JTextField("Quantità", 6);

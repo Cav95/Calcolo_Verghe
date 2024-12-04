@@ -73,20 +73,5 @@ public interface MultiQueue<T,Q> {
      * @param , the queue to be cheched
      * @throws IllegalArgumentException if queue is not available
      */
-    Set<Tubolar<T>> getTubolarList(Q queue); 
-
-        /**
-     *To do
-     */
-    HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> calcoloTotal(); 
-
-            /**
-     *To do
-     */
-    LinkedList<Pair<Integer,LinkedList<T>>> calcoloVerga(Q queue , int lenght); 
-
-    public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer,LinkedList<T>>>> mapCut);
-
-
-
+    Set<Tubolar<T>> getTubolarList(Q queue);
 }
