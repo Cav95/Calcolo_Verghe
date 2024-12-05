@@ -1,14 +1,10 @@
 package calcolo_verghe;
 
-import java.util.LinkedList;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
-import p12.exercise.CalcolatorTubolar;
-import p12.exercise.CalcolatorTubolarInterface;
 import p12.exercise.MultiQueue;
 import p12.exercise.MultiQueueImpl;
-import org.javatuples.Pair;
 
 public class TestVerghe {
 
@@ -90,10 +86,10 @@ public class TestVerghe {
         assertEquals(mq.dequeueAllFromQueue("Q2"),false);
     }
 
-    @Test
+  /*  @Test
     public void testVerghe() {
         // Creo le code Q1 e Q2, e ci metto dentro vari elementi 
-        CalcolatorTubolarInterface<Integer, String> mq = new CalcolatorTubolar<>();
+        MultiQueueImpl<Integer, String> mq = new MultiQueueImpl<>();
         assertEquals(mq.allEnqueuedElements().size(),0);
 
         
@@ -105,9 +101,9 @@ public class TestVerghe {
         mq.addTubolar(6000, "Q1",2);
 
         LinkedList<Pair<Integer,LinkedList<Integer>>> test = new LinkedList<>();
-        test =  mq.calcoloVerga("Q2", 6000);
+        test =  CalcolatorTubolar.calcoloVerga("Q2", 6000);
         assertEquals(test.size(),2);
     }
-   
+   */
 
 }

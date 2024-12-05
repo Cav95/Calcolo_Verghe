@@ -12,7 +12,7 @@ public class DisplayImplementation {
 
     public static void display() {
 
-        CalcolatorTubolarInterface<Integer, String> prova = new CalcolatorTubolar<>();
+        MultiQueue<Integer,String> prova = new MultiQueueImpl<>();
 
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
         final JTextField tfQuantity = new JTextField("Quantità", 6);
@@ -69,7 +69,7 @@ public class DisplayImplementation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(prova.printCuttedTubolar(prova.calcoloTotal()));
+                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolar(CalcolatorTubolar.calcoloTotal(prova.getMultiQueue())));
                 prova.printAllQueue();
             }
 

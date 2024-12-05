@@ -10,6 +10,11 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     HashMap<Q, Set<Tubolar<T>>> multiQueue = new HashMap<>();
 
     @Override
+    public HashMap<Q, Set<Tubolar<T>>> getMultiQueue() {
+        return multiQueue;
+    }
+
+    @Override
     public Set<Q> availableQueues() {
         return multiQueue.keySet();
     }

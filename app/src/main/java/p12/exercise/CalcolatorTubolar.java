@@ -8,35 +8,33 @@ import java.util.TreeSet;
 
 import org.javatuples.Pair;
 
-public class CalcolatorTubolar<T,Q> implements CalcolatorTubolarInterface<T, Q> {
-    MultiQueue<Integer,String> multiQueue = new MultiQueueImpl<>();
-    
-    @Override
-    public HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> calcoloTotal() {
-        HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut = new HashMap<>();
+public class CalcolatorTubolar {
+   
 
-        for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
-            mapCut.put(elemEntry.getKey(), calcoloVerga(elemEntry.getKey(), 6000));
+    public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(HashMap<String, Set<Tubolar<Integer>>> multiQueue) {
+        HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
+
+        for (Entry<String, Set<Tubolar<Integer>>> elemEntry : multiQueue.entrySet()) {
+            mapCut.put(elemEntry.getKey(), calcoloVerga(multiQueue ,elemEntry.getKey(), 6000));
         }
         return mapCut;
     }
 
-    @Override
-    public LinkedList<Pair<Integer, LinkedList<T>>> calcoloVerga(Q queue, int lenght) {
+    
+    public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVerga(HashMap<String, Set<Tubolar<Integer>>> multiQueue ,String queue, int lenght) {
 
-        LinkedList<Pair<Integer, LinkedList<T>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
-        LinkedList<Pair<Integer, LinkedList<T>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
+        LinkedList<Pair<Integer, LinkedList<Integer>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
+        LinkedList<Pair<Integer, LinkedList<Integer>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
     }
 
-    @Override
-    public String printCuttedTubolar(HashMap<Q, LinkedList<Pair<Integer, LinkedList<T>>>> mapCut) {
+    public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut) {
         String out = "";
-        if (!availableQueues().isEmpty()) {
+        if (!mapCut.keySet().isEmpty()) {
 
-            for (Entry<Q, LinkedList<Pair<Integer, LinkedList<T>>>> elemEntry : mapCut.entrySet()) {
+            for (Entry<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> elemEntry : mapCut.entrySet()) {
                 out = out + elemEntry.getKey() + "\n";
-                for (Pair<Integer, LinkedList<T>> elem : elemEntry.getValue()) {
+                for (Pair<Integer, LinkedList<Integer>> elem : elemEntry.getValue()) {
                     out = out + "Lunghezza tubolare:" + elem.getValue0() + "\n";
                     out = out + elem.getValue1().toString() + "\n";
                 }
@@ -49,22 +47,22 @@ public class CalcolatorTubolar<T,Q> implements CalcolatorTubolarInterface<T, Q> 
         return out;
     }
 
-    private LinkedList<Pair<Integer, LinkedList<T>>> tubConfronto(Set<Tubolar<T>> tempList, int lenght) {
-        LinkedList<Pair<Integer, LinkedList<T>>> listList = new LinkedList<>();
+    private static LinkedList<Pair<Integer, LinkedList<Integer>>> tubConfronto(Set<Tubolar<Integer>> tempList, int lenght) {
+        LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();
 
-        Set<Tubolar<T>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
+        Set<Tubolar<Integer>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
-        for (Tubolar<T> elemTubolar : tempList) {
-            temp.add(new Tubolar<T>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
+        for (Tubolar<Integer> elemTubolar : tempList) {
+            temp.add(new Tubolar<Integer>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
         }
 
         while (temp.stream().mapToInt( t -> t.getQuantity()).sum() != 0) {
 
             int total1 = lenght;
 
-            LinkedList<T> list = new LinkedList<>();
-            Pair<Integer, LinkedList<T>> pairList = new Pair<Integer, LinkedList<T>>(Integer.valueOf(lenght), list);
-            for (Tubolar<T> elem : temp) {
+            LinkedList<Integer> list = new LinkedList<>();
+            Pair<Integer, LinkedList<Integer>> pairList = new Pair<Integer, LinkedList<Integer>>(Integer.valueOf(lenght), list);
+            for (Tubolar<Integer> elem : temp) {
 
                 while (elem.getQuantity() > 0 && (total1 - (int) elem.getLenght()) >= 0) {
                     list.add(elem.getLenght());

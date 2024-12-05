@@ -2,8 +2,6 @@ package p12.exercise;
 
 import java.util.*;
 
-import org.javatuples.Pair;
-
 
 /**
  * A multiple (FIFO) queue, e.g., to manage people paying at the supermarket
@@ -74,4 +72,6 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalArgumentException if queue is not available
      */
     Set<Tubolar<T>> getTubolarList(Q queue);
+
+    public HashMap<Q, Set<Tubolar<T>>> getMultiQueue();
 }
