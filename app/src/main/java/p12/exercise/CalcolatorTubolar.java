@@ -46,6 +46,22 @@ public class CalcolatorTubolar {
         System.out.print(out);
         return out;
     }
+    public static String printCuttedTubolarSmoll(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut) {
+        String out = "";
+        if (!mapCut.keySet().isEmpty()) {
+
+            for (Entry<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> elemEntry : mapCut.entrySet()) {
+                out = out + elemEntry.getKey() + "\n";
+                    out = out + "Lunghezza tubolare:" + elemEntry.getValue().getFirst().getValue0() + "\n";
+                
+                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+        System.out.print(out);
+        return out;
+    }
 
     private static LinkedList<Pair<Integer, LinkedList<Integer>>> tubConfronto(Set<Tubolar<Integer>> tempList, int lenght) {
         LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();

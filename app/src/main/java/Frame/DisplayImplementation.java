@@ -69,7 +69,7 @@ public class DisplayImplementation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolar(CalcolatorTubolar.calcoloTotal(prova.getMultiQueue())));
+                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(prova.getMultiQueue())));
                 prova.printAllQueue();
             }
 
