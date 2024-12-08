@@ -123,6 +123,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public HashMap<Q, Set<Tubolar<T>>> getMap() {
         return multiQueue;
+
     }
 
 }
