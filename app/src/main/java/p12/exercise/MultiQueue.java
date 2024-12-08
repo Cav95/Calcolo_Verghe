@@ -10,11 +10,17 @@ import java.util.*;
  * @param <Q>, the type of queues (e.g., they name, or ID, or position)
  */
 public interface MultiQueue<T,Q> {
+    public HashMap<Q, Set<Tubolar<T>>> getMultiQueue() ;
     
     /**
      * @return the set of queues currently available (or working)
      */
     Set<Q> availableQueues();
+    
+    /**
+     * @return the set of queues currently available (or working)
+     */
+    HashMap<Q, Set<Tubolar<T>>> getMap();
     
     /**
      * @param creates a new queue
@@ -72,6 +78,4 @@ public interface MultiQueue<T,Q> {
      * @throws IllegalArgumentException if queue is not available
      */
     Set<Tubolar<T>> getTubolarList(Q queue);
-
-    public HashMap<Q, Set<Tubolar<T>>> getMultiQueue();
 }
