@@ -69,8 +69,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     }
 
-    
-
     @Override
     public Set<Tubolar<T>> allEnqueuedElements() {
         Set<Tubolar<T>> allEnqueuedElementsSet = new TreeSet<>();
@@ -124,7 +122,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
 
     @Override
     public HashMap<Q, Set<Tubolar<T>>> getMap() {
-        return multiQueue ;
+        return multiQueue;
     }
 
 }

@@ -8,11 +8,11 @@ import p12.exercise.*;
 
 public class DisplayImplementation {
     public static final String SEP = File.separator;
-    public static final String FILE_NAME ="app" + SEP + "main" + SEP + "resources" + SEP + "prova.txt"; // app\src\main\resources\prova.txt
+    public static final String FILE_NAME = "app" + SEP + "main" + SEP + "resources" + SEP + "prova.txt"; // app\src\main\resources\prova.txt
 
     public static void display() {
 
-        MultiQueue<Integer,String> prova = new MultiQueueImpl<>();
+        MultiQueue<Integer, String> prova = new MultiQueueImpl<>();
 
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
         final JTextField tfQuantity = new JTextField("Quantità", 6);
@@ -40,16 +40,18 @@ public class DisplayImplementation {
                 String outPut = prova.printAllQueue();
                 lbResult.setText(outPut);
 
-               /* try (
-                        final DataOutputStream dstream = new DataOutputStream(
-                                new BufferedOutputStream(
-                                        new FileOutputStream(FILE_NAME)))) {
-                    dstream.writeUTF(outPut);
-
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }*/
+                /*
+                 * try (
+                 * final DataOutputStream dstream = new DataOutputStream(
+                 * new BufferedOutputStream(
+                 * new FileOutputStream(FILE_NAME)))) {
+                 * dstream.writeUTF(outPut);
+                 * 
+                 * } catch (IOException e) {
+                 * 
+                 * e.printStackTrace();
+                 * }
+                 */
             }
         });
 
@@ -69,7 +71,8 @@ public class DisplayImplementation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(prova.getMultiQueue())));
+                lbResultFinal.setText(CalcolatorTubolar
+                        .printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(prova.getMultiQueue())));
                 prova.printAllQueue();
             }
 
