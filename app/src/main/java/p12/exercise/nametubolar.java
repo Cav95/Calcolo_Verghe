@@ -8,6 +8,9 @@ public enum NameTubolar {
     TBQ12024("Tubolare 120x120 sp4"),
     TBQ11023("Tubolare 110x110 sp3"),
     TBQ08024("Tubolare 80x80 sp4"),
+    TBQ07024("Tubolare 70x70 sp4"),
+    TBQ07023("Tubolare 70x70 sp3"),
+    TBQ06023("Tubolare 60x60 sp3"),
     TBQ05022("Tubolare 50x50 sp2"),
     ;
 

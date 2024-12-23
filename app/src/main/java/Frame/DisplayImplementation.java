@@ -1,5 +1,6 @@
 package Frame;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.io.*;
@@ -82,9 +83,11 @@ public class DisplayImplementation {
 
 
 
+        
         final FlowLayout lay = new FlowLayout(FlowLayout.CENTER, 10, 10);
+       // final BorderLayout layBorder = new BorderLayout();
         final MyFrame frame = new MyFrame("I/O Example", lay);
-
+        
         frame.getMainPanel().add(jComboBox);
         frame.getMainPanel().add(tfLenght);
         frame.getMainPanel().add(tfQuantity);
