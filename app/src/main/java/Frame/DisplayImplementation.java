@@ -1,12 +1,7 @@
 package Frame;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.*;
-import java.io.*;
-import java.security.KeyStore.Entry;
-import java.util.HashMap;
-
 import javax.swing.*;
 import p12.exercise.*;
 
@@ -53,6 +48,7 @@ public class DisplayImplementation {
                 String s = String.valueOf(jComboBox.getSelectedItem()); // "Code"
                 String lengthTubolar = tfLenght.getText(); // "Code"
                 tubolarList.removeTubolar(s, Integer.valueOf(lengthTubolar));
+                lbResult.setText(tubolarList.printAllQueue());
                 tubolarList.printAllQueue();
             }
 
