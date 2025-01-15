@@ -12,6 +12,7 @@ public enum NameTubolar {
     TBQ07023("Tubolare 70x70 sp3"),
     TBQ06023("Tubolare 60x60 sp3"),
     TBQ05022("Tubolare 50x50 sp2"),
+    TBQ05024("Tubolare 50x50 sp4"),
     ;
 
     private final String actualName;
