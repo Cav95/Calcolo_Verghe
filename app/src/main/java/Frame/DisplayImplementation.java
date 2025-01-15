@@ -9,6 +9,8 @@ public class DisplayImplementation {
 
     public static void display() {
 
+        
+
         MultiQueue<Integer,String> tubolarList = new MultiQueueImpl<>();
 
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
@@ -16,7 +18,8 @@ public class DisplayImplementation {
         final JTextArea lbResult = new JTextArea();
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
-        final JButton btCalc = new JButton("See the cut tubolar");
+        final JButton btCalc = new JButton("See short cut tubolar");
+        final JButton btCalcTotale = new JButton("See total cut tubolar");
         final JButton btRestart = new JButton("Delete All");
         final JTextArea lbResultFinal = new JTextArea();
 
@@ -63,6 +66,16 @@ public class DisplayImplementation {
             }
 
         });
+
+        btCalcTotale.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
+                tubolarList.printAllQueue();
+            }
+
+        });
         
         btRestart.addActionListener(new ActionListener() {
 
@@ -85,13 +98,15 @@ public class DisplayImplementation {
         final MyFrame frame = new MyFrame("I/O Example", lay);
         
         frame.getMainPanel().add(jComboBox);
+
         frame.getMainPanel().add(tfLenght);
-        frame.getMainPanel().add(tfQuantity);
-        frame.getMainPanel().add(lbResult);
+        frame.getMainPanel().add(tfQuantity);   
+
         frame.getMainPanel().add(btAdd);
         frame.getMainPanel().add(btRem);
         frame.getMainPanel().add(btCalc);
-        frame.getMainPanel().add(btRestart);
+        frame.getMainPanel().add(btCalcTotale);
+
         frame.getMainPanel().add(lbResult);
         frame.getMainPanel().add(lbResultFinal);
         frame.setVisible(true);
