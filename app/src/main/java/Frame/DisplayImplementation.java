@@ -106,6 +106,7 @@ public class DisplayImplementation {
         frame.getMainPanel().add(btRem);
         frame.getMainPanel().add(btCalc);
         frame.getMainPanel().add(btCalcTotale);
+        frame.getMainPanel().add(btRestart);
 
         frame.getMainPanel().add(lbResult);
         frame.getMainPanel().add(lbResultFinal);
