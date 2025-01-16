@@ -63,13 +63,14 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                     myIterator.remove();
                 }
             }
+            if (this.multiQueue.get(queue).isEmpty()) {
+                this.multiQueue.remove(queue);
+            }
         } else {
             throw new IllegalArgumentException();
         }
 
     }
-
-    
 
     @Override
     public Set<Tubolar<T>> allEnqueuedElements() {
