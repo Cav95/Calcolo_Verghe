@@ -1,5 +1,7 @@
 package Frame;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,9 +11,7 @@ public class DisplayImplementation {
 
     public static void display() {
 
-        
-
-        MultiQueue<Integer,String> tubolarList = new MultiQueueImpl<>();
+        MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
 
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
         final JTextField tfQuantity = new JTextField("Quantità", 6);
@@ -61,7 +61,8 @@ public class DisplayImplementation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
+                lbResultFinal.setText(CalcolatorTubolar
+                        .printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
                 tubolarList.printAllQueue();
             }
 
@@ -71,17 +72,18 @@ public class DisplayImplementation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar.printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
+                lbResultFinal.setText(CalcolatorTubolar
+                        .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
                 tubolarList.printAllQueue();
             }
 
         });
-        
+
         btRestart.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                for ( var elem : tubolarList.getMultiQueue().entrySet() ){
+                for (var elem : tubolarList.getMultiQueue().entrySet()) {
                     tubolarList.getMultiQueue().remove(elem.getKey());
                 }
                 lbResultFinal.setText("");
@@ -90,26 +92,37 @@ public class DisplayImplementation {
 
         });
 
-
-
-        
         final FlowLayout lay = new FlowLayout(FlowLayout.CENTER, 10, 10);
-       // final BorderLayout layBorder = new BorderLayout();
+        // final BorderLayout layBorder = new BorderLayout();
         final MyFrame frame = new MyFrame("I/O Example", lay);
         
-        frame.getMainPanel().add(jComboBox);
+        final JPanel jp = new JPanel(new FlowLayout());
+        final JPanel jpNORTH = new JPanel(new FlowLayout());
+        final JPanel jpWest = new JPanel();
+        jpWest.setLayout(new BoxLayout(jpWest, 1));
 
-        frame.getMainPanel().add(tfLenght);
-        frame.getMainPanel().add(tfQuantity);   
+        frame.getMainPanel().add(jp,BorderLayout.CENTER);
+		frame.getMainPanel().add(jpNORTH,BorderLayout.NORTH);
+        frame.getMainPanel().add(jpWest,BorderLayout.WEST);
 
-        frame.getMainPanel().add(btAdd);
-        frame.getMainPanel().add(btRem);
-        frame.getMainPanel().add(btCalc);
-        frame.getMainPanel().add(btCalcTotale);
-        frame.getMainPanel().add(btRestart);
+        jpNORTH.setBackground(Color.PINK);
+        jpWest.setBackground(Color.PINK);
+        jp.setBackground(Color.PINK);
 
-        frame.getMainPanel().add(lbResult);
-        frame.getMainPanel().add(lbResultFinal);
+        jpNORTH.add(jComboBox);
+
+        jpNORTH.add(tfLenght);
+        jpNORTH.add(tfQuantity);
+        jpNORTH.add(btAdd);
+        jpNORTH.add(btRem);
+
+        jpWest.add(btCalc);
+        jpWest.add(btCalcTotale);
+        jpWest.add(btRestart);
+
+        jp.add(lbResult);
+        jp.add(lbResultFinal);
+
         frame.setVisible(true);
 
     }

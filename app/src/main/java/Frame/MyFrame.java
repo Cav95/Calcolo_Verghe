@@ -11,19 +11,28 @@ import javax.swing.*;
  */
 public class MyFrame extends JFrame{
 	
-	private final JPanel jp;
+	private final JPanel jpMain = new JPanel(new BorderLayout());
+	
+	
 	
 	public MyFrame(String title, LayoutManager lm){
 		super(title); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,400);
+		this.setSize(1000,500);
+		
+		Color mycolor = new Color(255,124,200);
+		Container c = this.getContentPane();
+		c.setBackground(mycolor);
 		// Il layout-manager può essere passato al costruttore di JPanel
-		this.jp = new JPanel(lm);
-		this.getContentPane().add(this.jp);
+		//this.jpMain = new JPanel(new BorderLayout());
+		
+		this.getContentPane().add(this.jpMain);
+
+
 	}
 	
 	public JPanel getMainPanel(){
-		return this.jp;
+		return this.jpMain;
 	}
 
 }
