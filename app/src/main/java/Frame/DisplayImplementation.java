@@ -16,12 +16,14 @@ public class DisplayImplementation {
         final JTextField tfLenght = new JTextField("Lunghezza", 10);
         final JTextField tfQuantity = new JTextField("Quantità", 6);
         final JTextArea lbResult = new JTextArea();
+        lbResult.setColumns(30);
         final JButton btAdd = new JButton("Add Tubolar");
         final JButton btRem = new JButton("Remove Tubolar");
         final JButton btCalc = new JButton("See short cut tubolar");
         final JButton btCalcTotale = new JButton("See total cut tubolar");
         final JButton btRestart = new JButton("Delete All");
         final JTextArea lbResultFinal = new JTextArea();
+        lbResultFinal.setColumns(30);
 
         JComboBox<String> jComboBox = new JComboBox<>(NameTubolar.stringEnum());
 
@@ -96,8 +98,8 @@ public class DisplayImplementation {
         // final BorderLayout layBorder = new BorderLayout();
         final MyFrame frame = new MyFrame("Calcolo Verghe", lay);
         
-        final JPanel jp = new LoadImage();//JPanel(new FlowLayout());
-        jp.paint(jp.getGraphics());
+        final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));//new LoadImage();
+       // jp.paint(jp.getGraphics());
         //jp.setLayout(new FlowLayout());
         final JPanel jpNORTH = new JPanel(new FlowLayout());
         final JPanel jpWest = new JPanel();

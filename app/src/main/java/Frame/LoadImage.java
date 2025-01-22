@@ -18,7 +18,7 @@ public class LoadImage extends JPanel {
         } catch (IOException e) {
             e.printStackTrace() ;
         }
-        setOpaque(false);
+        //setOpaque(false);
     }
 
 
