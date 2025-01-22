@@ -94,17 +94,17 @@ public class DisplayImplementation {
 
         final FlowLayout lay = new FlowLayout(FlowLayout.CENTER, 10, 10);
         // final BorderLayout layBorder = new BorderLayout();
-        final MyFrame frame = new MyFrame("I/O Example", lay);
+        final MyFrame frame = new MyFrame("Calcolo Verghe", lay);
         
-        final JPanel jp = new JPanel(new FlowLayout());
+        final JPanel jp = new LoadImage();//JPanel(new FlowLayout());
+        jp.paint(jp.getGraphics());
+        //jp.setLayout(new FlowLayout());
         final JPanel jpNORTH = new JPanel(new FlowLayout());
         final JPanel jpWest = new JPanel();
-        jpWest.setLayout(new BoxLayout(jpWest, 1));
-
+        jpWest.setLayout(new BoxLayout(jpWest, 1)); 
         frame.getMainPanel().add(jp,BorderLayout.CENTER);
 		frame.getMainPanel().add(jpNORTH,BorderLayout.NORTH);
         frame.getMainPanel().add(jpWest,BorderLayout.WEST);
-
         jpNORTH.setBackground(Color.PINK);
         jpWest.setBackground(Color.PINK);
         jp.setBackground(Color.PINK);
