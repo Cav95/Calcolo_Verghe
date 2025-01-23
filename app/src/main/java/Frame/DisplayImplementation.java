@@ -9,6 +9,7 @@ import p12.exercise.*;
 
 public class DisplayImplementation {
 
+
     public void display() {
 
         MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
@@ -64,6 +65,7 @@ public class DisplayImplementation {
             @Override
             public void actionPerformed(ActionEvent e) {
                 lbResultFinal.setText(CalcolatorTubolar
+
                         .printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
                 tubolarList.printAllQueue();
             }
