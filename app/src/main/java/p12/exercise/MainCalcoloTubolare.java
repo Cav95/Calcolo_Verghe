@@ -5,6 +5,7 @@ import Frame.*;
 public class MainCalcoloTubolare {
     
     public static void main(String[] args) {
-        DisplayImplementation.display();
+        DisplayImplementation disp = new DisplayImplementation();
+        disp.display();
     }
 }
