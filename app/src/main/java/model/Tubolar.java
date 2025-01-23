@@ -1,4 +1,4 @@
-package p12.exercise;
+package model;
 
 public class Tubolar<T> {
 

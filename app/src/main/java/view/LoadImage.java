@@ -1,4 +1,4 @@
-package Frame;
+package view;
 
 import javax.swing.JPanel ;
 import java.awt.image.BufferedImage ;

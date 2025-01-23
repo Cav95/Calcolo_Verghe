@@ -1,6 +1,6 @@
-package p12.exercise;
+package model;
 
-import Frame.*;
+import view.*;
 
 public class MainCalcoloTubolare {
 

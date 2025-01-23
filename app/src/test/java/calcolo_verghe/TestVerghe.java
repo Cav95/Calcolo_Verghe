@@ -3,8 +3,9 @@ package calcolo_verghe;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
-import p12.exercise.MultiQueue;
-import p12.exercise.MultiQueueImpl;
+import model.MultiQueue;
+import model.MultiQueueImpl;
+
 
 public class TestVerghe {
 

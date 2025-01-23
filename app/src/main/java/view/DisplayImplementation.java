@@ -1,11 +1,11 @@
-package Frame;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import javax.swing.*;
-import p12.exercise.*;
+import model.*;
 
 public class DisplayImplementation {
 
@@ -96,18 +96,13 @@ public class DisplayImplementation {
 
         });
 
-        final FlowLayout lay = new FlowLayout(FlowLayout.CENTER, 10, 10);
-        // final BorderLayout layBorder = new BorderLayout();
-        final MyFrame frame = new MyFrame("Calcolo Verghe", lay);
+        final MyFrame frame = new MyFrame("Calcolo Verghe");
 
         final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));// new LoadImage();
         final JPanel jpNORTH = new JPanel(new FlowLayout());
         final JPanel jpWest = new JPanel();
-       /* ImageIcon image = new ImageIcon("C:\\Users\\mcavina\\OneDrive - CEPI s.p.a\\Desktop\\Test_Excel\\Calcolo_Verghe\\app\\src\\resources\\barboncino.jpeg");
-        JLabel imagelabel = new JLabel(new ImageIcon(this.getClass().getResource("Frame.barboncino.jpeg")));
-       System.out.println(this.getClass().getResource("barboncino.jpeg"));
-        jpEst.add(imagelabel);
-*/
+        JLabel imagelabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("/view/barboncino.jpeg")));
+
         jpWest.setLayout(new BoxLayout(jpWest, 1));
         frame.getMainPanel().add(jp, BorderLayout.CENTER);
         frame.getMainPanel().add(jpNORTH, BorderLayout.NORTH);

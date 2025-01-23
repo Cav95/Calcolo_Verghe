@@ -101,7 +101,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("p12.exercise.MainCalcoloTubolare")
+    mainClass.set("model.MainCalcoloTubolare")
 }
 
 tasks.test {

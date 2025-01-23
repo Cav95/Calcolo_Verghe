@@ -1,4 +1,4 @@
-package p12.exercise;
+package model;
 
 public enum NameTubolar {
     TBQ15023("Tubolare 150x150 sp3"),

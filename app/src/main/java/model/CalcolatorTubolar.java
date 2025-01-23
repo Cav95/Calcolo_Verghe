@@ -1,4 +1,4 @@
-package p12.exercise;
+package model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
