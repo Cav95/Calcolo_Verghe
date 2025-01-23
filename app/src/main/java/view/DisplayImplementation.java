@@ -101,7 +101,7 @@ public class DisplayImplementation {
         final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));// new LoadImage();
         final JPanel jpNORTH = new JPanel(new FlowLayout());
         final JPanel jpWest = new JPanel();
-        JLabel imagelabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("/view/barboncino.jpeg")));
+        JLabel imagelabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
 
         jpWest.setLayout(new BoxLayout(jpWest, 1));
         frame.getMainPanel().add(jp, BorderLayout.CENTER);
@@ -112,6 +112,7 @@ public class DisplayImplementation {
         jpWest.setBackground(Color.PINK);
         jp.setBackground(Color.PINK);
 
+        jpNORTH.add(imagelabel);
         jpNORTH.add(jComboBox);
 
         jpNORTH.add(tfLenght);
