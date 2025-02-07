@@ -7,23 +7,41 @@ import java.awt.event.*;
 import javax.swing.*;
 import model.*;
 
-public class DisplayImplementation {
+public class DisplayImplementation{
+    MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
+    final JTextField tfLenght = new JTextField("Lunghezza", 10);
+    final JTextField tfQuantity = new JTextField("Quantità", 6);
+    final JTextArea lbResult = new JTextArea();
+    Boolean PROVA = true;
+    
+    final JButton btAdd = new JButton("Add Tubolar");
+    final JButton btRem = new JButton("Remove Tubolar");
+    final JButton btCalc = new JButton("See short cut tubolar");
+    final JButton btCalcTotale = new JButton("See total cut tubolar");
+    final JButton btRestart = new JButton("Delete All");
+    final JTextArea lbResultFinal = new JTextArea();
+    final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    final JPanel jpNORTH = new JPanel(new FlowLayout());
+    final JPanel jpWest = new JPanel();
+    public void display()  {
+        Timer timer = new Timer(100, new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(PROVA){
+                jpNORTH.setBackground(Color.BLUE);
+                }else{
 
-    public void display() {
+                jpNORTH.setBackground(Color.GREEN);}
+                PROVA=!PROVA;
+            }
+            
+        });
+        timer.start();
 
-        MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
-
-        final JTextField tfLenght = new JTextField("Lunghezza", 10);
-        final JTextField tfQuantity = new JTextField("Quantità", 6);
-        final JTextArea lbResult = new JTextArea();
+        
         lbResult.setColumns(30);
-        final JButton btAdd = new JButton("Add Tubolar");
-        final JButton btRem = new JButton("Remove Tubolar");
-        final JButton btCalc = new JButton("See short cut tubolar");
-        final JButton btCalcTotale = new JButton("See total cut tubolar");
-        final JButton btRestart = new JButton("Delete All");
-        final JTextArea lbResultFinal = new JTextArea();
+
         lbResultFinal.setColumns(30);
 
         JComboBox<String> jComboBox = new JComboBox<>(NameTubolar.stringEnum());
@@ -33,7 +51,7 @@ public class DisplayImplementation {
                 String s = String.valueOf(jComboBox.getSelectedItem()); // "Code"
                 String lengthTubolar = tfLenght.getText(); // "Code"
                 int quantity = Integer.valueOf(tfQuantity.getText());
-
+                lam ();
                 try {
                     tubolarList.openNewQueue(s);
                 } catch (IllegalArgumentException e) {
@@ -79,6 +97,7 @@ public class DisplayImplementation {
                 lbResultFinal.setText(CalcolatorTubolar
                         .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue())));
                 tubolarList.printAllQueue();
+                
             }
 
         });
@@ -98,10 +117,8 @@ public class DisplayImplementation {
 
         final MyFrame frame = new MyFrame("Calcolo Verghe");
 
-        final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));// new LoadImage();
-        final JPanel jpNORTH = new JPanel(new FlowLayout());
-        final JPanel jpWest = new JPanel();
-        JLabel imagelabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
+
+        //JLabel imagelabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
 
         jpWest.setLayout(new BoxLayout(jpWest, 1));
         frame.getMainPanel().add(jp, BorderLayout.CENTER);
@@ -112,7 +129,7 @@ public class DisplayImplementation {
         jpWest.setBackground(Color.PINK);
         jp.setBackground(Color.PINK);
 
-        jpNORTH.add(imagelabel);
+        //jpNORTH.add(imagelabel);
         jpNORTH.add(jComboBox);
 
         jpNORTH.add(tfLenght);
@@ -129,6 +146,22 @@ public class DisplayImplementation {
 
         frame.setVisible(true);
 
+    }
+    void lam (){
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+    
+                    jpNORTH.setBackground(Color.BLUE);
+                    try {
+                        Thread.sleep(500);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                    jpNORTH.setBackground(Color.GREEN);
+            
+        }});
     }
 
 }
