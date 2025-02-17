@@ -1,7 +1,18 @@
-# Ignore Gradle project-specific cache directory
-.gradle
-
-# Ignore Gradle build output directory
-build/
+*.toc
+*.synctex.gz
+*.synctex.bbl
+*.synctex.blg
+*.log
+*.out
+13-template.pdf
+*.aux
+*.bbl
+*.blg
 bin/
-15-code
+*.eps
+*.kate-swp
+*.dvi
+*.fdb_latexmk
+*.fls
+template.md
+.idea/
