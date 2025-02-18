@@ -5,7 +5,7 @@ import view.*;
 public class MainCalcoloTubolare {
 
     public static void main(String[] args) {
-        DisplayImplementation disp = new DisplayImplementation();
+        MainMenu disp = new MainMenu();
         disp.display();
     }
 }
