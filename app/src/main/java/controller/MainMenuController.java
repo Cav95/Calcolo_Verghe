@@ -11,6 +11,7 @@ import model.*;
 import view.View;
 
 public class MainMenuController extends SceneControllerImpl {
+    
     public MainMenuController(View mainView) {
         super(mainView);
     }
@@ -18,6 +19,10 @@ public class MainMenuController extends SceneControllerImpl {
     MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
 
 
+
+    public MultiQueue<Integer, String> getTubolarList() {
+        return tubolarList;
+    }
 
     public void newTubolarList(String nameTubolar, int lengthTubolar, int quantity) {
         try {

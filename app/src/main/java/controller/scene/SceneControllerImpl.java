@@ -1,5 +1,6 @@
 package controller.scene;
 
+import controller.MainMenuController;
 import view.View;
 import view.scenes.MainMenuScene;
 
@@ -25,7 +26,7 @@ public class SceneControllerImpl implements SceneController {
      */
     @Override
     public void goToMainMenuScene() {
-        this.mainView.changeScene(new MainMenuScene(new MainMenuControllerImpl(mainView)));
+        this.mainView.changeScene(new MainMenuScene(new MainMenuController(mainView)));
     }
 
 
