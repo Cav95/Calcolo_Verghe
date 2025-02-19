@@ -6,7 +6,6 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -103,10 +102,9 @@ public class ViewImpl implements View {
                 final int confirm = JOptionPane.showOptionDialog(
                     frame, 
                     """
-                        Are you sure you want to exit the game?
-                        Progress will be lost.
+                        Are you sure you want to exit?
                     """,
-                    "Exit game?",
+                    "Exit?",
                     JOptionPane.YES_NO_OPTION, 
                     JOptionPane.QUESTION_MESSAGE, 
                     null, 

@@ -92,7 +92,8 @@ public class MainMenuScene implements Scene {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = String.valueOf(jComboBox.getSelectedItem()); // "Code"
-                controller.newTubolarList( s,Integer.valueOf(tfLenght.getText()).intValue(), Integer.valueOf(tfQuantity.getText()).intValue());
+                controller.newTubolarList( s,Integer.valueOf(tfLenght.getText()).intValue(),
+                 Integer.valueOf(tfQuantity.getText()).intValue());
                 lbResult.setText(controller.getTubolarList().printAllQueue());
             }
             

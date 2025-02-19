@@ -1,11 +1,5 @@
 package controller;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.*;
-import javax.swing.*;
-
 import controller.scene.SceneControllerImpl;
 import model.*;
 import view.View;
