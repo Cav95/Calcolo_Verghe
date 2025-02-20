@@ -48,7 +48,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("model.MainCalcoloTubolare")
+    mainClass.set("CalcoloTubolare.MainCalcoloTubolare")
 }
 
 tasks.test {
