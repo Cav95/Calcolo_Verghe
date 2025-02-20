@@ -59,7 +59,7 @@ public class MainMenuScene implements Scene {
 
         lbResultFinal.setColumns(30);
 
-        JComboBox<String> jComboBox = new JComboBox<>(NameTubolar.stringEnum());
+        JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
 
         // JLabel imagelabel = new JLabel(new
         // ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
