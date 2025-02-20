@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -21,6 +24,7 @@ import view.scenes.api.Scene;
  * The {@link Scene} that represents the main menu of the game.
  */
 public class MainMenuScene implements Scene {
+    private static final Integer TIME_TO_LAMP = 5;
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
     final JTextField tfQuantity = new JTextField("Quantità", 6);
@@ -35,6 +39,8 @@ public class MainMenuScene implements Scene {
     final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
     final JPanel jpNORTH = new JPanel(new FlowLayout());
     final JPanel jpWest = new JPanel();
+
+    JLabel imagelabel = new JLabel();
 
     private final MainMenuController controller;
     private final JPanel mainMenuPanel;
@@ -55,13 +61,13 @@ public class MainMenuScene implements Scene {
      * Sets up the layout, styles, and event listeners for the components.
      */
     private void initialize() {
+
         lbResult.setColumns(30);
 
         lbResultFinal.setColumns(30);
 
         JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
 
-        // JLabel imagelabel = new JLabel(new
         // ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
 
         jpWest.setLayout(new BoxLayout(jpWest, 1));
@@ -81,6 +87,7 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(btAdd);
         jpNORTH.add(btRem);
 
+        jpWest.add(imagelabel);
         jpWest.add(btCalc);
         jpWest.add(btCalcTotale);
         jpWest.add(btRestart);
@@ -144,6 +151,21 @@ public class MainMenuScene implements Scene {
             }
 
         });
+
+        final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    imagelabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png")));
+                } catch (Exception l) {
+                    // TODO: handle exception
+                }
+               
+            }
+            
+        });
+        timer.start();
     }
 
     @Override
