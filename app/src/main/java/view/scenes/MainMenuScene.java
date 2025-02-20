@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import controller.MainMenuController;
+import model.CalcolatorTubolar;
 import model.NameTubolar;
 import view.scenes.api.Scene;
 
@@ -92,11 +93,56 @@ public class MainMenuScene implements Scene {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = String.valueOf(jComboBox.getSelectedItem()); // "Code"
-                controller.newTubolarList( s,Integer.valueOf(tfLenght.getText()).intValue(),
-                 Integer.valueOf(tfQuantity.getText()).intValue());
+                controller.newTubolarList(s, Integer.valueOf(tfLenght.getText()).intValue(),
+                        Integer.valueOf(tfQuantity.getText()).intValue());
                 lbResult.setText(controller.getTubolarList().printAllQueue());
             }
-            
+
+        });
+
+        btCalc.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lbResultFinal.setText(CalcolatorTubolar
+
+                        .printCuttedTubolarSmoll(
+                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue())));
+            }
+
+        });
+
+        btCalcTotale.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lbResultFinal.setText(CalcolatorTubolar
+                        .printCuttedTubolar(
+                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue())));
+            }
+
+        });
+
+        btRestart.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.restart();
+                lbResultFinal.setText("");
+                lbResult.setText("");
+            }
+
+        });
+
+        btRem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
+                        Integer.valueOf(tfLenght.getText()));
+                lbResult.setText(controller.getTubolarList().printAllQueue());
+            }
+
         });
     }
 
