@@ -1,4 +1,4 @@
-package view.scenes;
+package CalcoloTubolare.view.scenes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,10 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import controller.MainMenuController;
-import model.CalcolatorTubolar;
-import model.NameTubolar;
-import view.scenes.api.Scene;
+import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.model.CalcolatorTubolar;
+import CalcoloTubolare.model.NameTubolar;
+import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
  * The {@link Scene} that represents the main menu of the game.

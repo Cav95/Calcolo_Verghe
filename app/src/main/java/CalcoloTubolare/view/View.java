@@ -1,6 +1,6 @@
-package view;
+package CalcoloTubolare.view;
 
-import view.scenes.api.Scene;
+import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
  * The main view for the application.

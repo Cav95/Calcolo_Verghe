@@ -1,8 +1,8 @@
-package controller.scene;
+package CalcoloTubolare.controller.scene;
 
-import controller.MainMenuController;
-import view.View;
-import view.scenes.MainMenuScene;
+import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.view.View;
+import CalcoloTubolare.view.scenes.MainMenuScene;
 
 /**
  * Class that implements {@link SceneController} to

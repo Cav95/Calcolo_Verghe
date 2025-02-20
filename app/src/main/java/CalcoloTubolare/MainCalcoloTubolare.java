@@ -1,6 +1,7 @@
+package CalcoloTubolare;
 
 
-import view.*;
+import CalcoloTubolare.view.ViewImpl;
 
 public class MainCalcoloTubolare {
 

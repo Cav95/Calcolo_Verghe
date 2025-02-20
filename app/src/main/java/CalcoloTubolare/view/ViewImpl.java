@@ -1,4 +1,4 @@
-package view;
+package CalcoloTubolare.view;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -10,9 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import controller.MainMenuController;
-import view.scenes.MainMenuScene;
-import view.scenes.api.Scene;
+import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.view.scenes.MainMenuScene;
+import CalcoloTubolare.view.scenes.api.Scene;
 
 
 /**

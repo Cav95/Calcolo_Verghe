@@ -1,4 +1,4 @@
-package model;
+package CalcoloTubolare.model;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

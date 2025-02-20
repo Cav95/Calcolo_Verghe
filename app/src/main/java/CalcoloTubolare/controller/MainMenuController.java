@@ -1,8 +1,8 @@
-package controller;
+package CalcoloTubolare.controller;
 
-import controller.scene.SceneControllerImpl;
-import model.*;
-import view.View;
+import CalcoloTubolare.controller.scene.SceneControllerImpl;
+import CalcoloTubolare.model.*;
+import CalcoloTubolare.view.View;
 
 public class MainMenuController extends SceneControllerImpl {
     
