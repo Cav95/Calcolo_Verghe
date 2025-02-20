@@ -36,7 +36,7 @@ public class ViewImpl implements View {
      * @param visible if the window should be visible
      */
     public ViewImpl(final boolean visible) {
-        this.frame = new JFrame("Poker Texas Hold'em");
+        this.frame = new JFrame("Tubolar Calculation");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the size of the frame
