@@ -40,7 +40,10 @@ public class MainMenuScene implements Scene {
     final JPanel jpNORTH = new JPanel(new FlowLayout());
     final JPanel jpWest = new JPanel();
 
-    JLabel imagelabel = new JLabel();
+    JLabel imageLabel = new JLabel();
+
+    final JButton btStressed = new JButton("Stressed?");
+    JLabel picLabel = new JLabel();
 
     private final MainMenuController controller;
     private final JPanel mainMenuPanel;
@@ -68,12 +71,16 @@ public class MainMenuScene implements Scene {
 
         JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
 
+        picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
+        picLabel.setVisible(false);
         // ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
 
         jpWest.setLayout(new BoxLayout(jpWest, 1));
         mainMenuPanel.add(jp, BorderLayout.CENTER);
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
+
+        mainMenuPanel.add(btStressed, BorderLayout.SOUTH);
 
         jpNORTH.setBackground(Color.PINK);
         jpWest.setBackground(Color.PINK);
@@ -87,13 +94,14 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(btAdd);
         jpNORTH.add(btRem);
 
-        jpWest.add(imagelabel);
+        jpWest.add(imageLabel);
         jpWest.add(btCalc);
         jpWest.add(btCalcTotale);
         jpWest.add(btRestart);
 
         jp.add(lbResult);
         jp.add(lbResultFinal);
+        jp.add(picLabel);
 
         btAdd.addActionListener(new ActionListener() {
 
@@ -152,12 +160,21 @@ public class MainMenuScene implements Scene {
 
         });
 
+        btStressed.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                picLabel.setVisible(!picLabel.isVisible());
+            }
+
+        });
+
         final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    imagelabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png")));
+                    imageLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png")));
                 } catch (Exception l) {
                     // TODO: handle exception
                 }
