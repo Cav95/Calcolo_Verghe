@@ -1,7 +1,9 @@
 package CalcoloTubolare.view.scenes;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -73,10 +75,10 @@ public class MainMenuScene implements Scene {
 
         picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
         picLabel.setVisible(false);
+        picLabel.setMaximumSize(new Dimension(20, 20));
 
         jpEast.setLayout(new BoxLayout(jpEast, 1));
-        jpWest.setLayout(new BorderLayout());
-        jpWest.setSize(20,20);
+
         mainMenuPanel.add(jp, BorderLayout.CENTER);
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
@@ -172,7 +174,10 @@ public class MainMenuScene implements Scene {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    imageLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png")));
+                    var image = new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png"));
+                    Image newimg = image.getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+                    imageLabel.setIcon(new ImageIcon(newimg));
+                    
                 } catch (Exception l) {
                     // TODO: handle exception
                 }
