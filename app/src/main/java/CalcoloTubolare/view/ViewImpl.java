@@ -21,7 +21,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class ViewImpl implements View {
 
-    private static final double FRAME_SIZE_FACTOR = 0.8;
+    private static final double FRAME_SIZE_FACTOR = 0.4;
    // private static final String FRAME_ICON_PATH = "table/hat.png";
 
     private final JFrame frame;

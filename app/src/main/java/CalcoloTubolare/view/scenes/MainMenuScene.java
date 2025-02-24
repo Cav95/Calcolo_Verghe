@@ -1,7 +1,6 @@
 package CalcoloTubolare.view.scenes;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +37,7 @@ public class MainMenuScene implements Scene {
     final JTextArea lbResultFinal = new JTextArea();
     final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
     final JPanel jpNORTH = new JPanel(new FlowLayout());
+    final JPanel jpEast = new JPanel();
     final JPanel jpWest = new JPanel();
 
     JLabel imageLabel = new JLabel();
@@ -73,20 +73,17 @@ public class MainMenuScene implements Scene {
 
         picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
         picLabel.setVisible(false);
-        // ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
 
-        jpWest.setLayout(new BoxLayout(jpWest, 1));
+        jpEast.setLayout(new BoxLayout(jpEast, 1));
+        jpWest.setLayout(new BorderLayout());
+        jpWest.setSize(20,20);
         mainMenuPanel.add(jp, BorderLayout.CENTER);
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
+        mainMenuPanel.add(jpEast, BorderLayout.EAST);
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
 
         mainMenuPanel.add(btStressed, BorderLayout.SOUTH);
 
-        jpNORTH.setBackground(Color.PINK);
-        jpWest.setBackground(Color.PINK);
-        jp.setBackground(Color.PINK);
-
-        // jpNORTH.add(imagelabel);
         jpNORTH.add(jComboBox);
 
         jpNORTH.add(tfLenght);
@@ -95,9 +92,10 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(btRem);
 
         jpWest.add(imageLabel);
-        jpWest.add(btCalc);
-        jpWest.add(btCalcTotale);
-        jpWest.add(btRestart);
+
+        jpEast.add(btCalc);
+        jpEast.add(btCalcTotale);
+        jpEast.add(btRestart);
 
         jp.add(lbResult);
         jp.add(lbResultFinal);
