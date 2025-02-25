@@ -25,11 +25,11 @@ public class MainMenuController extends SceneControllerImpl {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(Integer.valueOf(lengthTubolar), nameTubolar, quantity);
+        tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);
     }
 
     public void removeTubolarList(String nameTubolar, int lengthTubolar, int quantity) {
-        tubolarList.removeTubolar(nameTubolar, Integer.valueOf(lengthTubolar));
+        tubolarList.removeTubolar(nameTubolar, lengthTubolar);
     }
 
     public String partialCalco() {

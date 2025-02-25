@@ -105,8 +105,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
         if (!availableQueues().isEmpty()) {
             for (Entry<Q, Set<Tubolar<T>>> elemEntry : multiQueue.entrySet()) {
                 out = out + elemEntry.getKey() + " ";
-                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
-                        .toList().toString();
+                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity()).distinct().reduce("", (a, b) -> a + b);
                 out = out + "\n";
             }
         } else {
