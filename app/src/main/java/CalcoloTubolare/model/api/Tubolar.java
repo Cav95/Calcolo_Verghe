@@ -1,4 +1,4 @@
-package CalcoloTubolare.model;
+package CalcoloTubolare.model.api;
 
 public class Tubolar<T> {
 

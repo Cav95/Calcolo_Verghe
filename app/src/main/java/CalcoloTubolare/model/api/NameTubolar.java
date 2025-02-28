@@ -1,4 +1,4 @@
-package CalcoloTubolare.model;
+package CalcoloTubolare.model.api;
 
 public enum NameTubolar {
     TBQ15003("Tubolare 150x150 sp3"),

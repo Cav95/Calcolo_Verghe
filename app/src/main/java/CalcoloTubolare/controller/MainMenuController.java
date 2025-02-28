@@ -2,6 +2,7 @@ package CalcoloTubolare.controller;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.*;
+import CalcoloTubolare.model.api.MultiQueue;
 import CalcoloTubolare.view.View;
 
 public class MainMenuController extends SceneControllerImpl {

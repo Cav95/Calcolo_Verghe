@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import CalcoloTubolare.controller.MainMenuController;
 import CalcoloTubolare.model.CalcolatorTubolar;
-import CalcoloTubolare.model.NameTubolar;
+import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
 /**

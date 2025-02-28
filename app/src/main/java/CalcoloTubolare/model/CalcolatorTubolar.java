@@ -8,6 +8,8 @@ import java.util.TreeSet;
 
 import org.javatuples.Pair;
 
+import CalcoloTubolare.model.api.Tubolar;
+
 public class CalcolatorTubolar {
 
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
