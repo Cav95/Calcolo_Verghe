@@ -1,7 +1,13 @@
 package CalcoloTubolare.controller;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
-import CalcoloTubolare.model.*;
+import CalcoloTubolare.model.CalcolatorTubolar;
+import CalcoloTubolare.model.InputExcelTableImpl;
+import CalcoloTubolare.model.MultiQueueImpl;
+import CalcoloTubolare.model.api.InputExcelTable;
 import CalcoloTubolare.model.api.MultiQueue;
 import CalcoloTubolare.view.View;
 
@@ -46,6 +52,25 @@ public class MainMenuController extends SceneControllerImpl {
 
     public void restart() {
         this.tubolarList = new MultiQueueImpl<>();
+    }
+
+    public void addTubolarFromExcel(String pathString){
+        InputExcelTable excelTable = new InputExcelTableImpl(pathString);
+        Sheet sheet = excelTable.getWorkBook().getSheetAt(0);
+        var rowIteretor = sheet.iterator();
+        while (rowIteretor.hasNext()) {
+            Row row = rowIteretor.next();
+            /*if (row.getRowNum() == 0) {
+                continue;
+            }*/
+            if(row.getCell(3).getStringCellValue().equals("CODICE")){
+                break;
+            }
+            String name = row.getCell(3).getStringCellValue();
+            int length = (int) row.getCell(5).getNumericCellValue();
+            int quantity = (int) row.getCell(2).getNumericCellValue();
+            newTubolarList(name, length, quantity);
+        }
     }
 
 }
