@@ -26,6 +26,8 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class MainMenuScene implements Scene {
     private static final Integer TIME_TO_LAMP = 5;
+    private static final String NAME_FILE = "TABELLA.xlsx";
+    private static final String SEP = System.getProperty("file.separator");
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
     final JTextField tfQuantity = new JTextField("Quantità", 6);
@@ -35,8 +37,11 @@ public class MainMenuScene implements Scene {
     final JButton btRem = new JButton("Remove Tubolar");
     final JButton btCalc = new JButton("See short cut tubolar");
     final JButton btCalcTotale = new JButton("See total cut tubolar");
+    final JButton btCalcFromExcel = new JButton("Add Tubolar from Excel");
+
     final JButton btRestart = new JButton("Delete All");
     final JTextArea lbResultFinal = new JTextArea();
+
     final JPanel jp = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
     final JPanel jpNORTH = new JPanel(new FlowLayout());
     final JPanel jpEast = new JPanel();
@@ -97,6 +102,7 @@ public class MainMenuScene implements Scene {
 
         jpEast.add(btCalc);
         jpEast.add(btCalcTotale);
+        jpEast.add(btCalcFromExcel);
         jpEast.add(btRestart);
 
         jp.add(lbResult);
@@ -110,6 +116,16 @@ public class MainMenuScene implements Scene {
                 String s = String.valueOf(jComboBox.getSelectedItem()); // "Code"
                 controller.newTubolarList(s, Integer.valueOf(tfLenght.getText()).intValue(),
                         Integer.valueOf(tfQuantity.getText()).intValue());
+                lbResult.setText(controller.getTubolarList().printAllQueue());
+            }
+
+        });
+
+        btCalcFromExcel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addTubolarFromExcel(System.getProperty("user.home") + SEP + NAME_FILE);
                 lbResult.setText(controller.getTubolarList().printAllQueue());
             }
 
@@ -174,16 +190,17 @@ public class MainMenuScene implements Scene {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    var image = new ImageIcon(ClassLoader.getSystemResource("tubolar/" +jComboBox.getSelectedItem()+".png"));
-                    Image newimg = image.getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+                    var image = new ImageIcon(
+                            ClassLoader.getSystemResource("tubolar/" + jComboBox.getSelectedItem() + ".png"));
+                    Image newimg = image.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
-                    
+
                 } catch (Exception l) {
                     // TODO: handle exception
                 }
-               
+
             }
-            
+
         });
         timer.start();
     }

@@ -23,12 +23,11 @@ public class InputExcelTableImpl implements InputExcelTable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-}
+    }
 
     @Override
     public Workbook getWorkBook() {
         return this.workBook;
     }
-    
-}
 
+}

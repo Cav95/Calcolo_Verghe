@@ -12,14 +12,12 @@ import CalcoloTubolare.model.api.MultiQueue;
 import CalcoloTubolare.view.View;
 
 public class MainMenuController extends SceneControllerImpl {
-    
+
     public MainMenuController(View mainView) {
         super(mainView);
     }
 
     MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
-
-
 
     public MultiQueue<Integer, String> getTubolarList() {
         return tubolarList;
@@ -40,9 +38,7 @@ public class MainMenuController extends SceneControllerImpl {
     }
 
     public String partialCalco() {
-        return CalcolatorTubolar
-
-                .printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue()));
+        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue()));
     }
 
     public String totalCalco() {
@@ -54,21 +50,18 @@ public class MainMenuController extends SceneControllerImpl {
         this.tubolarList = new MultiQueueImpl<>();
     }
 
-    public void addTubolarFromExcel(String pathString){
+    public void addTubolarFromExcel(String pathString) {
         InputExcelTable excelTable = new InputExcelTableImpl(pathString);
         Sheet sheet = excelTable.getWorkBook().getSheetAt(0);
         var rowIteretor = sheet.iterator();
         while (rowIteretor.hasNext()) {
             Row row = rowIteretor.next();
-            /*if (row.getRowNum() == 0) {
-                continue;
-            }*/
-            if(row.getCell(3).getStringCellValue().equals("CODICE")){
+            if (row.getCell(2).getStringCellValue().equals("CODICE")) {
                 break;
             }
-            String name = row.getCell(3).getStringCellValue();
-            int length = (int) row.getCell(5).getNumericCellValue();
-            int quantity = (int) row.getCell(2).getNumericCellValue();
+            String name = row.getCell(2).getStringCellValue();
+            int length = (int) row.getCell(4).getNumericCellValue();
+            int quantity = (int) row.getCell(1).getNumericCellValue();
             newTubolarList(name, length, quantity);
         }
     }

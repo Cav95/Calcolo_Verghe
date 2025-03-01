@@ -14,7 +14,6 @@ import CalcoloTubolare.controller.MainMenuController;
 import CalcoloTubolare.view.scenes.MainMenuScene;
 import CalcoloTubolare.view.scenes.api.Scene;
 
-
 /**
  * The main view of the application.
  * It uses a JFrame with a CardLayout to switch between different scenes.
@@ -22,7 +21,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
 public class ViewImpl implements View {
 
     private static final double FRAME_SIZE_FACTOR = 0.4;
-   // private static final String FRAME_ICON_PATH = "table/hat.png";
+    // private static final String FRAME_ICON_PATH = "table/hat.png";
 
     private final JFrame frame;
     private final Dimension screenSize;
@@ -33,6 +32,7 @@ public class ViewImpl implements View {
      * Constructor for the MainView.
      * It initializes the frame and size of the window.
      * It also sets the CardLayout for switching between scenes.
+     * 
      * @param visible if the window should be visible
      */
     public ViewImpl(final boolean visible) {
@@ -47,8 +47,9 @@ public class ViewImpl implements View {
         this.frame.setSize(this.frame.getMinimumSize());
 
         // Set the icon of the frame
-        //final var iconImage = new ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
-        //this.frame.setIconImage(iconImage);
+        // final var iconImage = new
+        // ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
+        // this.frame.setIconImage(iconImage);
 
         // CardLayout for switching between scenes
         this.cardLayout = new CardLayout();
@@ -100,17 +101,16 @@ public class ViewImpl implements View {
             @Override
             public void windowClosing(final WindowEvent e) {
                 final int confirm = JOptionPane.showOptionDialog(
-                    frame, 
-                    """
-                        Are you sure you want to exit?
-                    """,
-                    "Exit?",
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE, 
-                    null, 
-                    null, 
-                    null
-                );
+                        frame,
+                        """
+                                    Are you sure you want to exit?
+                                """,
+                        "Exit?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        null,
+                        null);
                 if (confirm == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
@@ -133,6 +133,5 @@ public class ViewImpl implements View {
     private boolean isConfirmationOnCloseEnabled() {
         return this.frame.getWindowListeners().length > 0;
     }
-
 
 }
