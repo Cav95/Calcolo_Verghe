@@ -28,13 +28,6 @@ public interface MultiQueue<T, Q> {
     void openNewQueue(Q queue);
 
     /**
-     * @param queue, is the queue we check
-     * @return whether queue is empty
-     * @throws IllegalArgumentException if queue is not available
-     */
-    boolean isQueueEmpty(Q queue);
-
-    /**
      * @param elem,  is the element to add
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
@@ -47,20 +40,6 @@ public interface MultiQueue<T, Q> {
      * @throws IllegalArgumentException if queue is not available
      */
     void removeTubolar(Q queue, T lenght);
-
-    /**
-     * @return the set of all enqueued elements
-     */
-    Set<Tubolar<T>> allEnqueuedElements();
-
-    /**
-     * Empties a queue
-     * 
-     * @param queue, the queue to be emptied
-     * @return the list of elements enqueued
-     * @throws IllegalArgumentException if queue is not available
-     */
-    boolean dequeueAllFromQueue(Q queue);
 
     /**
      * Empties a queue and move all of its elements in some other available queue

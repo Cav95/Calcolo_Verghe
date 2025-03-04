@@ -36,16 +36,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public boolean isQueueEmpty(Q queue) {
-        if (availableQueues().contains(queue)) {
-            return multiQueue.get(queue).isEmpty();
-        } else {
-            throw new IllegalArgumentException();
-
-        }
-    }
-
-    @Override
     public void addTubolar(T elem, Q queue, int quantity) {
 
         if (availableQueues().contains(queue)) {
@@ -72,35 +62,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
             throw new IllegalArgumentException();
         }
 
-    }
-
-    @Override
-    public Set<Tubolar<T>> allEnqueuedElements() {
-        Set<Tubolar<T>> allEnqueuedElementsSet = new TreeSet<>();
-
-        for (Entry<Q, Set<Tubolar<T>>> elemMap : multiQueue.entrySet()) {
-            for (Tubolar<T> elemT : elemMap.getValue()) {
-                allEnqueuedElementsSet.add(elemT);
-            }
-        }
-        return allEnqueuedElementsSet;
-    }
-
-    @Override
-    public boolean dequeueAllFromQueue(Q queue) {
-        if (availableQueues().contains(queue)) {
-
-            if (!multiQueue.get(queue).isEmpty()) {
-                multiQueue.get(queue).clear();
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            throw new IllegalArgumentException();
-
-        }
     }
 
     @Override

@@ -28,7 +28,7 @@ dependencies {
     implementation("org.jooq:jool:0.9.15")
 
     implementation ("org.apache.poi:poi-ooxml:5.2.3")
-    implementation("com.google.guava:guava:24.0-jre")
+    implementation("com.google.guava:guava:24.0-jre") 
 
     /*
      * Simple Logging Facade for Java (SLF4J) with Apache Log4j
