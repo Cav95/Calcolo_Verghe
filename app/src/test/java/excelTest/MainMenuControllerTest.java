@@ -13,7 +13,7 @@ public class MainMenuControllerTest {
     public void testAddTubolarFromExcel() {
         MainMenuController controller = new MainMenuController(new ViewImpl(false));
         controller.addTubolarFromExcel(ClassLoader.getSystemResource("excel/TABELLA.xlsx").getPath());
-        assertTrue(controller.getTubolarList().getMap().keySet().contains("PIA180150000000"));
+        assertTrue(controller.getTubolarList().getMultiQueue().keySet().contains("PIA180150000000"));
     
     
 }

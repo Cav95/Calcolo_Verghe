@@ -49,12 +49,8 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public void removeTubolar(Q queue, T lenght) {
         if (availableQueues().contains(queue)) {
+            getTubolarList(queue).removeIf(t -> t.getLenght().equals(lenght));
 
-            for (var myIterator = getTubolarList(queue).iterator(); myIterator.hasNext();) {
-                if (myIterator.next().getLenght().equals(lenght)) {
-                    myIterator.remove();
-                }
-            }
             if (this.multiQueue.get(queue).isEmpty()) {
                 this.multiQueue.remove(queue);
             }
@@ -84,12 +80,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     @Override
     public Set<Tubolar<T>> getTubolarList(Q queue) {
         return multiQueue.get(queue);
-    }
-
-    @Override
-    public HashMap<Q, Set<Tubolar<T>>> getMap() {
-        return multiQueue;
-
     }
 
 }

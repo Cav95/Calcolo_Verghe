@@ -17,11 +17,6 @@ public interface MultiQueue<T, Q> {
     Set<Q> availableQueues();
 
     /**
-     * @return the set of queues currently available (or working)
-     */
-    HashMap<Q, Set<Tubolar<T>>> getMap();
-
-    /**
      * @param creates a new queue
      * @throws IllegalArgumentException if queue is already available
      */
