@@ -9,7 +9,7 @@ import java.util.*;
  * @param <Q>, the type of queues (e.g., they name, or ID, or position)
  */
 public interface MultiQueue<T, Q> {
-    public HashMap<Q, Set<Tubolar<T>>> getMultiQueue();
+    public HashMap<Q, Set<Tubolar>> getMultiQueue();
 
     /**
      * @return the set of queues currently available (or working)
@@ -27,14 +27,14 @@ public interface MultiQueue<T, Q> {
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
      */
-    void addTubolar(T elem, Q queue, int quantity);
+    void addTubolar(int elem, Q queue, int quantity);
 
     /**
      * @param queue, is the queue where to take the next element
      * @return the next element in queue, or null if there's none
      * @throws IllegalArgumentException if queue is not available
      */
-    void removeTubolar(Q queue, T lenght);
+    void removeTubolar(Q queue, int lenght);
 
     /**
      * Empties a queue and move all of its elements in some other available queue
@@ -52,5 +52,5 @@ public interface MultiQueue<T, Q> {
      * @param , the queue to be cheched
      * @throws IllegalArgumentException if queue is not available
      */
-    Set<Tubolar<T>> getTubolarList(Q queue);
+    Set<Tubolar> getTubolarList(Q queue);
 }

@@ -13,17 +13,17 @@ import CalcoloTubolare.model.api.Tubolar;
 public class CalcolatorTubolar {
 
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
-            HashMap<String, Set<Tubolar<Integer>>> multiQueue) {
+            HashMap<String, Set<Tubolar>> multiQueue) {
         HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
 
-        for (Entry<String, Set<Tubolar<Integer>>> elemEntry : multiQueue.entrySet()) {
+        for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
             mapCut.put(elemEntry.getKey(), calcoloVerga(multiQueue, elemEntry.getKey(), 6000));
         }
         return mapCut;
     }
 
     public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVerga(
-            HashMap<String, Set<Tubolar<Integer>>> multiQueue, String queue, int lenght) {
+            HashMap<String, Set<Tubolar>> multiQueue, String queue, int lenght) {
 
         LinkedList<Pair<Integer, LinkedList<Integer>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
         LinkedList<Pair<Integer, LinkedList<Integer>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
@@ -67,14 +67,14 @@ public class CalcolatorTubolar {
         return out;
     }
 
-    private static LinkedList<Pair<Integer, LinkedList<Integer>>> tubConfronto(Set<Tubolar<Integer>> tempList,
+    private static LinkedList<Pair<Integer, LinkedList<Integer>>> tubConfronto(Set<Tubolar> tempList,
             int lenght) {
         LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();
 
-        Set<Tubolar<Integer>> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
+        Set<Tubolar> temp = new TreeSet<>((o1, o2) -> (int) o2.getLenght() - (int) o1.getLenght());
 
-        for (Tubolar<Integer> elemTubolar : tempList) {
-            temp.add(new Tubolar<Integer>(elemTubolar.getLenght(), elemTubolar.getQuantity()));
+        for (Tubolar elemTubolar : tempList) {
+            temp.add(new Tubolar(elemTubolar.getLenght(), elemTubolar.getQuantity()));
         }
 
         while (temp.stream().mapToInt(t -> t.getQuantity()).sum() != 0) {
@@ -84,7 +84,7 @@ public class CalcolatorTubolar {
             LinkedList<Integer> list = new LinkedList<>();
             Pair<Integer, LinkedList<Integer>> pairList = new Pair<Integer, LinkedList<Integer>>(
                     Integer.valueOf(lenght), list);
-            for (Tubolar<Integer> elem : temp) {
+            for (Tubolar elem : temp) {
 
                 while (elem.getQuantity() > 0 && (total1 - (int) elem.getLenght()) >= 0) {
                     list.add(elem.getLenght());

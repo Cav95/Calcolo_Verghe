@@ -1,11 +1,11 @@
 package CalcoloTubolare.model.api;
 
-public class Tubolar<T> {
+public class Tubolar {
 
-    final private T lenght;
+    final private int lenght;
     private int quantity;
 
-    public Tubolar(T lenght, int quantity) {
+    public Tubolar(int lenght, int quantity) {
         this.lenght = lenght;
         this.quantity = quantity;
     }
@@ -14,7 +14,7 @@ public class Tubolar<T> {
         this.quantity = quantity;
     }
 
-    public T getLenght() {
+    public int getLenght() {
         return lenght;
     }
 
