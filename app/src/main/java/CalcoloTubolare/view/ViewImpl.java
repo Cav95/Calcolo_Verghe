@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import CalcoloTubolare.controller.MainMenuController;
 import CalcoloTubolare.view.scenes.MainMenuScene;
@@ -26,6 +27,7 @@ public class ViewImpl implements View {
     private final JFrame frame;
     private final Dimension screenSize;
     private final JPanel mainPanel;
+    private final JScrollPane secondPanel;
     private final CardLayout cardLayout;
 
     /**
@@ -54,7 +56,9 @@ public class ViewImpl implements View {
         // CardLayout for switching between scenes
         this.cardLayout = new CardLayout();
         this.mainPanel = new JPanel(cardLayout);
-        this.frame.setContentPane(this.mainPanel);
+        this.secondPanel = new JScrollPane(mainPanel);
+        this.frame.setContentPane(secondPanel);
+        
 
         // Always start with the start scene
         this.changeScene(new MainMenuScene(new MainMenuController(this)));
