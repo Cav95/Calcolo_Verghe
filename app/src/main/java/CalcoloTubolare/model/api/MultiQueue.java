@@ -4,37 +4,35 @@ import java.util.*;
 
 /**
  * A multiple (FIFO) queue, e.g., to manage people paying at the supermarket
- *
- * @param <T>, the type of requester, also called 'elements'
- * @param <Q>, the type of queues (e.g., they name, or ID, or position)
+
  */
-public interface MultiQueue<T, Q> {
-    public HashMap<Q, Set<Tubolar>> getMultiQueue();
+public interface MultiQueue {
+    public HashMap<String, Set<Tubolar>> getMultiQueue();
 
     /**
      * @return the set of queues currently available (or working)
      */
-    Set<Q> availableQueues();
+    Set<String> availableQueues();
 
     /**
      * @param creates a new queue
      * @throws IllegalArgumentException if queue is already available
      */
-    void openNewQueue(Q queue);
+    void openNewQueue(String queue);
 
     /**
      * @param elem,  is the element to add
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
      */
-    void addTubolar(int elem, Q queue, int quantity);
+    void addTubolar(Integer elem, String queue, Integer quantity);
 
     /**
      * @param queue, is the queue where to take the next element
      * @return the next element in queue, or null if there's none
      * @throws IllegalArgumentException if queue is not available
      */
-    void removeTubolar(Q queue, int lenght);
+    void removeTubolar(String queue, Integer lenght);
 
     /**
      * Empties a queue and move all of its elements in some other available queue
@@ -52,5 +50,5 @@ public interface MultiQueue<T, Q> {
      * @param , the queue to be cheched
      * @throws IllegalArgumentException if queue is not available
      */
-    Set<Tubolar> getTubolarList(Q queue);
+    Set<Tubolar> getTubolarList(String queue);
 }

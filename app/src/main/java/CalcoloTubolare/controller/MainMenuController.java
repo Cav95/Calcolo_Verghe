@@ -5,8 +5,6 @@ import java.util.Arrays;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.google.common.collect.Lists;
-
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.InputExcelTableImpl;
@@ -21,9 +19,9 @@ public class MainMenuController extends SceneControllerImpl {
         super(mainView);
     }
 
-    MultiQueue<Integer, String> tubolarList = new MultiQueueImpl<>();
+    MultiQueue tubolarList = new MultiQueueImpl();
 
-    public MultiQueue<Integer, String> getTubolarList() {
+    public MultiQueue getTubolarList() {
         return tubolarList;
     }
 
@@ -51,7 +49,7 @@ public class MainMenuController extends SceneControllerImpl {
     }
 
     public void restart() {
-        this.tubolarList = new MultiQueueImpl<>();
+        this.tubolarList = new MultiQueueImpl();
     }
 
     public void addTubolarFromExcel(String pathString) {

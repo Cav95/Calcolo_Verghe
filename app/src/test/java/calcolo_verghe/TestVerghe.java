@@ -22,7 +22,7 @@ public class TestVerghe {
 
     @Test
     public void testOpenNewQueue() {
-        MultiQueue<Integer, String> mq = new MultiQueueImpl<>();
+        MultiQueue mq = new MultiQueueImpl();
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         assertEquals(mq.availableQueues().contains("Q1"), true);

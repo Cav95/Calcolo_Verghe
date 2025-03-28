@@ -9,22 +9,22 @@ import CalcoloTubolare.model.api.Tubolar;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
+public class MultiQueueImpl implements MultiQueue {
 
-    HashMap<Q, Set<Tubolar>> multiQueue = new HashMap<>();
+    HashMap<String, Set<Tubolar>> multiQueue = new HashMap<>();
 
     @Override
-    public HashMap<Q, Set<Tubolar>> getMultiQueue() {
+    public HashMap<String, Set<Tubolar>> getMultiQueue() {
         return multiQueue;
     }
 
     @Override
-    public Set<Q> availableQueues() {
+    public Set<String> availableQueues() {
         return multiQueue.keySet();
     }
 
     @Override
-    public void openNewQueue(Q queue) {
+    public void openNewQueue(String queue) {
 
         if (!availableQueues().contains(queue)) {
             multiQueue.put(queue, new TreeSet<>(
@@ -35,7 +35,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public void addTubolar(int elem, Q queue, int quantity) {
+    public void addTubolar(Integer elem, String queue, Integer quantity) {
 
         if (availableQueues().contains(queue)) {
             if (multiQueue.get(queue).contains(new Tubolar(elem, quantity))) {
@@ -45,9 +45,6 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
                         tub.setQuantity(tub.getQuantity() + quantity);
                     }
                 }
-                ;
-                multiQueue.get(queue).add(new Tubolar(elem, quantity * 2));
-
             } else {
                 multiQueue.get(queue).add(new Tubolar(elem, quantity));
             }
@@ -58,7 +55,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public void removeTubolar(Q queue, int lenght) {
+    public void removeTubolar(String queue, Integer lenght) {
         if (availableQueues().contains(queue)) {
             getTubolarList(queue).removeIf(t -> t.getLenght() == lenght);
 
@@ -75,7 +72,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public String printAllQueue() {
         String out = "";
         if (!availableQueues().isEmpty()) {
-            for (Entry<Q, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
+            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
                 out = out + elemEntry.getKey() + "\n";
                 out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
                         .distinct().reduce("", (a, b) -> a + b);
@@ -89,7 +86,7 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     }
 
     @Override
-    public Set<Tubolar> getTubolarList(Q queue) {
+    public Set<Tubolar> getTubolarList(String queue) {
         return multiQueue.get(queue);
     }
 
