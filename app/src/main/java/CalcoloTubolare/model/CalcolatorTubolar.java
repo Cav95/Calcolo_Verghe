@@ -44,7 +44,7 @@ public class CalcolatorTubolar {
                     out = out
                             + elem.getValue1().stream()
                                     .map(t -> "L" + t + " Numero:"
-                                            + elem.getValue1().stream().mapToInt(e -> e).sum() / t)
+                                            + elem.getValue1().stream().mapToInt(e -> e).filter(g -> g == t).sum() / t)
                                     .distinct().toList()
                             + "\n";
                 }
