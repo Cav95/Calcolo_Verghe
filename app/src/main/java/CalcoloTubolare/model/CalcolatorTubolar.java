@@ -37,7 +37,7 @@ public class CalcolatorTubolar {
         if (!mapCut.keySet().isEmpty()) {
 
             for (Entry<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> elemEntry : mapCut.entrySet()) {
-                out = out + elemEntry.getKey() + "\n";
+                out = out + elemEntry.getKey() + "-> Numero Tubolari:" + elemEntry.getValue().size() + "\n";
                 for (Pair<Integer, LinkedList<Integer>> elem : elemEntry.getValue()) {
                     out = out + "Lunghezza:" + elem.getValue0() + "\n";
                     // out = out + elem.getValue1().toString() + "\n";
@@ -48,7 +48,7 @@ public class CalcolatorTubolar {
                                     .distinct().toList()
                             + "\n";
                 }
-                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n" + "\n";
+                out = out + "\n";
             }
         } else {
             throw new IllegalArgumentException();
