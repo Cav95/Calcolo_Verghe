@@ -62,7 +62,10 @@ public class MainMenuController extends SceneControllerImpl {
             String name = row.getCell(2).getStringCellValue();
             int length = (int) row.getCell(4).getNumericCellValue();
             int quantity = (int) row.getCell(1).getNumericCellValue();
-            newTubolarList(name, length, quantity);
+
+            if (name.contains("TBQ") || name.contains("TUB") || name.contains("TBR")) {
+                newTubolarList(name, length, quantity);
+            }
         }
     }
 

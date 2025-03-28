@@ -40,7 +40,7 @@ public class CalcolatorTubolar {
                     out = out + "Lunghezza tubolare:" + elem.getValue0() + "\n";
                     out = out + elem.getValue1().toString() + "\n";
                 }
-                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
+                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n" + "\n";
             }
         } else {
             throw new IllegalArgumentException();
@@ -58,7 +58,7 @@ public class CalcolatorTubolar {
                 out = out + elemEntry.getKey() + "\n";
                 out = out + "Lunghezza tubolare:" + elemEntry.getValue().getFirst().getValue0() + "\n";
 
-                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n";
+                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n" + "\n" ;
             }
         } else {
             throw new IllegalArgumentException();
