@@ -38,7 +38,19 @@ public class MultiQueueImpl<T, Q> implements MultiQueue<T, Q> {
     public void addTubolar(int elem, Q queue, int quantity) {
 
         if (availableQueues().contains(queue)) {
-            multiQueue.get(queue).add(new Tubolar(elem, quantity));
+            if (multiQueue.get(queue).contains(new Tubolar(elem, quantity))) {
+                for (var myIterator = multiQueue.get(queue).iterator(); myIterator.hasNext();) {
+                    var tub = myIterator.next();
+                    if (tub.getLenght() == elem) {
+                        tub.setQuantity(tub.getQuantity() + quantity);
+                    }
+                }
+                ;
+                multiQueue.get(queue).add(new Tubolar(elem, quantity * 2));
+
+            } else {
+                multiQueue.get(queue).add(new Tubolar(elem, quantity));
+            }
         } else {
             throw new IllegalArgumentException();
         }
