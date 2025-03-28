@@ -1,7 +1,11 @@
 package CalcoloTubolare.controller;
 
+import java.util.Arrays;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+
+import com.google.common.collect.Lists;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
@@ -63,7 +67,7 @@ public class MainMenuController extends SceneControllerImpl {
             int length = (int) row.getCell(4).getNumericCellValue();
             int quantity = (int) row.getCell(1).getNumericCellValue();
 
-            if (name.contains("TBQ") || name.contains("TUB") || name.contains("TBR")) {
+            if (Arrays.asList(GroupMerc.values()).stream().filter(t -> name.contains(t.name())).count() != 0) {
                 newTubolarList(name, length, quantity);
             }
         }
