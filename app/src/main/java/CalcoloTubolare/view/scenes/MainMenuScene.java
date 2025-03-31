@@ -78,7 +78,7 @@ public class MainMenuScene implements Scene {
 
         JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
 
-        picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("view/barboncino.jpeg")));
+        picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource(nameStresedPic())));
         picLabel.setVisible(false);
         picLabel.setMaximumSize(new Dimension(20, 20));
 
@@ -213,6 +213,15 @@ public class MainMenuScene implements Scene {
     @Override
     public String getSceneName() {
         return "Main";
+    }
+    
+    private String nameStresedPic(){
+        var user = System.getProperty("user.home");
+        if(user.contains("scibilia") || user.contains("cavina")){
+            return "view/OIP.jpg";
+        }else{
+            return "view/barboncino.jpeg";
+        }
     }
 
 }
