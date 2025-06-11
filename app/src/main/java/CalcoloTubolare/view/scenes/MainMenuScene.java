@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -37,7 +38,9 @@ public class MainMenuScene implements Scene {
     final JButton btRem = new JButton("Remove Tubolar");
     final JButton btCalc = new JButton("See short cut tubolar");
     final JButton btCalcTotale = new JButton("See total cut tubolar");
+
     final JButton btCalcFromExcel = new JButton("Add Tubolar from Excel");
+    final JButton istruction = new JButton("Istruzioni Excel");
 
     final JButton btRestart = new JButton("Delete All");
     final JTextArea lbResultFinal = new JTextArea();
@@ -103,6 +106,7 @@ public class MainMenuScene implements Scene {
         jpEast.add(btCalc);
         jpEast.add(btCalcTotale);
         jpEast.add(btCalcFromExcel);
+        jpEast.add(istruction);
         jpEast.add(btRestart);
 
         jp.add(lbResult);
@@ -203,6 +207,20 @@ public class MainMenuScene implements Scene {
 
         });
         timer.start();
+
+        istruction.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jComboBox, "Il file Excel da SolidWork \n"
+                        + "deve essere salvato in C:\\user\\{yourUser} \n"
+                        + "con nome TABELLA.xlsx \n"
+                        + "dove {yourUser} è il tuo nome utente di Windows.\n"
+                        + "Il file Excel deve avere le colonne: \n"
+                        + "Codice, Lunghezza, Quantità, Diametro, Spessore","Regole Excel" ,0);
+            }
+
+        });
     }
 
     @Override
