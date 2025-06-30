@@ -138,4 +138,9 @@ public class ViewImpl implements View {
         return this.frame.getWindowListeners().length > 0;
     }
 
+    
+    public JFrame getMainFrame() {
+        return this.frame;
+    }
+
 }

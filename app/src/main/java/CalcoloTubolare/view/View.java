@@ -1,5 +1,7 @@
 package CalcoloTubolare.view;
 
+import javax.swing.JFrame;
+
 import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
@@ -34,5 +36,7 @@ public interface View {
      * Disables the confirmation dialog when trying to close the view.
      */
     void disableConfermationOnClose();
+
+    public JFrame getMainFrame();
 
 }

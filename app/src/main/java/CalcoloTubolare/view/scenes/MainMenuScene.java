@@ -7,11 +7,13 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import java.awt.print.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -217,10 +219,35 @@ public class MainMenuScene implements Scene {
                         + "con nome TABELLA.xlsx \n"
                         + "dove {yourUser} è il tuo nome utente di Windows.\n"
                         + "Il file Excel deve avere le colonne: \n"
-                        + "Codice, Lunghezza, Quantità, Diametro, Spessore","Regole Excel" ,0);
+                        + "Codice, Lunghezza, Quantità, Diametro, Spessore", "Regole Excel", 0);
             }
 
         });
+
+        JFrame frame = new JFrame("Stampa JTextArea");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+
+        // Creazione del pulsante "Stampa"
+        JButton stampaButton = new JButton("Stampa");
+        stampaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Metodo per stampare il contenuto del JTextArea
+                    boolean printed = lbResultFinal.print();
+                    if (printed) {
+                        JOptionPane.showMessageDialog(frame, "Stampa completata con successo!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Stampa annullata.");
+                    }
+                } catch (PrinterException ex) {
+                    JOptionPane.showMessageDialog(frame, "Errore durante la stampa: " + ex.getMessage());
+                }
+            }
+        });
+        jpEast.add(stampaButton);
+
     }
 
     @Override
@@ -232,14 +259,14 @@ public class MainMenuScene implements Scene {
     public String getSceneName() {
         return "Main";
     }
-    
-    private String nameStresedPic(){
+
+    private String nameStresedPic() {
         var user = System.getProperty("user.home");
-        if(user.contains("scibilia") || user.contains("cavina")){
+        if (user.contains("scibilia") || user.contains("cavina")) {
             return "view/OIP.jpg";
-        }else{
+        } else {
             return "view/barboncino.jpeg";
         }
-    }
+    };
 
 }
