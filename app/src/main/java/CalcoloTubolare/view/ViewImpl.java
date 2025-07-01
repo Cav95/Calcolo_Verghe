@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.view.scenes.MainMenuScene;
 import CalcoloTubolare.view.scenes.api.Scene;
 
@@ -61,7 +61,7 @@ public class ViewImpl implements View {
         
 
         // Always start with the start scene
-        this.changeScene(new MainMenuScene(new MainMenuController(this)));
+        this.changeScene(new MainMenuScene( new ControllerModel(this)));
 
         this.frame.setLocationByPlatform(true);
         this.frame.setVisible(visible);

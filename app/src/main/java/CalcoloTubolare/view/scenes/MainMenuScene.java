@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import javax.swing.text.View;
+
 import java.awt.print.*;
 
 import javax.swing.BoxLayout;
@@ -19,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
@@ -54,10 +56,7 @@ public class MainMenuScene implements Scene {
 
     JLabel imageLabel = new JLabel();
 
-    final JButton btStressed = new JButton("Stressed?");
-    JLabel picLabel = new JLabel();
-
-    private final MainMenuController controller;
+    private final ControllerModel controller;
     private final JPanel mainMenuPanel;
 
     /**
@@ -65,7 +64,7 @@ public class MainMenuScene implements Scene {
      * 
      * @param controller the controller for the main menu.
      */
-    public MainMenuScene(final MainMenuController controller) {
+    public MainMenuScene(final ControllerModel controller) {
         this.controller = controller;
         this.mainMenuPanel = new JPanel(new BorderLayout());
         initialize();
@@ -79,13 +78,9 @@ public class MainMenuScene implements Scene {
 
         lbResult.setColumns(30);
 
-        lbResultFinal.setColumns(30);
+        //lbResultFinal.setColumns(30);
 
         JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
-
-        picLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource(nameStresedPic())));
-        picLabel.setVisible(false);
-        picLabel.setMaximumSize(new Dimension(20, 20));
 
         jpEast.setLayout(new BoxLayout(jpEast, 1));
 
@@ -93,8 +88,6 @@ public class MainMenuScene implements Scene {
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
-
-        mainMenuPanel.add(btStressed, BorderLayout.SOUTH);
 
         jpNORTH.add(jComboBox);
 
@@ -113,7 +106,6 @@ public class MainMenuScene implements Scene {
 
         jp.add(lbResult);
         jp.add(lbResultFinal);
-        jp.add(picLabel);
 
         btAdd.addActionListener(new ActionListener() {
 
@@ -141,10 +133,10 @@ public class MainMenuScene implements Scene {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar
-
-                        .printCuttedTubolarSmoll(
-                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue())));
+                var result = CalcolatorTubolar.printCuttedTubolarSmoll(
+                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue()));
+                //lbResultFinal.setText(result);
+                new ResultPane(controller.getView(), "result", true, result);
             }
 
         });
@@ -153,9 +145,12 @@ public class MainMenuScene implements Scene {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                lbResultFinal.setText(CalcolatorTubolar
+                var result = CalcolatorTubolar
                         .printCuttedTubolar(
-                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue())));
+                                CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue()));
+
+                //lbResultFinal.setText(result);
+                new ResultPane(controller.getView(), "result", true, result);
             }
 
         });
@@ -182,14 +177,6 @@ public class MainMenuScene implements Scene {
 
         });
 
-        btStressed.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                picLabel.setVisible(!picLabel.isVisible());
-            }
-
-        });
 
         final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
 
@@ -259,14 +246,5 @@ public class MainMenuScene implements Scene {
     public String getSceneName() {
         return "Main";
     }
-
-    private String nameStresedPic() {
-        var user = System.getProperty("user.home");
-        if (user.contains("scibilia") || user.contains("cavina")) {
-            return "view/OIP.jpg";
-        } else {
-            return "view/barboncino.jpeg";
-        }
-    };
 
 }

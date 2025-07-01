@@ -13,11 +13,20 @@ import CalcoloTubolare.model.api.InputExcelTable;
 import CalcoloTubolare.model.api.MultiQueue;
 import CalcoloTubolare.view.View;
 
-public class MainMenuController extends SceneControllerImpl {
+public class ControllerModel extends SceneControllerImpl {
 
-    public MainMenuController(View mainView) {
-        super(mainView);
+    View view ;
+
+    public View getView() {
+        return view;
     }
+
+    public ControllerModel(View mainView) {
+        super(mainView);
+        this.view = mainView;
+    }
+
+    
 
     MultiQueue tubolarList = new MultiQueueImpl();
 

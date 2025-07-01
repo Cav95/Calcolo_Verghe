@@ -1,6 +1,6 @@
 package CalcoloTubolare.controller.scene;
 
-import CalcoloTubolare.controller.MainMenuController;
+import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.view.View;
 import CalcoloTubolare.view.scenes.MainMenuScene;
 
@@ -26,7 +26,7 @@ public class SceneControllerImpl implements SceneController {
      */
     @Override
     public void goToMainMenuScene() {
-        this.mainView.changeScene(new MainMenuScene(new MainMenuController(mainView)));
+        this.mainView.changeScene(new MainMenuScene(new ControllerModel(mainView)));
     }
 
 
