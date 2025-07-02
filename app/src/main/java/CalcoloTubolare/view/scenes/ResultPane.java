@@ -69,6 +69,7 @@ public class ResultPane extends JDialog {
                         }
 
                 });
+                
                 // Aggiungi il pulsante al bottomPanel
                 bottomPanel.add(stampaButton);
 
