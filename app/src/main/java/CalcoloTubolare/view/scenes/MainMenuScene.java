@@ -12,8 +12,8 @@ import CalcoloTubolare.view.scenes.api.Scene;
 
 public class MainMenuScene implements Scene {
     private static final Integer TIME_TO_LAMP = 5;
-    // private static final String NAME_FILE = "TABELLA.xlsx";
-    private String nameFile = "TABELLA.xlsx";
+    private static final String NAME_FILE = "TABELLA.xlsx";
+    private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
     private static final String SEP = System.getProperty("file.separator");
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
@@ -119,7 +119,7 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcFromExcel.addActionListener(e -> {
-            controller.addTubolarFromExcel(System.getProperty("user.home") + SEP + nameFile);
+            controller.addTubolarFromExcel( pathFile);
             lbResult.setText(controller.getTubolarList().printAllQueue());
         });
 
@@ -128,15 +128,15 @@ public class MainMenuScene implements Scene {
             fileChooser.setDialogTitle("Seleziona file Excel");
             int result = fileChooser.showOpenDialog(mainMenuPanel);
             if (result == JFileChooser.APPROVE_OPTION) {
-                nameFile = fileChooser.getSelectedFile().getName();
-                JOptionPane.showMessageDialog(mainMenuPanel, "File selezionato: " + nameFile);
+                pathFile = fileChooser.getSelectedFile().toPath().toString();
+                JOptionPane.showMessageDialog(mainMenuPanel, "File selezionato: " + pathFile);
             }
         });
 
         btCalc.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
-                        "Nessun tubolare presente.\n Aggiungi tubolari prima di calcolare.");
+                        "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolarSmoll(
@@ -148,7 +148,7 @@ public class MainMenuScene implements Scene {
         btCalcTotale.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
-                        "Nessun tubolare presente.\n Aggiungi tubolari prima di calcolare.");
+                        "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolar(
