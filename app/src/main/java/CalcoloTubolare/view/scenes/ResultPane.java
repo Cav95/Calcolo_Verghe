@@ -17,8 +17,7 @@ import java.awt.print.PrinterException;
 import CalcoloTubolare.view.View;
 
 public class ResultPane extends JDialog {
-        private static final String FONT = "Roboto";
-
+        @SuppressWarnings("unused")
         private final View view;
 
         public ResultPane(View view, String title, boolean removeMode, String result) {
