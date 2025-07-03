@@ -133,6 +133,7 @@ public class MainMenuScene implements Scene {
 
         btSelectExcel.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setDialogTitle("Seleziona file Excel");
             int result = fileChooser.showOpenDialog(mainMenuPanel);
             if (result == JFileChooser.APPROVE_OPTION) {
