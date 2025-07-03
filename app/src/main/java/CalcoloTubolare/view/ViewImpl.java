@@ -58,10 +58,9 @@ public class ViewImpl implements View {
         this.mainPanel = new JPanel(cardLayout);
         this.secondPanel = new JScrollPane(mainPanel);
         this.frame.setContentPane(secondPanel);
-        
 
         // Always start with the start scene
-        this.changeScene(new MainMenuScene( new ControllerModel(this)));
+        this.changeScene(new MainMenuScene(new ControllerModel(this)));
 
         this.frame.setLocationByPlatform(true);
         this.frame.setVisible(visible);
@@ -138,7 +137,6 @@ public class ViewImpl implements View {
         return this.frame.getWindowListeners().length > 0;
     }
 
-    
     public JFrame getMainFrame() {
         return this.frame;
     }

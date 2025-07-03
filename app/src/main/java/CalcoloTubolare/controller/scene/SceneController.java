@@ -1,6 +1,5 @@
 package CalcoloTubolare.controller.scene;
 
-
 /**
  * Interface for the main menu controller.
  */

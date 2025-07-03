@@ -30,7 +30,6 @@ public class ResultPane extends JDialog {
                 this.setResizable(true);
 
                 this.setLayout(new BorderLayout());
-                
 
                 final JPanel mainPanel = new JPanel();
                 mainPanel.setLayout(new BorderLayout());
@@ -58,7 +57,8 @@ public class ResultPane extends JDialog {
                                 try {
                                         boolean printed = lbResultFinal.print();
                                         if (printed) {
-                                                JOptionPane.showMessageDialog(ResultPane.this, "Stampa completata con successo!");
+                                                JOptionPane.showMessageDialog(ResultPane.this,
+                                                                "Stampa completata con successo!");
                                         } else {
                                                 JOptionPane.showMessageDialog(ResultPane.this, "Stampa annullata.");
                                         }
@@ -69,7 +69,7 @@ public class ResultPane extends JDialog {
                         }
 
                 });
-                
+
                 // Aggiungi il pulsante al bottomPanel
                 bottomPanel.add(stampaButton);
 

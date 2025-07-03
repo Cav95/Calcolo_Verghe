@@ -1,6 +1,5 @@
 package CalcoloTubolare;
 
-
 import CalcoloTubolare.view.ViewImpl;
 
 public class MainCalcoloTubolare {

@@ -15,7 +15,7 @@ import CalcoloTubolare.view.View;
 
 public class ControllerModel extends SceneControllerImpl {
 
-    View view ;
+    View view;
 
     public View getView() {
         return view;
@@ -25,8 +25,6 @@ public class ControllerModel extends SceneControllerImpl {
         super(mainView);
         this.view = mainView;
     }
-
-    
 
     MultiQueue tubolarList = new MultiQueueImpl();
 
