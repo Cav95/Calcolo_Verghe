@@ -11,6 +11,7 @@ import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
 public class MainMenuScene implements Scene {
+    private static final int NUM_COLUMN = 30;
     private static final Integer TIME_TO_LAMP = 5;
     private static final String NAME_FILE = "TABELLA.xlsx";
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
@@ -18,9 +19,8 @@ public class MainMenuScene implements Scene {
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
     final JTextField tfQuantity = new JTextField("Quantità", 6);
-    final JTextArea lbResult = new JTextArea(10, 30);
-    // final JTextArea lbResultFinal = new JTextArea(10, 30);
-
+    final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
+    final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAdd = new JButton("Aggiungi Tubolare");
     final JButton btRem = new JButton("Rimuovi Tubolare");
     final JButton btCalc = new JButton("Tagli Ottimizzati");
@@ -73,17 +73,25 @@ public class MainMenuScene implements Scene {
         jpWest.add(imageLabel);
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
 
+        // Sud: Posizione file
+        JPanel jpSud = new JPanel();
+        jpSud.setLayout(new BoxLayout(jpSud, BoxLayout.Y_AXIS));
+        jpSud.setBorder(new EmptyBorder(0, 0, 0, 0));
+        jpSud.add(new JLabel("File scelto excel:"));
+        jpSud.add(new JScrollPane(lbChosenExcelFile));
+        mainMenuPanel.add(jpSud, BorderLayout.SOUTH);
+
         // Centro: Risultati
         JPanel jpCenter = new JPanel();
         jpCenter.setLayout(new BoxLayout(jpCenter, BoxLayout.Y_AXIS));
         jpCenter.setBorder(new EmptyBorder(0, 0, 0, 0));
         lbResult.setEditable(false);
-        // lbResultFinal.setEditable(false);
+        lbChosenExcelFile.setEditable(false);
+        lbChosenExcelFile.setText(pathFile);
+        lbChosenExcelFile.setSize(1, NUM_COLUMN);
         jpCenter.add(new JLabel("Lista Tubolari:"));
         jpCenter.add(new JScrollPane(lbResult));
         jpCenter.add(Box.createVerticalStrut(10));
-        // jpCenter.add(new JLabel("Risultato Taglio:"));
-        // jpCenter.add(new JScrollPane(lbResultFinal));
         mainMenuPanel.add(jpCenter, BorderLayout.CENTER);
 
         // Est: Pulsanti azione
@@ -119,7 +127,7 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcFromExcel.addActionListener(e -> {
-            controller.addTubolarFromExcel( pathFile);
+            controller.addTubolarFromExcel(pathFile);
             lbResult.setText(controller.getTubolarList().printAllQueue());
         });
 
@@ -131,6 +139,7 @@ public class MainMenuScene implements Scene {
                 pathFile = fileChooser.getSelectedFile().toPath().toString();
                 JOptionPane.showMessageDialog(mainMenuPanel, "File selezionato: " + pathFile);
             }
+            lbChosenExcelFile.setText(pathFile);
         });
 
         btCalc.addActionListener(e -> {
