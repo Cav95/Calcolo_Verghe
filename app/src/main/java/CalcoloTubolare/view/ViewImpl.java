@@ -50,8 +50,8 @@ public class ViewImpl implements View {
         this.frame.setSize(this.frame.getMinimumSize());
 
         // Set the icon of the frame
-        final var iconImage = new ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
-        this.frame.setIconImage(iconImage);
+       // final var iconImage = new ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
+       // this.frame.setIconImage(iconImage);
 
         // CardLayout for switching between scenes
         this.cardLayout = new CardLayout();

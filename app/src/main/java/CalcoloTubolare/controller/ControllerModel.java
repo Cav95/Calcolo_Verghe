@@ -63,11 +63,10 @@ public class ControllerModel extends SceneControllerImpl {
         InputExcelTable excelTable = new InputExcelTableImpl(pathString);
         Sheet sheet = excelTable.getWorkBook().getSheetAt(0);
         var rowIteretor = sheet.iterator();
-        while (rowIteretor.hasNext()) {
-            Row row = rowIteretor.next();
-            if (row.getCell(2).getStringCellValue().equals("CODICE")) {
-                break;
-            }
+
+        Row row = rowIteretor.next();
+        while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")) {
+            
             String name = row.getCell(2).getStringCellValue();
             int length = (int) row.getCell(4).getNumericCellValue();
             int quantity = (int) row.getCell(1).getNumericCellValue();
@@ -75,7 +74,9 @@ public class ControllerModel extends SceneControllerImpl {
             if (Arrays.asList(GroupMerc.values()).stream().filter(t -> name.contains(t.name())).count() != 0) {
                 newTubolarList(name, length, quantity);
             }
+            row = rowIteretor.next();
         }
+        
     }
 
 }

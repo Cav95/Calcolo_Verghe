@@ -26,10 +26,9 @@ public class MainMenuScene implements Scene {
     final JButton btCalc = new JButton("Tagli Ottimizzati");
     final JButton btCalcTotale = new JButton("Tagli Totali");
     final JButton btCalcFromExcel = new JButton("Importa da Excel");
-    final JButton btSelectExcel = new JButton("Scegli File Excel"); // nuovo pulsante
+    final JButton btSelectExcel = new JButton("Scegli File Excel"); 
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btRestart = new JButton("Svuota Tutto");
-    // final JButton stampaButton = new JButton("Stampa Risultato");
 
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
@@ -184,22 +183,6 @@ public class MainMenuScene implements Scene {
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        /*
-         * stampaButton.addActionListener(e -> {
-         * try {
-         * boolean printed = lbResultFinal.print();
-         * if (printed) {
-         * JOptionPane.showMessageDialog(mainMenuPanel,
-         * "Stampa completata con successo!");
-         * } else {
-         * JOptionPane.showMessageDialog(mainMenuPanel, "Stampa annullata.");
-         * }
-         * } catch (PrinterException ex) {
-         * JOptionPane.showMessageDialog(mainMenuPanel, "Errore durante la stampa: " +
-         * ex.getMessage());
-         * }
-         * });
-         */
 
         // Timer per aggiornare l'immagine
         final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
