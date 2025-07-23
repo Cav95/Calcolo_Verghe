@@ -68,7 +68,8 @@ public class ControllerModel extends SceneControllerImpl {
             var rowIteretor = sheet.iterator();
 
             Row row = rowIteretor.next();
-            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")) {
+            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")
+            || row.getCell(2).getStringCellValue().isEmpty()) {
                 String name = row.getCell(2).getStringCellValue();
                 int length = (int) row.getCell(4).getNumericCellValue();
                 int quantity = (int) row.getCell(1).getNumericCellValue();
