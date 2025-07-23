@@ -1,15 +1,17 @@
 package CalcoloTubolare.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
-import CalcoloTubolare.model.InputExcelTableImpl;
 import CalcoloTubolare.model.MultiQueueImpl;
-import CalcoloTubolare.model.api.InputExcelTable;
 import CalcoloTubolare.model.api.MultiQueue;
 import CalcoloTubolare.view.View;
 
@@ -59,24 +61,27 @@ public class ControllerModel extends SceneControllerImpl {
         this.tubolarList = new MultiQueueImpl();
     }
 
-    public void addTubolarFromExcel(String pathString) {
-        InputExcelTable excelTable = new InputExcelTableImpl(pathString);
-        Sheet sheet = excelTable.getWorkBook().getSheetAt(0);
-        var rowIteretor = sheet.iterator();
+    public void addTubolarFromExcel(final String pathString) {
+        try (FileInputStream fis = new FileInputStream(pathString)) {
+            Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
+            Sheet sheet = workbook.getSheetAt(0);
+            var rowIteretor = sheet.iterator();
 
-        Row row = rowIteretor.next();
-        while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")) {
-            
-            String name = row.getCell(2).getStringCellValue();
-            int length = (int) row.getCell(4).getNumericCellValue();
-            int quantity = (int) row.getCell(1).getNumericCellValue();
+            Row row = rowIteretor.next();
+            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")) {
+                String name = row.getCell(2).getStringCellValue();
+                int length = (int) row.getCell(4).getNumericCellValue();
+                int quantity = (int) row.getCell(1).getNumericCellValue();
 
-            if (Arrays.asList(GroupMerc.values()).stream().filter(t -> name.contains(t.name())).count() != 0) {
-                newTubolarList(name, length, quantity);
+                if (Arrays.asList(GroupMerc.values()).stream().anyMatch(t -> name.contains(t.name()))) {
+                    newTubolarList(name, length, quantity);
+                }
+                row = rowIteretor.next();
             }
-            row = rowIteretor.next();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
     }
 
 }

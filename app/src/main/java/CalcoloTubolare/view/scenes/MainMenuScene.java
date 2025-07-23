@@ -29,6 +29,7 @@ public class MainMenuScene implements Scene {
     final JButton btSelectExcel = new JButton("Scegli File Excel"); 
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btRestart = new JButton("Svuota Tutto");
+    final JButton btOpenExcel = new JButton("Apri File Excel");
 
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
@@ -78,6 +79,7 @@ public class MainMenuScene implements Scene {
         jpSud.setBorder(new EmptyBorder(0, 0, 0, 0));
         jpSud.add(new JLabel("File scelto excel:"));
         jpSud.add(new JScrollPane(lbChosenExcelFile));
+        jpSud.add(Box.createVerticalStrut(5));
         mainMenuPanel.add(jpSud, BorderLayout.SOUTH);
 
         // Centro: Risultati
@@ -103,13 +105,13 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btCalcFromExcel);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btSelectExcel); // aggiungi il nuovo pulsante
+        jpEast.add(btSelectExcel);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(istruction);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btRestart);
         jpEast.add(Box.createVerticalStrut(20));
-        // jpEast.add(stampaButton);
+        jpEast.add(btOpenExcel);
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
         // Azioni pulsanti
@@ -199,6 +201,14 @@ public class MainMenuScene implements Scene {
             }
         });
         timer.start();
+
+        btOpenExcel.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().open(new java.io.File(pathFile));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(mainMenuPanel, "Impossibile aprire il file:\n" + ex.getMessage());
+            }
+        });
     }
 
     @Override
