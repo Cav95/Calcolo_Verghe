@@ -27,8 +27,14 @@ dependencies {
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
 
-    implementation ("org.apache.poi:poi-ooxml:5.2.3")
     implementation("com.google.guava:guava:24.0-jre") 
+
+    implementation ("org.apache.poi:poi:5.2.3")        // Supporto per .xls
+    implementation ("org.apache.poi:poi-ooxml:5.2.3")   // Supporto per .xlsx
+    implementation ("org.apache.commons:commons-collections4:4.4")
+    implementation ("org.apache.xmlbeans:xmlbeans:5.1.1")
+    implementation ("org.apache.poi:poi-ooxml-lite:5.2.3")
+
 
     /*
      * Simple Logging Facade for Java (SLF4J) with Apache Log4j
