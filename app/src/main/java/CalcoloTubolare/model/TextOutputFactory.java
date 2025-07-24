@@ -84,7 +84,7 @@ public class TextOutputFactory {
         if (collector.isPresent()) {
 
             List<String> ret = collector.get().getTableSeampleList().stream()
-                    .map(t -> t.code() + " " + t.description() + " " + t.quantity() + " \n").toList();
+                    .map(t -> t.code() + " " + t.description() + " Quantità=" + t.quantity() + " \n").toList();
             for (var elem : ret) {
                 out = out + elem;
 
