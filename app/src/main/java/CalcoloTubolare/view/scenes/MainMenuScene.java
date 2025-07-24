@@ -5,9 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.model.CalcolatorTubolar;
-import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
@@ -29,7 +28,7 @@ public class MainMenuScene implements Scene {
     final JButton btCalcoloReduced = new JButton("Tagli Ottimizzati");
     final JButton btCalcoloTotale = new JButton("Tagli Totali");
     final JButton btCalcFromExcel = new JButton("Importa da Excel");
-    final JButton btSelectExcel = new JButton("Scegli File Excel"); 
+    final JButton btSelectExcel = new JButton("Scegli File Excel");
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btRestart = new JButton("Svuota Tutto");
     final JButton btOpenExcel = new JButton("Apri File Excel");
@@ -64,7 +63,7 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(tfQuantity);
         jpNORTH.add(Box.createHorizontalStrut(10));
         jpNORTH.add(new JLabel("Numero Silo: ")); // aggiungi la label
-        jpNORTH.add(tfNumSilo);                    // aggiungi il campo di input
+        jpNORTH.add(tfNumSilo); // aggiungi il campo di input
         jpNORTH.add(Box.createHorizontalStrut(10));
         jpNORTH.add(btAddTubolar);
         jpNORTH.add(Box.createHorizontalStrut(5));
@@ -159,9 +158,7 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = TextOutputFactory.printCuttedTubolarSmoll(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
-            // lbResultFinal.setText(result);
+            var result = controller.partialCalcolateTubolar(cbOttimale.isSelected());
 
             new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
         });
@@ -172,15 +169,12 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = TextOutputFactory.printCuttedTubolar(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
-            // lbResultFinal.setText(result);
+            var result = controller.totalCalcolateTubolar(cbOttimale.isSelected());
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
 
         btRestart.addActionListener(e -> {
             controller.restart();
-            // lbResultFinal.setText("");
             lbResult.setText("");
         });
 
@@ -194,7 +188,6 @@ public class MainMenuScene implements Scene {
                             + "Codice, Lunghezza, Quantità, Diametro, Spessore",
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
         });
-
 
         // Timer per aggiornare l'immagine
         final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {

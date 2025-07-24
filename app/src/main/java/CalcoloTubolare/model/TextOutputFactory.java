@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import org.javatuples.Pair;
 
+import com.google.common.base.Optional;
+
 public class TextOutputFactory {
 
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
@@ -15,7 +17,7 @@ public class TextOutputFactory {
     private static final String NUMERO_TUBOLARI_TOTALI = "Numero Tubolari:";
     private static final String SEPARATOR = " -> ";
 
-    public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut) {
+    public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut ,Optional<CollectorPeace> collector) {
         String out = "";
         if (!mapCut.keySet().isEmpty()) {
 

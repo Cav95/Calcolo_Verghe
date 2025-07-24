@@ -1,5 +1,7 @@
 package CalcoloTubolare.controller;
 
+import com.google.common.base.Optional;
+
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.CollectorPeace;
@@ -11,6 +13,8 @@ import CalcoloTubolare.view.View;
 public class ControllerModel extends SceneControllerImpl {
 
     View view;
+    CollectorPeace collector ;
+    TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     public View getView() {
         return view;
@@ -21,7 +25,7 @@ public class ControllerModel extends SceneControllerImpl {
         this.view = mainView;
     }
 
-    TubolarMultiList tubolarList = new TubolarMultiListImpl();
+    
 
     public TubolarMultiList getTubolarList() {
         return tubolarList;
@@ -47,7 +51,7 @@ public class ControllerModel extends SceneControllerImpl {
 
     public String totalCalcolateTubolar(Boolean optimal) {
         return TextOutputFactory
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
+                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList,optimal), Optional.of(collector));
     }
 
     public void restart() {
@@ -55,8 +59,8 @@ public class ControllerModel extends SceneControllerImpl {
     }
 
     public void addTubolarFromExcel(final String pathString , final Integer quantySilo) {
-
-        this.tubolarList = new CollectorPeace(pathString , quantySilo).getTubolarList();
+        this.collector = new CollectorPeace(pathString , quantySilo);
+        this.tubolarList = collector.getTubolarList();
 
     }
 
