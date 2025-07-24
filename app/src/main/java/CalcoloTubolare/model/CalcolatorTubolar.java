@@ -19,7 +19,7 @@ public class CalcolatorTubolar {
 
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
             TubolarMultiList tubolarlist , Boolean optimal) {
-        HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
+        HashMap<String ,LinkedList<Pair<Integer, LinkedList<Integer>>> > mapCut = new HashMap<>();
         var multiQueue= tubolarlist.getMultiQueue();
 
         if (optimal){
@@ -39,8 +39,8 @@ public class CalcolatorTubolar {
     public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVergaOttimale(
             HashMap<String, Set<Tubolar>> multiQueue, String queue) {
 
-        LinkedList<Pair<Integer, LinkedList<Integer>>> listShort = listOfTubolarbyLenght(multiQueue.get(queue), STARDARD_TUB);
-        LinkedList<Pair<Integer, LinkedList<Integer>>> listLong = listOfTubolarbyLenght(multiQueue.get(queue), EXTENDED_TUB);
+        var listShort = listOfTubolarbyLenght(multiQueue.get(queue), STARDARD_TUB);
+        var listLong = listOfTubolarbyLenght(multiQueue.get(queue), EXTENDED_TUB);
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
     }
 
@@ -48,11 +48,10 @@ public class CalcolatorTubolar {
         String out = "";
         if (!mapCut.keySet().isEmpty()) {
 
-            for (Entry<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> elemEntry : mapCut.entrySet()) {
+            for (var elemEntry : mapCut.entrySet()) {
                 out = out + elemEntry.getKey() + "-> Numero Tubolari:" + elemEntry.getValue().size() + "\n";
-                for (Pair<Integer, LinkedList<Integer>> elem : elemEntry.getValue()) {
+                for (var elem : elemEntry.getValue()) {
                     out = out + "Lunghezza:" + elem.getValue0() + "\n";
-                    // out = out + elem.getValue1().toString() + "\n";
                     out = out
                             + elem.getValue1().stream()
                                     .map(t -> "L" + t + " Numero:"
@@ -74,7 +73,7 @@ public class CalcolatorTubolar {
         String out = "";
         if (!mapCut.keySet().isEmpty()) {
 
-            for (Entry<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> elemEntry : mapCut.entrySet()) {
+            for (var elemEntry : mapCut.entrySet()) {
                 out = out + elemEntry.getKey() + "\n";
                 out = out + "Lunghezza tubolare:" + elemEntry.getValue().getFirst().getValue0() + "\n";
 
