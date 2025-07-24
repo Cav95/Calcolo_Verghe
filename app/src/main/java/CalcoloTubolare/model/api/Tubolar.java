@@ -10,7 +10,6 @@ public class Tubolar {
     private String material;
 
     public Tubolar(int lenght, int quantity) {
-        this.code = code;
         this.lenght = lenght;
         this.quantity = quantity;
     }

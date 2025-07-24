@@ -3,26 +3,29 @@ package CalcoloTubolare.model;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.javatuples.Pair;
 
 import CalcoloTubolare.controller.GroupMerc;
 import CalcoloTubolare.model.api.Peace;
-import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
 public class CollectorPeace {
 
-    List<Peace> tableList = new LinkedList<>();
+    List<Peace> tableSeampleList = new LinkedList<>();
+    Set<Pair<String, String>> tableTubolarList = new HashSet<>();
 
     TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
-    public CollectorPeace(String path , Integer quantitySilo) {
+    public CollectorPeace(String path, Integer quantitySilo) {
 
         try (FileInputStream fis = new FileInputStream(path)) {
             Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
@@ -41,8 +44,9 @@ public class CollectorPeace {
 
                 if (Arrays.asList(GroupMerc.values()).stream().anyMatch(t -> name.contains(t.name()))) {
                     newTubolarList(name, length, quantity, description, material);
+                    tableTubolarList.add(new Pair<>(name, description));
                 } else {
-                    tableList.add(new Peace(name, description, quantity, material));
+                    tableSeampleList.add(new Peace(name, description, quantity, material));
                 }
                 row = rowIteretor.next();
             }
@@ -61,11 +65,11 @@ public class CollectorPeace {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(lengthTubolar,nameTubolar, quantity);
+        tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);
     }
 
-    public List<Peace> getTableList() {
-        return tableList;
+    public List<Peace> getTableSeampleList() {
+        return tableSeampleList;
     }
 
     public TubolarMultiList getTubolarList() {

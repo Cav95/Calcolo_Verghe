@@ -12,6 +12,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
 
 public class MainMenuScene implements Scene {
     private static final int NUM_COLUMN = 30;
+    private static final String STD_NUM_SILO = "1";
     private static final Integer TIME_TO_LAMP = 5;
     private static final String NAME_FILE = "TABELLA.xlsx";
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
@@ -19,7 +20,7 @@ public class MainMenuScene implements Scene {
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
     final JTextField tfQuantity = new JTextField("Quantità", 6);
-    final JTextField tfNumSilo = new JTextField("Numero Silo", 6); // aggiungi questo campo
+    final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6); // aggiungi questo campo
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
