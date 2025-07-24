@@ -76,4 +76,8 @@ public class CollectorPeace {
         return tubolarList;
     }
 
+    public Set<Pair<String, String>> getTableTubolarList() {
+        return tableTubolarList;
+    }
+
 }

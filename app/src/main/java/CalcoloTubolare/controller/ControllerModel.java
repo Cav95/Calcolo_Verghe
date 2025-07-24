@@ -13,7 +13,7 @@ import CalcoloTubolare.view.View;
 public class ControllerModel extends SceneControllerImpl {
 
     View view;
-    CollectorPeace collector ;
+    CollectorPeace collector;
     TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     public View getView() {
@@ -24,8 +24,6 @@ public class ControllerModel extends SceneControllerImpl {
         super(mainView);
         this.view = mainView;
     }
-
-    
 
     public TubolarMultiList getTubolarList() {
         return tubolarList;
@@ -38,7 +36,7 @@ public class ControllerModel extends SceneControllerImpl {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(lengthTubolar,nameTubolar,  quantity);
+        tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);
     }
 
     public void removeTubolarList(String nameTubolar, int lengthTubolar, int quantity) {
@@ -46,20 +44,21 @@ public class ControllerModel extends SceneControllerImpl {
     }
 
     public String partialCalcolateTubolar(Boolean optimal) {
-        return TextOutputFactory.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
+        return TextOutputFactory.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
+                Optional.of(collector));
     }
 
     public String totalCalcolateTubolar(Boolean optimal) {
         return TextOutputFactory
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList,optimal), Optional.of(collector));
+                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), Optional.of(collector));
     }
 
     public void restart() {
         this.tubolarList = new TubolarMultiListImpl();
     }
 
-    public void addTubolarFromExcel(final String pathString , final Integer quantySilo) {
-        this.collector = new CollectorPeace(pathString , quantySilo);
+    public void addTubolarFromExcel(final String pathString, final Integer quantySilo) {
+        this.collector = new CollectorPeace(pathString, quantySilo);
         this.tubolarList = collector.getTubolarList();
 
     }
