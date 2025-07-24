@@ -18,9 +18,10 @@ public class MainMenuScene implements Scene {
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
     private static final String SEP = System.getProperty("file.separator");
 
-    final JTextField tfLenght = new JTextField("Lunghezza", 10);
-    final JTextField tfQuantity = new JTextField("Quantità", 6);
+    final JTextField tfLenght = new JTextField("", 10);
+    final JTextField tfQuantity = new JTextField("", 6);
     final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6); // aggiungi questo campo
+    final JTextField tfCodeSilo = new JTextField("", 10); // campo per il codice silo
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
@@ -62,8 +63,11 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(new JLabel("Quantità: "));
         jpNORTH.add(tfQuantity);
         jpNORTH.add(Box.createHorizontalStrut(10));
-        jpNORTH.add(new JLabel("Numero Silo: ")); // aggiungi la label
-        jpNORTH.add(tfNumSilo); // aggiungi il campo di input
+        jpNORTH.add(new JLabel("Numero Silo: "));
+        jpNORTH.add(tfNumSilo);
+        jpNORTH.add(Box.createHorizontalStrut(10));
+        jpNORTH.add(new JLabel("Codice Silo: "));
+        jpNORTH.add(tfCodeSilo);
         jpNORTH.add(Box.createHorizontalStrut(10));
         jpNORTH.add(btAddTubolar);
         jpNORTH.add(Box.createHorizontalStrut(5));
@@ -158,7 +162,8 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = controller.partialCalcolateTubolar(cbOttimale.isSelected());
+            var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
+                    + controller.partialCalcolateTubolar(cbOttimale.isSelected());
 
             new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
         });
@@ -169,7 +174,8 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = controller.totalCalcolateTubolar(cbOttimale.isSelected());
+            var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
+                    + controller.totalCalcolateTubolar(cbOttimale.isSelected());
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
 
@@ -222,5 +228,15 @@ public class MainMenuScene implements Scene {
     @Override
     public String getSceneName() {
         return "Main";
+    }
+
+    public String ottimalOutputString(Boolean optimal) {
+        return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
+
+    }
+
+    public String structureCode(String codeSilo) {
+        return "Codice della strutura: " + codeSilo + "\n\n";
+
     }
 }
