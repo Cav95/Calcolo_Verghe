@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import CalcoloTubolare.controller.ControllerModel;
+import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
@@ -20,6 +21,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
  * data from Excel.
  */
 public class MainMenuScene implements Scene {
+    private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
     private static final Integer TIME_TO_LAMP = 5;
@@ -203,13 +205,7 @@ public class MainMenuScene implements Scene {
         });
 
         istruction.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainMenuPanel,
-                    "Il file Excel da SolidWork \n"
-                            + "deve essere salvato in C:\\user\\{yourUser} \n"
-                            + "con nome TABELLA.xlsx \n"
-                            + "dove {yourUser} è il tuo nome utente di Windows.\n"
-                            + "Il file Excel deve avere le colonne: \n"
-                            + "Codice, Lunghezza, Quantità, Diametro, Spessore",
+            JOptionPane.showMessageDialog(mainMenuPanel, TextOutputFactory.rulesOfUseExcel(),
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
         });
 
@@ -219,7 +215,7 @@ public class MainMenuScene implements Scene {
             public void actionPerformed(ActionEvent e) {
                 try {
                     var image = new ImageIcon(
-                            ClassLoader.getSystemResource("tubolar/" + jComboBox.getSelectedItem() + ".png"));
+                            ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + ".png"));
                     Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
                 } catch (Exception l) {

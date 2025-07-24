@@ -87,6 +87,14 @@ public class TextOutputFactory {
         return out;
     }
 
+    public static String rulesOfUseExcel(){
+        return"Il file Excel deve provenire dalla tabella SolidWork \n"
+                + "Il file Excel deve avere le colonne: \n"
+                + "Codice, Lunghezza, Quantità, Diametro, Spessore\n"
+                +"In questo Ordine\n"
+                + "Il file deve essere salvato con estenzione .xlsx\n";
+    }
+
     private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
         if (collector.isPresent()) {
             String ret = collector.get().getTableTubolarList().stream().filter(t -> t.getValue0() == codeTubolar)
