@@ -34,7 +34,7 @@ public class SceneControllerImpl implements SceneController {
      * {@inheritDoc}
      */
     @Override
-    public void exitGame() {
+    public void exitApplication() {
         System.exit(0);
     }
 

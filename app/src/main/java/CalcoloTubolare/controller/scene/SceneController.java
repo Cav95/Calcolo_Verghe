@@ -13,6 +13,6 @@ public interface SceneController {
     /**
      * Exits the game.
      */
-    void exitGame();
+    void exitApplication();
 
 }

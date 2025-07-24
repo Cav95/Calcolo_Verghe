@@ -8,6 +8,10 @@ import org.javatuples.Pair;
 
 import com.google.common.base.Optional;
 
+/**
+ * TextOutputFactory class for generating text output for tubular cutting
+ * calculations.
+ */
 public class TextOutputFactory {
 
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
@@ -18,6 +22,13 @@ public class TextOutputFactory {
     private static final String NUMERO_TUBOLARI_TOTALI = "Numero Tubolari:";
     private static final String SEPARATOR = " -> ";
 
+    /**
+     * Prints the cutted tubulars in a formatted string.
+     * 
+     * @param mapCut    the map containing cutting results
+     * @param collector the collector peace containing tubular and sample data
+     * @return a formatted string representing the cutted tubulars
+     */
     public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
         String out = "";
@@ -48,6 +59,13 @@ public class TextOutputFactory {
         return out;
     }
 
+    /**
+     * Gets the name of the tubular based on its code.
+     * 
+     * @param codeTubolar the code of the tubular
+     * @param collector   the collector peace containing tubular data
+     * @return a string representing the name of the tubular
+     */
     public static String printCuttedTubolarSmoll(
             HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {

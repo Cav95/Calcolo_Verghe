@@ -16,13 +16,21 @@ import java.awt.print.PrinterException;
 
 import CalcoloTubolare.view.View;
 
+/**
+ * ResultPane class that extends JDialog to display the results of the tubular
+ * calculations.
+ */
 public class ResultPane extends JDialog {
-        @SuppressWarnings("unused")
-        private final View view;
-
+        /**
+         * Constructor for ResultPane.
+         * 
+         * @param view       the main view of the application
+         * @param title      the title of the dialog
+         * @param removeMode whether to remove the dialog after displaying results
+         * @param result     the result string to be displayed
+         */
         public ResultPane(View view, String title, boolean removeMode, String result) {
                 super(view.getMainFrame(), title, ModalityType.APPLICATION_MODAL);
-                this.view = view;
                 this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 this.setSize(800, 500);
                 this.setMaximumSize(this.getSize());
@@ -69,11 +77,7 @@ public class ResultPane extends JDialog {
                         }
 
                 });
-
-                // Aggiungi il pulsante al bottomPanel
                 bottomPanel.add(stampaButton);
-
-                // Mostra il dialog solo alla fine
                 this.setVisible(removeMode);
         };
 

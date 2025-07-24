@@ -11,31 +11,50 @@ import org.javatuples.Pair;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
+/**
+ * CalcolatorTubolar class for calculating the optimal cutting of tubulars.
+ */
 public class CalcolatorTubolar {
 
     private static final int STARDARD_TUB = 6000;
     private static final int EXTENDED_TUB = 12000;
     private static final int LAMA = 2;
 
+    /**
+     * Calculates the total cutting of tubulars based on the provided
+     * TubolarMultiList.
+     * 
+     * @param tubolarlist the TubolarMultiList containing the tubulars
+     * @param optimal     whether to calculate optimally or not
+     * @return a HashMap containing the cutting results
+     */
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
-            TubolarMultiList tubolarlist , Boolean optimal) {
-        HashMap<String ,LinkedList<Pair<Integer, LinkedList<Integer>>> > mapCut = new HashMap<>();
-        var multiQueue= tubolarlist.getMultiQueue();
+            TubolarMultiList tubolarlist, Boolean optimal) {
+        HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
+        var multiQueue = tubolarlist.getMultiQueue();
 
-        if (optimal){
+        if (optimal) {
             for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
-            mapCut.put(elemEntry.getKey(), calcoloVergaOttimale(multiQueue, elemEntry.getKey()));
-        }
+                mapCut.put(elemEntry.getKey(), calcoloVergaOttimale(multiQueue, elemEntry.getKey()));
+            }
 
-        } else{
+        } else {
             for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
-            mapCut.put(elemEntry.getKey(), listOfTubolarByLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
+                mapCut.put(elemEntry.getKey(), listOfTubolarByLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
+            }
         }
-    }
 
         return mapCut;
     }
 
+    /**
+     * Calculates the optimal cutting of tubulars based on the provided multiQueue
+     * and queue.
+     * 
+     * @param multiQueue the multiQueue containing the tubulars
+     * @param queue      the queue to be processed
+     * @return a LinkedList containing the cutting results
+     */
     public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVergaOttimale(
             HashMap<String, Set<Tubolar>> multiQueue, String queue) {
 
@@ -44,7 +63,13 @@ public class CalcolatorTubolar {
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
     }
 
-
+    /**
+     * Creates a list of tubulars based on their lengths from the provided set.
+     * 
+     * @param tempList the set of tubulars
+     * @param lenght   the length to be used for cutting
+     * @return a LinkedList containing pairs of length and a list of tubulars
+     */
     private static LinkedList<Pair<Integer, LinkedList<Integer>>> listOfTubolarByLenght(Set<Tubolar> tempList,
             int lenght) {
         LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();

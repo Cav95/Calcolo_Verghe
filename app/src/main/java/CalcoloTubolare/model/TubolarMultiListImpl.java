@@ -9,20 +9,34 @@ import CalcoloTubolare.model.api.Tubolar;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * TubolarMultiListImpl class implementing the TubolarMultiList interface.
+ * It manages multiple queues of tubulars with operations to add, remove, and
+ * manipulate them.
+ */
 public class TubolarMultiListImpl implements TubolarMultiList {
 
     HashMap<String, Set<Tubolar>> multiQueue = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HashMap<String, Set<Tubolar>> getMultiQueue() {
         return multiQueue;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> availableQueues() {
         return multiQueue.keySet();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openNewQueue(String queue) {
 
@@ -34,6 +48,9 @@ public class TubolarMultiListImpl implements TubolarMultiList {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addTubolar(Integer lenght, String code, Integer quantity) {
 
@@ -54,6 +71,9 @@ public class TubolarMultiListImpl implements TubolarMultiList {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeTubolar(String queue, Integer lenght) {
         if (availableQueues().contains(queue)) {
@@ -68,6 +88,9 @@ public class TubolarMultiListImpl implements TubolarMultiList {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String printAllQueue() {
         String out = "";
@@ -85,6 +108,9 @@ public class TubolarMultiListImpl implements TubolarMultiList {
         return out;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Tubolar> getTubolarList(String queue) {
         return multiQueue.get(queue);

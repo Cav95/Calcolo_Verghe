@@ -10,6 +10,13 @@ import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
+/**
+ * MainMenuScene class that implements the Scene interface to create the main
+ * menu
+ * of the application.
+ * It allows users to add, remove, and calculate tubulars, as well as import
+ * data from Excel.
+ */
 public class MainMenuScene implements Scene {
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
@@ -40,12 +47,20 @@ public class MainMenuScene implements Scene {
 
     private final ControllerModel controller;
 
+    /**
+     * Constructor for MainMenuScene.
+     * 
+     * @param controller the controller model to manage the application logic
+     */
     public MainMenuScene(final ControllerModel controller) {
         this.controller = controller;
         this.mainMenuPanel = new JPanel(new BorderLayout(10, 10));
         initialize();
     }
 
+    /**
+     * Initializes the main menu panel with components and layout.
+     */
     private void initialize() {
         mainMenuPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
@@ -220,21 +235,33 @@ public class MainMenuScene implements Scene {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return mainMenuPanel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSceneName() {
         return "Main";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String ottimalOutputString(Boolean optimal) {
         return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String structureCode(String codeSilo) {
         return "Codice della strutura: " + codeSilo + "\n\n";
 

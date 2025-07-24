@@ -22,7 +22,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
 public class ViewImpl implements View {
 
     private static final double FRAME_SIZE_FACTOR = 0.7;
-    //private static final String FRAME_ICON_PATH = "image/Pipe.png";
+    // private static final String FRAME_ICON_PATH = "image/Pipe.png";
 
     private final JFrame frame;
     private final Dimension screenSize;
@@ -49,8 +49,9 @@ public class ViewImpl implements View {
         this.frame.setSize(this.frame.getMinimumSize());
 
         // Set the icon of the frame
-       // final var iconImage = new ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
-       // this.frame.setIconImage(iconImage);
+        // final var iconImage = new
+        // ImageIcon(ClassLoader.getSystemResource(FRAME_ICON_PATH)).getImage();
+        // this.frame.setIconImage(iconImage);
 
         // CardLayout for switching between scenes
         this.cardLayout = new CardLayout();

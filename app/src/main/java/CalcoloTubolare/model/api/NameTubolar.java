@@ -1,5 +1,7 @@
 package CalcoloTubolare.model.api;
-
+/**
+ * Enum representing the names of tubulars.
+ */
 public enum NameTubolar {
     TBQ15003("Tubolare 150x150 sp3"),
     TBQ15004("Tubolare 150x150 sp4"),
@@ -17,10 +19,21 @@ public enum NameTubolar {
 
     private final String actualName;
 
+    /**
+     * Gets the name of the tubular.
+     * 
+     * @return the name of the tubular.
+     */
     public String getactualName() {
         return actualName;
     }
 
+    /**
+     * Gets the name of the tubular based on the key.
+     * 
+     * @param key the key of the tubular.
+     * @return the name of the tubular.
+     */
     public static String[] stringEnum() {
         String[] optionsToChoose = new String[NameTubolar.values().length];
 
@@ -30,6 +43,12 @@ public enum NameTubolar {
         return optionsToChoose;
     }
 
+    
+    /**
+     * Constructor for NameTubolar.
+     * 
+     * @param actualName the actual name of the tubular.
+     */
     NameTubolar(String actualName) {
         this.actualName = actualName;
     }
