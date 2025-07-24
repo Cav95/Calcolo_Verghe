@@ -48,13 +48,13 @@ public class ControllerModel extends SceneControllerImpl {
         tubolarList.removeTubolar(nameTubolar, lengthTubolar);
     }
 
-    public String partialCalco() {
-        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue()));
+    public String partialCalcolateTubolar(Boolean optimal) {
+        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue(),optimal));
     }
 
-    public String totalCalco() {
+    public String totalCalcolateTubolar(Boolean optimal) {
         return CalcolatorTubolar
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue()));
+                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue(),optimal));
     }
 
     public void restart() {

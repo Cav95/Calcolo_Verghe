@@ -12,23 +12,33 @@ import CalcoloTubolare.model.api.Tubolar;
 
 public class CalcolatorTubolar {
 
+    private static final int STARDARD_TUB = 6000;
+    private static final int EXTENDED_TUB = 12000;
     private static final int LAMA = 2;
 
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
-            HashMap<String, Set<Tubolar>> multiQueue) {
+            HashMap<String, Set<Tubolar>> multiQueue , Boolean optimal) {
         HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
 
-        for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
-            mapCut.put(elemEntry.getKey(), calcoloVerga(multiQueue, elemEntry.getKey(), 6000));
+        if (optimal){
+            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
+            mapCut.put(elemEntry.getKey(), calcoloVergaOttimale(multiQueue, elemEntry.getKey()));
         }
+
+        } else{
+            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
+            mapCut.put(elemEntry.getKey(), listOfTubolarbyLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
+        }
+    }
+
         return mapCut;
     }
 
-    public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVerga(
-            HashMap<String, Set<Tubolar>> multiQueue, String queue, int lenght) {
+    public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVergaOttimale(
+            HashMap<String, Set<Tubolar>> multiQueue, String queue) {
 
-        LinkedList<Pair<Integer, LinkedList<Integer>>> listShort = tubConfronto(multiQueue.get(queue), lenght);
-        LinkedList<Pair<Integer, LinkedList<Integer>>> listLong = tubConfronto(multiQueue.get(queue), lenght * 2);
+        LinkedList<Pair<Integer, LinkedList<Integer>>> listShort = listOfTubolarbyLenght(multiQueue.get(queue), STARDARD_TUB);
+        LinkedList<Pair<Integer, LinkedList<Integer>>> listLong = listOfTubolarbyLenght(multiQueue.get(queue), EXTENDED_TUB);
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
     }
 
@@ -75,7 +85,7 @@ public class CalcolatorTubolar {
         return out;
     }
 
-    private static LinkedList<Pair<Integer, LinkedList<Integer>>> tubConfronto(Set<Tubolar> tempList,
+    private static LinkedList<Pair<Integer, LinkedList<Integer>>> listOfTubolarbyLenght(Set<Tubolar> tempList,
             int lenght) {
         LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();
 

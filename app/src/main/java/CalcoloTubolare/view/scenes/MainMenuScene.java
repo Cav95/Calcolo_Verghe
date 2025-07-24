@@ -23,13 +23,14 @@ public class MainMenuScene implements Scene {
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAdd = new JButton("Aggiungi Tubolare");
     final JButton btRem = new JButton("Rimuovi Tubolare");
-    final JButton btCalc = new JButton("Tagli Ottimizzati");
-    final JButton btCalcTotale = new JButton("Tagli Totali");
+    final JButton btCalcoloReduced = new JButton("Tagli Ottimizzati");
+    final JButton btCalcoloTotale = new JButton("Tagli Totali");
     final JButton btCalcFromExcel = new JButton("Importa da Excel");
     final JButton btSelectExcel = new JButton("Scegli File Excel"); 
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btRestart = new JButton("Svuota Tutto");
     final JButton btOpenExcel = new JButton("Apri File Excel");
+    final JCheckBox cbOttimale = new JCheckBox("Calcolo Ottimale", false);
 
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
@@ -99,9 +100,9 @@ public class MainMenuScene implements Scene {
         JPanel jpEast = new JPanel();
         jpEast.setLayout(new BoxLayout(jpEast, BoxLayout.Y_AXIS));
         jpEast.setBorder(new EmptyBorder(0, 10, 0, 0));
-        jpEast.add(btCalc);
+        jpEast.add(btCalcoloReduced);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btCalcTotale);
+        jpEast.add(btCalcoloTotale);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btCalcFromExcel);
         jpEast.add(Box.createVerticalStrut(5));
@@ -110,6 +111,8 @@ public class MainMenuScene implements Scene {
         jpEast.add(istruction);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btRestart);
+        jpEast.add(Box.createVerticalStrut(10));
+        jpEast.add(cbOttimale);
         jpEast.add(Box.createVerticalStrut(20));
         jpEast.add(btOpenExcel);
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
@@ -144,26 +147,27 @@ public class MainMenuScene implements Scene {
             lbChosenExcelFile.setText(pathFile);
         });
 
-        btCalc.addActionListener(e -> {
+        btCalcoloReduced.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolarSmoll(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue()));
+                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
+
             new ResultPane(controller.getView(), "Calcolo Ridoto", true, result);
         });
 
-        btCalcTotale.addActionListener(e -> {
+        btCalcoloTotale.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolar(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue()));
+                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
