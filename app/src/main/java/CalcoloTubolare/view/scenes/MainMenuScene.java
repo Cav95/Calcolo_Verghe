@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.CalcolatorTubolar;
+import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
@@ -158,7 +159,7 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = CalcolatorTubolar.printCuttedTubolarSmoll(
+            var result = TextOutputFactory.printCuttedTubolarSmoll(
                     CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
 
@@ -171,7 +172,7 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = CalcolatorTubolar.printCuttedTubolar(
+            var result = TextOutputFactory.printCuttedTubolar(
                     CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);

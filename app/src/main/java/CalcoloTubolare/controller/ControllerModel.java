@@ -3,6 +3,7 @@ package CalcoloTubolare.controller;
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.CollectorPeace;
+import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.TubolarMultiListImpl;
 import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.view.View;
@@ -41,11 +42,11 @@ public class ControllerModel extends SceneControllerImpl {
     }
 
     public String partialCalcolateTubolar(Boolean optimal) {
-        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
+        return TextOutputFactory.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
     }
 
     public String totalCalcolateTubolar(Boolean optimal) {
-        return CalcolatorTubolar
+        return TextOutputFactory
                 .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
     }
 
@@ -56,27 +57,7 @@ public class ControllerModel extends SceneControllerImpl {
     public void addTubolarFromExcel(final String pathString , final Integer quantySilo) {
 
         this.tubolarList = new CollectorPeace(pathString , quantySilo).getTubolarList();
-       /* try (FileInputStream fis = new FileInputStream(pathString)) {
-            Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
-            Sheet sheet = workbook.getSheetAt(0);
-            var rowIteretor = sheet.iterator();
 
-            Row row = rowIteretor.next();
-            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")
-            || row.getCell(2).getStringCellValue().isEmpty()) {
-                String name = row.getCell(2).getStringCellValue();
-                int length = (int) row.getCell(4).getNumericCellValue();
-                int quantity = (int) row.getCell(1).getNumericCellValue();
-
-                if (Arrays.asList(GroupMerc.values()).stream().anyMatch(t -> name.contains(t.name()))) {
-                    newTubolarList(name, length, quantity);
-                }
-                row = rowIteretor.next();
-            }
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
 }

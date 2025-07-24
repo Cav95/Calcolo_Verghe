@@ -29,7 +29,7 @@ public class CalcolatorTubolar {
 
         } else{
             for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
-            mapCut.put(elemEntry.getKey(), listOfTubolarbyLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
+            mapCut.put(elemEntry.getKey(), listOfTubolarByLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
         }
     }
 
@@ -39,54 +39,13 @@ public class CalcolatorTubolar {
     public static LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVergaOttimale(
             HashMap<String, Set<Tubolar>> multiQueue, String queue) {
 
-        var listShort = listOfTubolarbyLenght(multiQueue.get(queue), STARDARD_TUB);
-        var listLong = listOfTubolarbyLenght(multiQueue.get(queue), EXTENDED_TUB);
+        var listShort = listOfTubolarByLenght(multiQueue.get(queue), STARDARD_TUB);
+        var listLong = listOfTubolarByLenght(multiQueue.get(queue), EXTENDED_TUB);
         return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
     }
 
-    public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut) {
-        String out = "";
-        if (!mapCut.keySet().isEmpty()) {
 
-            for (var elemEntry : mapCut.entrySet()) {
-                out = out + elemEntry.getKey() + "-> Numero Tubolari:" + elemEntry.getValue().size() + "\n";
-                for (var elem : elemEntry.getValue()) {
-                    out = out + "Lunghezza:" + elem.getValue0() + "\n";
-                    out = out
-                            + elem.getValue1().stream()
-                                    .map(t -> "L" + t + " Numero:"
-                                            + elem.getValue1().stream().mapToInt(e -> e).filter(g -> g == t).sum() / t)
-                                    .distinct().toList()
-                            + "\n";
-                }
-                out = out + "\n";
-            }
-        } else {
-            throw new IllegalArgumentException();
-        }
-        System.out.print(out);
-        return out;
-    }
-
-    public static String printCuttedTubolarSmoll(
-            HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut) {
-        String out = "";
-        if (!mapCut.keySet().isEmpty()) {
-
-            for (var elemEntry : mapCut.entrySet()) {
-                out = out + elemEntry.getKey() + "\n";
-                out = out + "Lunghezza tubolare:" + elemEntry.getValue().getFirst().getValue0() + "\n";
-
-                out = out + "Numero Tubolari:" + elemEntry.getValue().size() + "\n" + "\n";
-            }
-        } else {
-            throw new IllegalArgumentException();
-        }
-        System.out.print(out);
-        return out;
-    }
-
-    private static LinkedList<Pair<Integer, LinkedList<Integer>>> listOfTubolarbyLenght(Set<Tubolar> tempList,
+    private static LinkedList<Pair<Integer, LinkedList<Integer>>> listOfTubolarByLenght(Set<Tubolar> tempList,
             int lenght) {
         LinkedList<Pair<Integer, LinkedList<Integer>>> listList = new LinkedList<>();
 
