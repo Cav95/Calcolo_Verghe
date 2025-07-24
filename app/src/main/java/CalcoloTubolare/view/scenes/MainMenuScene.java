@@ -19,6 +19,7 @@ public class MainMenuScene implements Scene {
 
     final JTextField tfLenght = new JTextField("Lunghezza", 10);
     final JTextField tfQuantity = new JTextField("Quantità", 6);
+    final JTextField tfNumSilo = new JTextField("Numero Silo", 6); // aggiungi questo campo
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
@@ -59,6 +60,9 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(Box.createHorizontalStrut(10));
         jpNORTH.add(new JLabel("Quantità: "));
         jpNORTH.add(tfQuantity);
+        jpNORTH.add(Box.createHorizontalStrut(10));
+        jpNORTH.add(new JLabel("Numero Silo: ")); // aggiungi la label
+        jpNORTH.add(tfNumSilo);                    // aggiungi il campo di input
         jpNORTH.add(Box.createHorizontalStrut(10));
         jpNORTH.add(btAddTubolar);
         jpNORTH.add(Box.createHorizontalStrut(5));
@@ -131,7 +135,7 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcFromExcel.addActionListener(e -> {
-            controller.addTubolarFromExcel(pathFile);
+            controller.addTubolarFromExcel(pathFile, Integer.valueOf(tfNumSilo.getText()));
             lbResult.setText(controller.getTubolarList().printAllQueue());
         });
 

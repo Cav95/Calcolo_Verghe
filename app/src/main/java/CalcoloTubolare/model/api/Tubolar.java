@@ -9,7 +9,7 @@ public class Tubolar {
     private String description;
     private String material;
 
-    public Tubolar(String code, int lenght, int quantity) {
+    public Tubolar(int lenght, int quantity) {
         this.code = code;
         this.lenght = lenght;
         this.quantity = quantity;

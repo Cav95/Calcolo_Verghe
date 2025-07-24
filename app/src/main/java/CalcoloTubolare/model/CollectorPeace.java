@@ -19,9 +19,10 @@ import CalcoloTubolare.model.api.TubolarMultiList;
 public class CollectorPeace {
 
     List<Peace> tableList = new LinkedList<>();
+
     TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
-    public CollectorPeace(String path) {
+    public CollectorPeace(String path , Integer quantitySilo) {
 
         try (FileInputStream fis = new FileInputStream(path)) {
             Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
@@ -34,14 +35,14 @@ public class CollectorPeace {
 
                 String name = row.getCell(2).getStringCellValue();
                 int length = (int) row.getCell(4).getNumericCellValue();
-                int quantity = (int) row.getCell(1).getNumericCellValue();
+                int quantity = (int) row.getCell(1).getNumericCellValue() * quantitySilo;
                 String description = row.getCell(3).getStringCellValue();
                 String material = row.getCell(5).getStringCellValue();
 
                 if (Arrays.asList(GroupMerc.values()).stream().anyMatch(t -> name.contains(t.name()))) {
                     newTubolarList(name, length, quantity, description, material);
                 } else {
-                    tableList.add(new Peace(name,description , quantity ,material));
+                    tableList.add(new Peace(name, description, quantity, material));
                 }
                 row = rowIteretor.next();
             }
@@ -60,7 +61,15 @@ public class CollectorPeace {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(new Tubolar(material, lengthTubolar, quantity), quantity);
+        tubolarList.addTubolar(lengthTubolar,nameTubolar, quantity);
+    }
+
+    public List<Peace> getTableList() {
+        return tableList;
+    }
+
+    public TubolarMultiList getTubolarList() {
+        return tubolarList;
     }
 
 }

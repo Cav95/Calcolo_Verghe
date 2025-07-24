@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
+import CalcoloTubolare.model.CollectorPeace;
 import CalcoloTubolare.model.TubolarMultiListImpl;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
@@ -42,7 +43,7 @@ public class ControllerModel extends SceneControllerImpl {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(new Tubolar(nameTubolar, lengthTubolar, quantity), quantity);
+        tubolarList.addTubolar(lengthTubolar,nameTubolar,  quantity);
     }
 
     public void removeTubolarList(String nameTubolar, int lengthTubolar, int quantity) {
@@ -62,8 +63,10 @@ public class ControllerModel extends SceneControllerImpl {
         this.tubolarList = new TubolarMultiListImpl();
     }
 
-    public void addTubolarFromExcel(final String pathString) {
-        try (FileInputStream fis = new FileInputStream(pathString)) {
+    public void addTubolarFromExcel(final String pathString , final Integer quantySilo) {
+
+        this.tubolarList = new CollectorPeace(pathString , quantySilo).getTubolarList();
+       /* try (FileInputStream fis = new FileInputStream(pathString)) {
             Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
             Sheet sheet = workbook.getSheetAt(0);
             var rowIteretor = sheet.iterator();
@@ -83,7 +86,7 @@ public class ControllerModel extends SceneControllerImpl {
             workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 }

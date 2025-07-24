@@ -25,7 +25,7 @@ public interface TubolarMultiList {
      * @param queue, is the queue where the element is to be added
      * @throws IllegalArgumentException if queue is not available
      */
-    void addTubolar(Tubolar tubolar, Integer quantity);
+public void addTubolar(Integer elem, String queue, Integer quantity);
 
     /**
      * @param queue, is the queue where to take the next element
