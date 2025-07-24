@@ -87,6 +87,11 @@ public class TextOutputFactory {
         return out;
     }
 
+    /**
+     * Provides rules for using the Excel file in the application.
+     * 
+     * @return a string containing the rules for using the Excel file
+     */
     public static String rulesOfUseExcel(){
         return"Il file Excel deve provenire dalla tabella SolidWork \n"
                 + "Il file Excel deve avere le colonne: \n"
