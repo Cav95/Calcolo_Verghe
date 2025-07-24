@@ -3,6 +3,8 @@ package CalcoloTubolare.view.scenes;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -40,7 +42,7 @@ public class MainMenuScene implements Scene {
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btRestart = new JButton("Svuota Tutto");
     final JButton btOpenExcel = new JButton("Apri File Excel");
-    final JCheckBox cbOttimale = new JCheckBox("Calcolo Ottimale", false);
+    final JCheckBox cbOttimale = new JCheckBox("Solo Verghe 6mt", false);
 
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
@@ -178,7 +180,8 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
-                    + controller.partialCalcolateTubolar(cbOttimale.isSelected());
+                    + controller.partialCalcolateTubolar(cbOttimale.isSelected()) + userName();
+            ;
 
             new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
         });
@@ -190,7 +193,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
-                    + controller.totalCalcolateTubolar(cbOttimale.isSelected());
+                    + controller.totalCalcolateTubolar(cbOttimale.isSelected()) + userName();
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
 
@@ -254,16 +257,21 @@ public class MainMenuScene implements Scene {
     /**
      * {@inheritDoc}
      */
-    public String ottimalOutputString(Boolean optimal) {
+    private String ottimalOutputString(Boolean optimal) {
         return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
 
     }
 
     /**
-     * {@inheritDoc}
+     * Formats the structure code for display.
      */
-    public String structureCode(String codeSilo) {
+    private String structureCode(String codeSilo) {
         return "Codice della strutura: " + codeSilo + "\n\n";
 
     }
+
+    private String userName() {
+        return "Autore: " + System.getProperty("user.name") + "\n" + LocalDate.now();
+    }
+
 }
