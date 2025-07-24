@@ -35,18 +35,18 @@ public class TubolarMultiListImpl implements TubolarMultiList {
     }
 
     @Override
-    public void addTubolar(Integer elem, String queue, Integer quantity) {
+    public void addTubolar(Tubolar tubolar, Integer quantity) {
 
-        if (availableQueues().contains(queue)) {
-            if (multiQueue.get(queue).contains(new Tubolar(elem, quantity))) {
-                for (var myIterator = multiQueue.get(queue).iterator(); myIterator.hasNext();) {
+        if (availableQueues().contains(tubolar.getCode())) {
+            if (multiQueue.get(tubolar.getCode()).contains(tubolar)) {
+                for (var myIterator = multiQueue.get(tubolar.getCode()).iterator(); myIterator.hasNext();) {
                     var tub = myIterator.next();
-                    if (tub.getLenght() == elem) {
+                    if (tub.getLenght() == tubolar.getLenght()) {
                         tub.setQuantity(tub.getQuantity() + quantity);
                     }
                 }
             } else {
-                multiQueue.get(queue).add(new Tubolar(elem, quantity));
+                multiQueue.get(tubolar.getCode()).add(tubolar);
             }
         } else {
             throw new IllegalArgumentException();

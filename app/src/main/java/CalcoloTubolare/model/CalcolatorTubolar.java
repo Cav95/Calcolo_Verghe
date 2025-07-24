@@ -93,7 +93,7 @@ public class CalcolatorTubolar {
         Set<Tubolar> temp = new TreeSet<>((o1, o2) -> o2.getLenght() - o1.getLenght());
 
         for (Tubolar elemTubolar : tempList) {
-            temp.add(new Tubolar(elemTubolar.getLenght(), elemTubolar.getQuantity()));
+            temp.add(new Tubolar(elemTubolar.getCode(),elemTubolar.getLenght(), elemTubolar.getQuantity()));
         }
 
         while (temp.stream().mapToInt(Tubolar::getQuantity).sum() != 0) {

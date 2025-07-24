@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.TubolarMultiListImpl;
+import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.view.View;
 
@@ -41,7 +42,7 @@ public class ControllerModel extends SceneControllerImpl {
             System.out.println("");
         }
 
-        tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);
+        tubolarList.addTubolar(new Tubolar(nameTubolar, lengthTubolar, quantity), quantity);
     }
 
     public void removeTubolarList(String nameTubolar, int lengthTubolar, int quantity) {
