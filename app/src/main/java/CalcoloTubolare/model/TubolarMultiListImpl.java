@@ -3,13 +3,13 @@ package CalcoloTubolare.model;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import CalcoloTubolare.model.api.MultiQueue;
+import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.model.api.Tubolar;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MultiQueueImpl implements MultiQueue {
+public class TubolarMultiListImpl implements TubolarMultiList {
 
     HashMap<String, Set<Tubolar>> multiQueue = new HashMap<>();
 

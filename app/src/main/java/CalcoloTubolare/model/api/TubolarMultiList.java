@@ -6,7 +6,7 @@ import java.util.*;
  * A multiple (FIFO) queue, e.g., to manage people paying at the supermarket
 
  */
-public interface MultiQueue {
+public interface TubolarMultiList {
     public HashMap<String, Set<Tubolar>> getMultiQueue();
 
     /**

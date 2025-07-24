@@ -11,8 +11,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
-import CalcoloTubolare.model.MultiQueueImpl;
-import CalcoloTubolare.model.api.MultiQueue;
+import CalcoloTubolare.model.TubolarMultiListImpl;
+import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.view.View;
 
 public class ControllerModel extends SceneControllerImpl {
@@ -28,9 +28,9 @@ public class ControllerModel extends SceneControllerImpl {
         this.view = mainView;
     }
 
-    MultiQueue tubolarList = new MultiQueueImpl();
+    TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
-    public MultiQueue getTubolarList() {
+    public TubolarMultiList getTubolarList() {
         return tubolarList;
     }
 
@@ -49,16 +49,16 @@ public class ControllerModel extends SceneControllerImpl {
     }
 
     public String partialCalcolateTubolar(Boolean optimal) {
-        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue(),optimal));
+        return CalcolatorTubolar.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
     }
 
     public String totalCalcolateTubolar(Boolean optimal) {
         return CalcolatorTubolar
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList.getMultiQueue(),optimal));
+                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList,optimal));
     }
 
     public void restart() {
-        this.tubolarList = new MultiQueueImpl();
+        this.tubolarList = new TubolarMultiListImpl();
     }
 
     public void addTubolarFromExcel(final String pathString) {

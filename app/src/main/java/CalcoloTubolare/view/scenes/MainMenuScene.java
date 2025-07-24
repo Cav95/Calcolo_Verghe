@@ -21,8 +21,8 @@ public class MainMenuScene implements Scene {
     final JTextField tfQuantity = new JTextField("Quantità", 6);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
-    final JButton btAdd = new JButton("Aggiungi Tubolare");
-    final JButton btRem = new JButton("Rimuovi Tubolare");
+    final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
+    final JButton btRemoveTubolar = new JButton("Rimuovi Tubolare");
     final JButton btCalcoloReduced = new JButton("Tagli Ottimizzati");
     final JButton btCalcoloTotale = new JButton("Tagli Totali");
     final JButton btCalcFromExcel = new JButton("Importa da Excel");
@@ -60,9 +60,9 @@ public class MainMenuScene implements Scene {
         jpNORTH.add(new JLabel("Quantità: "));
         jpNORTH.add(tfQuantity);
         jpNORTH.add(Box.createHorizontalStrut(10));
-        jpNORTH.add(btAdd);
+        jpNORTH.add(btAddTubolar);
         jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(btRem);
+        jpNORTH.add(btRemoveTubolar);
 
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
 
@@ -118,13 +118,13 @@ public class MainMenuScene implements Scene {
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
         // Azioni pulsanti
-        btAdd.addActionListener(e -> {
+        btAddTubolar.addActionListener(e -> {
             String s = String.valueOf(jComboBox.getSelectedItem());
             controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
             lbResult.setText(controller.getTubolarList().printAllQueue());
         });
 
-        btRem.addActionListener(e -> {
+        btRemoveTubolar.addActionListener(e -> {
             controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
                     Integer.parseInt(tfLenght.getText()));
             lbResult.setText(controller.getTubolarList().printAllQueue());
@@ -154,10 +154,10 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolarSmoll(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue(),cbOttimale.isSelected()));
+                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
 
-            new ResultPane(controller.getView(), "Calcolo Ridoto", true, result);
+            new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
         });
 
         btCalcoloTotale.addActionListener(e -> {
@@ -167,7 +167,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = CalcolatorTubolar.printCuttedTubolar(
-                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList().getMultiQueue(),cbOttimale.isSelected()));
+                    CalcolatorTubolar.calcoloTotal(controller.getTubolarList(),cbOttimale.isSelected()));
             // lbResultFinal.setText(result);
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });

@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.javatuples.Pair;
 
 import CalcoloTubolare.model.api.Tubolar;
+import CalcoloTubolare.model.api.TubolarMultiList;
 
 public class CalcolatorTubolar {
 
@@ -17,8 +18,9 @@ public class CalcolatorTubolar {
     private static final int LAMA = 2;
 
     public static HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> calcoloTotal(
-            HashMap<String, Set<Tubolar>> multiQueue , Boolean optimal) {
+            TubolarMultiList tubolarlist , Boolean optimal) {
         HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut = new HashMap<>();
+        var multiQueue= tubolarlist.getMultiQueue();
 
         if (optimal){
             for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {

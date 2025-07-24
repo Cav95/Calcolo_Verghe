@@ -3,8 +3,8 @@ package calcolo_verghe;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
-import CalcoloTubolare.model.MultiQueueImpl;
-import CalcoloTubolare.model.api.MultiQueue;
+import CalcoloTubolare.model.TubolarMultiListImpl;
+import CalcoloTubolare.model.api.TubolarMultiList;
 
 
 public class TestVerghe {
@@ -22,7 +22,7 @@ public class TestVerghe {
 
     @Test
     public void testOpenNewQueue() {
-        MultiQueue mq = new MultiQueueImpl();
+        TubolarMultiList mq = new TubolarMultiListImpl();
         mq.openNewQueue("Q1");
         mq.openNewQueue("Q2");
         assertEquals(mq.availableQueues().contains("Q1"), true);
