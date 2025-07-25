@@ -1,6 +1,7 @@
 package CalcoloTubolare.controller;
 
-import com.google.common.base.Optional;
+
+import java.util.Optional;
 
 import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
@@ -17,7 +18,7 @@ import CalcoloTubolare.view.View;
 public class ControllerModel extends SceneControllerImpl {
 
     private View view;
-    private CollectorPeace collector;
+    private Optional<CollectorPeace> collector = Optional.empty();
     private TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     /**
@@ -74,6 +75,10 @@ public class ControllerModel extends SceneControllerImpl {
         tubolarList.removeTubolar(nameTubolar, lengthTubolar);
     }
 
+    public String tubalarAdded() {
+        return TextOutputFactory.printAllQueue(tubolarList, collector);
+    }
+
     /**
      * Gets the partial calculation of the tubolar.
      * 
@@ -81,7 +86,7 @@ public class ControllerModel extends SceneControllerImpl {
      */
     public String partialCalcolateTubolar(final Boolean optimal) {
         return TextOutputFactory.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
-                Optional.of(collector));
+                collector);
     }
 
     /**
@@ -91,7 +96,7 @@ public class ControllerModel extends SceneControllerImpl {
      */
     public String totalCalcolateTubolar(final Boolean optimal) {
         return TextOutputFactory
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), Optional.of(collector));
+                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), collector);
     }
 
     /**
@@ -109,8 +114,8 @@ public class ControllerModel extends SceneControllerImpl {
      * @param quantySilo   the quantity of the silo.
      */
     public void addTubolarFromExcel(final String pathString, final Integer quantySilo) {
-        this.collector = new CollectorPeace(pathString, quantySilo);
-        this.tubolarList = collector.getTubolarList();
+        this.collector = Optional.of(new CollectorPeace(pathString, quantySilo));
+        this.tubolarList = collector.get().getTubolarList();
 
     }
 

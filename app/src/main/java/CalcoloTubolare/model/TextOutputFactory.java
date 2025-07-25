@@ -3,10 +3,14 @@ package CalcoloTubolare.model;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
 
 import org.javatuples.Pair;
 
-import com.google.common.base.Optional;
+import CalcoloTubolare.model.api.Tubolar;
+import CalcoloTubolare.model.api.TubolarMultiList;
 
 /**
  * TextOutputFactory class for generating text output for tubular cutting
@@ -92,16 +96,17 @@ public class TextOutputFactory {
      * 
      * @return a string containing the rules for using the Excel file
      */
-    public static String rulesOfUseExcel(){
-        return"Il file Excel deve provenire dalla tabella SolidWork \n"
+    public static String rulesOfUseExcel() {
+        return "Il file Excel deve provenire dalla tabella SolidWork \n"
                 + "Il file Excel deve avere le colonne: \n"
                 + "Codice, Lunghezza, Quantità, Diametro, Spessore\n"
-                +"In questo Ordine\n"
+                + "In questo Ordine\n"
                 + "Il file deve essere salvato con estenzione .xlsx\n";
     }
 
     private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
-        if (collector.isPresent()) {
+        if (!collector.isEmpty()
+                && collector.get().getTableTubolarList().stream().anyMatch(t -> t.getValue0().equals(codeTubolar))) {
             String ret = collector.get().getTableTubolarList().stream().filter(t -> t.getValue0() == codeTubolar)
                     .map(t -> " (" + t.getValue1()).toList().getFirst() + ")";
             return ret;
@@ -112,8 +117,7 @@ public class TextOutputFactory {
 
     private static String noTubolarElement(Optional<CollectorPeace> collector) {
         String out = "";
-        if (collector.isPresent()) {
-
+        if (!collector.isEmpty()) {
             List<String> ret = collector.get().getTableSeampleList().stream()
                     .map(t -> t.code() + " " + t.description() + " Quantità=" + t.quantity() + " \n").toList();
             for (var elem : ret) {
@@ -124,6 +128,22 @@ public class TextOutputFactory {
         } else {
             return out;
         }
+    }
+
+    public static String printAllQueue(TubolarMultiList multi, Optional<CollectorPeace> collector) {
+        String out = "";
+        if (!multi.availableQueues().isEmpty()) {
+            for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
+                out = out + elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + "\n";
+                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
+                        .distinct().reduce("", (a, b) -> a + b);
+                out = out + "\n\n";
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+        System.out.print(out);
+        return out;
     }
 
 }

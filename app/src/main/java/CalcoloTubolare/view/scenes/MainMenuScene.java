@@ -149,7 +149,7 @@ public class MainMenuScene implements Scene {
         btAddTubolar.addActionListener(e -> {
             String s = String.valueOf(jComboBox.getSelectedItem());
             controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
-            lbResult.setText(controller.getTubolarList().printAllQueue());
+            lbResult.setText(controller.tubalarAdded());
         });
 
         btRemoveTubolar.addActionListener(e -> {
@@ -160,7 +160,7 @@ public class MainMenuScene implements Scene {
 
         btCalcFromExcel.addActionListener(e -> {
             controller.addTubolarFromExcel(pathFile, Integer.valueOf(tfNumSilo.getText()));
-            lbResult.setText(controller.getTubolarList().printAllQueue());
+            lbResult.setText(controller.tubalarAdded());
         });
 
         btSelectExcel.addActionListener(e -> {
