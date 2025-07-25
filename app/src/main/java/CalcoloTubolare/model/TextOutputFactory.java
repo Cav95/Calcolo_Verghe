@@ -20,13 +20,15 @@ import CalcoloTubolare.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final String QUANTITÀ = " Quantità=";
+    private static final String CODICE_DELLA_STRUTURA = "Codice della strutura: ";
     private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
     private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12m\\6mt\n\n";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
     private static final String VERGA_UTILIZZATA = "Somma Millimetri Utilizzati: ";
-    private static final String NUMERO = "Q.TA:";
+    private static final String NUMERO = "Q.TA=";
     private static final String SEP = "-";
-    private static final String LUNGHEZZA_SINGOLO = "L:";
+    private static final String LUNGHEZZA_SINGOLO = "L=";
     private static final String LUNGHEZZA_VERGA = "Lunghezza Verga:";
     private static final String NUMERO_TUBOLARI_TOTALI = "Quantità Verghe:";
     private static final String SEPARATOR = " -> ";
@@ -75,7 +77,7 @@ public class TextOutputFactory {
      * @param collector   the collector peace containing tubular data
      * @return a string representing the name of the tubular
      */
-    public static String printCuttedTubolarSmoll(
+    public static String printCuttedTubolarReduced(
             HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
         String out = "";
@@ -86,7 +88,7 @@ public class TextOutputFactory {
 
                 out = out + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + "\n";
 
-                out = out + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + "\n" + "\n";
+                out = out + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + "\n\n";
             }
         } else {
             throw new IllegalArgumentException();
@@ -124,7 +126,7 @@ public class TextOutputFactory {
         String out = "";
         if (!collector.isEmpty()) {
             List<String> ret = collector.get().getTableSeampleList().stream()
-                    .map(t -> t.code() + " (" + t.description() + ") " + " Quantità=" + t.quantity() + " \n").toList();
+                    .map(t -> t.code() + " (" + t.description() + ") " + QUANTITÀ + t.quantity() + " \n").toList();
             for (var elem : ret) {
                 out = out + elem;
 
@@ -147,7 +149,7 @@ public class TextOutputFactory {
         } else {
             throw new IllegalArgumentException();
         }
-        out = out +noTubolarElement(collector);
+        out = out + noTubolarElement(collector);
         System.out.print(out);
         return out;
     }
@@ -158,7 +160,7 @@ public class TextOutputFactory {
     }
 
     private static String structureCode(String codeSilo) {
-        return codeSilo.isBlank() ? "" : "Codice della strutura: " + codeSilo + " ";
+        return codeSilo.isBlank() ? "" : CODICE_DELLA_STRUTURA + codeSilo + " ";
 
     }
 
@@ -167,12 +169,12 @@ public class TextOutputFactory {
     }
 
     public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
-        return structureCode(siloCode) + userName() + "\n" + ottimalOutputString(optimal)
+        return userName() + "\n" + structureCode(siloCode) + "\n" + ottimalOutputString(optimal)
                 + controller.partialCalcolateTubolar(optimal);
     }
 
     public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
-        return structureCode(siloCode) + userName() + "\n" + ottimalOutputString(optimal)
+        return userName() + "\n" + structureCode(siloCode) + "\n" + ottimalOutputString(optimal)
                 + controller.totalCalcolateTubolar(optimal);
     }
 

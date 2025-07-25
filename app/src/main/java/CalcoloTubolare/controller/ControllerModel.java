@@ -85,7 +85,7 @@ public class ControllerModel extends SceneControllerImpl {
      * @return the collector peace.
      */
     public String partialCalcolateTubolar(final Boolean optimal) {
-        return TextOutputFactory.printCuttedTubolarSmoll(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
+        return TextOutputFactory.printCuttedTubolarReduced(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
                 collector);
     }
 
