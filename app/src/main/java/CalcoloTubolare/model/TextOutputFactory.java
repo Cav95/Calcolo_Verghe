@@ -20,12 +20,15 @@ import CalcoloTubolare.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
+    private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12m\\6mt\n\n";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
-    private static final String VERGA_UTILIZZATA = "Verga utilizzata: ";
-    private static final String NUMERO = " Numero:";
-    private static final String LUNGHEZZA_SINGOLO = "L";
+    private static final String VERGA_UTILIZZATA = "Somma Millimetri Utilizzati: ";
+    private static final String NUMERO = "Q.TA:";
+    private static final String SEP = "-";
+    private static final String LUNGHEZZA_SINGOLO = "L:";
     private static final String LUNGHEZZA_VERGA = "Lunghezza Verga:";
-    private static final String NUMERO_TUBOLARI_TOTALI = "Numero Tubolari:";
+    private static final String NUMERO_TUBOLARI_TOTALI = "Quantità Verghe:";
     private static final String SEPARATOR = " -> ";
 
     /**
@@ -50,7 +53,7 @@ public class TextOutputFactory {
                     out = out + LISTA_DI_TAGLIO + "\n";
                     out = out
                             + elem.getValue1().stream()
-                                    .map(t -> LUNGHEZZA_SINGOLO + t + NUMERO
+                                    .map(t -> LUNGHEZZA_SINGOLO + t + SEP + NUMERO
                                             + elem.getValue1().stream().mapToInt(e -> e).filter(g -> g == t).sum() / t)
                                     .distinct().toList()
                             + "\n\n";
@@ -121,7 +124,7 @@ public class TextOutputFactory {
         String out = "";
         if (!collector.isEmpty()) {
             List<String> ret = collector.get().getTableSeampleList().stream()
-                    .map(t -> t.code() + " " + t.description() + " Quantità=" + t.quantity() + " \n").toList();
+                    .map(t -> t.code() + " (" + t.description() + ") " + " Quantità=" + t.quantity() + " \n").toList();
             for (var elem : ret) {
                 out = out + elem;
 
@@ -144,17 +147,18 @@ public class TextOutputFactory {
         } else {
             throw new IllegalArgumentException();
         }
+        out = out +noTubolarElement(collector);
         System.out.print(out);
         return out;
     }
 
     private static String ottimalOutputString(Boolean optimal) {
-        return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
+        return optimal ? CASO_OTTIMO_TUBOLARI_12M_6MT : CASO_PESSIMO_TUBOLARI_SOLO_6MT;
 
     }
 
     private static String structureCode(String codeSilo) {
-        return codeSilo.isBlank() ? "" : "Codice della strutura: " + codeSilo +" ";
+        return codeSilo.isBlank() ? "" : "Codice della strutura: " + codeSilo + " ";
 
     }
 
@@ -163,7 +167,7 @@ public class TextOutputFactory {
     }
 
     public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
-        return structureCode(siloCode) + userName() + "\n" +ottimalOutputString(optimal)
+        return structureCode(siloCode) + userName() + "\n" + ottimalOutputString(optimal)
                 + controller.partialCalcolateTubolar(optimal);
     }
 
