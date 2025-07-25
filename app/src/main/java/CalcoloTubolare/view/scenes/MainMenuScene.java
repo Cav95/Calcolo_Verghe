@@ -19,6 +19,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
  * data from Excel.
  */
 public class MainMenuScene implements Scene {
+    private static final String RULE_SITE = "https://github.com/Jackmo04/Progetto-BD/blob/main/report.pdf";
     private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
@@ -73,22 +74,23 @@ public class MainMenuScene implements Scene {
         JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
         jpNORTH.add(new JLabel("Tipo: "));
         jpNORTH.add(jComboBox);
-        jpNORTH.add(Box.createHorizontalStrut(10));
+        jpNORTH.add(Box.createHorizontalStrut(5));
         jpNORTH.add(new JLabel("Lunghezza: "));
         jpNORTH.add(tfLenght);
-        jpNORTH.add(Box.createHorizontalStrut(10));
+        jpNORTH.add(Box.createHorizontalStrut(5));
         jpNORTH.add(new JLabel("Quantità: "));
         jpNORTH.add(tfQuantity);
-        jpNORTH.add(Box.createHorizontalStrut(10));
-        jpNORTH.add(new JLabel("Numero Silo: "));
-        jpNORTH.add(tfNumSilo);
-        jpNORTH.add(Box.createHorizontalStrut(10));
-        jpNORTH.add(new JLabel("Codice Silo: "));
-        jpNORTH.add(tfCodeSilo);
-        jpNORTH.add(Box.createHorizontalStrut(10));
+        jpNORTH.add(Box.createHorizontalStrut(5));
         jpNORTH.add(btAddTubolar);
         jpNORTH.add(Box.createHorizontalStrut(5));
         jpNORTH.add(btRemoveTubolar);
+        jpNORTH.add(Box.createHorizontalStrut(15));
+        jpNORTH.add(new JLabel("Numero Silo: "));
+        jpNORTH.add(tfNumSilo);
+        jpNORTH.add(Box.createHorizontalStrut(5));
+        jpNORTH.add(new JLabel("Codice Silo: "));
+        jpNORTH.add(tfCodeSilo);
+        jpNORTH.add(Box.createHorizontalStrut(5));
 
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
 
@@ -179,7 +181,8 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(),!cbOttimale.isSelected(),controller);
+            var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
+                    controller);
             ;
 
             new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
@@ -191,7 +194,8 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(),!cbOttimale.isSelected(),controller);
+            var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
+                    controller);
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
 
@@ -224,6 +228,7 @@ public class MainMenuScene implements Scene {
         btOpenExcel.addActionListener(e -> {
             try {
                 Desktop.getDesktop().open(new java.io.File(pathFile));
+                // Desktop.getDesktop().browse(new URI(RULE_SITE));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(mainMenuPanel, "Impossibile aprire il file:\n" + ex.getMessage());
             }
@@ -245,7 +250,5 @@ public class MainMenuScene implements Scene {
     public String getSceneName() {
         return "Main";
     }
-
-
 
 }
