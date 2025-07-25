@@ -3,8 +3,6 @@ package CalcoloTubolare.view.scenes;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -181,8 +179,7 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
-                    + controller.partialCalcolateTubolar(cbOttimale.isSelected()) + userName();
+            var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(),!cbOttimale.isSelected(),controller);
             ;
 
             new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
@@ -194,8 +191,7 @@ public class MainMenuScene implements Scene {
                         "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
                 return;
             }
-            var result = structureCode(tfCodeSilo.getText()) + ottimalOutputString(cbOttimale.isSelected())
-                    + controller.totalCalcolateTubolar(cbOttimale.isSelected()) + userName();
+            var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(),!cbOttimale.isSelected(),controller);
             new ResultPane(controller.getView(), "Calcolo Totale", true, result);
         });
 
@@ -250,24 +246,6 @@ public class MainMenuScene implements Scene {
         return "Main";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    private String ottimalOutputString(Boolean optimal) {
-        return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
 
-    }
-
-    /**
-     * Formats the structure code for display.
-     */
-    private String structureCode(String codeSilo) {
-        return "Codice della strutura: " + codeSilo + "\n\n";
-
-    }
-
-    private String userName() {
-        return "Autore: " + System.getProperty("user.name") + "\n" + LocalDate.now();
-    }
 
 }

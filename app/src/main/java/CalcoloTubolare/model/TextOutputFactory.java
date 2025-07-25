@@ -1,5 +1,6 @@
 package CalcoloTubolare.model;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import org.javatuples.Pair;
 
+import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -144,6 +146,30 @@ public class TextOutputFactory {
         }
         System.out.print(out);
         return out;
+    }
+
+    private static String ottimalOutputString(Boolean optimal) {
+        return optimal ? "Caso Ottimo Tubolari 12m\\6mt\n\n" : "Caso Pessimo Tubolari solo 6mt \n\n";
+
+    }
+
+    private static String structureCode(String codeSilo) {
+        return codeSilo.isBlank() ? "" : "Codice della strutura: " + codeSilo +" ";
+
+    }
+
+    private static String userName() {
+        return "Autore: " + System.getProperty("user.name") + " " + LocalDate.now();
+    }
+
+    public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
+        return structureCode(siloCode) + userName() + "\n" +ottimalOutputString(optimal)
+                + controller.partialCalcolateTubolar(optimal);
+    }
+
+    public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
+        return structureCode(siloCode) + userName() + "\n" + ottimalOutputString(optimal)
+                + controller.totalCalcolateTubolar(optimal);
     }
 
 }
