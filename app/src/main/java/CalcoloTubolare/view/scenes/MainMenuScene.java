@@ -3,6 +3,12 @@ package CalcoloTubolare.view.scenes;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -55,6 +61,9 @@ public class MainMenuScene implements Scene {
     final JButton btSelectExcel = new JButton("Scegli File Excel");
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btOpenExcel = new JButton("Apri File Excel");
+
+    // Button to show rules of use
+    final JButton btRulesofUse = new JButton("Regole di Utilizzo");
 
     // Button to delete all tubulars and reset the application
     final JButton btRestart = new JButton("Svuota Tutto");
@@ -160,10 +169,10 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btOpenExcel);
         jpEast.add(Box.createVerticalStrut(20));
+        jpEast.add(btRulesofUse);
 
         // Add button to restart the application
         jpEast.add(btRestart);
-
 
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
@@ -229,6 +238,24 @@ public class MainMenuScene implements Scene {
         istruction.addActionListener(e -> {
             JOptionPane.showMessageDialog(mainMenuPanel, TextOutputFactory.rulesOfUseExcel(),
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        btRulesofUse.addActionListener(e -> {
+            try {
+                // Ottieni il file HTML dalle risorse
+                File htmlFile = new File(MainMenuScene.class.getClassLoader().getResource("html/html.html").getFile());
+
+                // Controlla se il Desktop è supportato
+                if (Desktop.isDesktopSupported()) {
+                    Desktop desktop = Desktop.getDesktop();
+                    // Apri il file nel browser predefinito
+                    desktop.browse(htmlFile.toURI());
+                } else {
+                    System.out.println("Desktop non supportato!");
+                }
+            } catch (IOException | NullPointerException j) {
+                System.err.println("Errore durante l'apertura del file HTML: " + j.getMessage());
+            }
         });
 
         // Timer per aggiornare l'immagine
