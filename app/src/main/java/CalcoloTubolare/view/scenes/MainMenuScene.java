@@ -177,7 +177,7 @@ public class MainMenuScene implements Scene {
         btRemoveTubolar.addActionListener(e -> {
             controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
                     Integer.parseInt(tfLenght.getText()));
-            lbResult.setText(controller.getTubolarList().printAllQueue());
+            lbResult.setText(controller.tubalarAdded());
         });
 
         btCalcFromExcel.addActionListener(e -> {
