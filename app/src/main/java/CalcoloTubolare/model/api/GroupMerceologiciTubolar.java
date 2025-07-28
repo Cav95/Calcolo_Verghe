@@ -1,9 +1,9 @@
-package CalcoloTubolare.controller;
+package CalcoloTubolare.model.api;
 
 /**
  * Enum representing different groups of merchandise for tubulars.
  * Each group corresponds to a specific type of tubular.
  */
 public enum GroupMerceologiciTubolar {
-    TRB, TBQ, TUB, PIA, ANG;
+    TRB, TBQ, PIA, ANG;
 }

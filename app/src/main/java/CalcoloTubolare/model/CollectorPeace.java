@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.javatuples.Pair;
 
-import CalcoloTubolare.controller.GroupMerceologiciTubolar;
+import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
 import CalcoloTubolare.model.api.Peace;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -46,17 +46,19 @@ public class CollectorPeace {
             while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")
                     || row.getCell(2).getStringCellValue().isEmpty()) {
 
-                String name = row.getCell(2).getStringCellValue();
-                int length = (int) row.getCell(4).getNumericCellValue();
                 int quantity = (int) row.getCell(1).getNumericCellValue() * quantitySilo;
+                String name = row.getCell(2).getStringCellValue();
                 String description = row.getCell(3).getStringCellValue();
+                int length = (int) row.getCell(4).getNumericCellValue();
                 String material = row.getCell(5).getStringCellValue();
 
+                
                 if (Arrays.asList(GroupMerceologiciTubolar.values()).stream().anyMatch(t -> name.contains(t.name()))) {
                     newTubolarList(name, length, quantity, description, material);
-                    tableTubolarList.add(new Pair<>(name, description));
+                    //tableTubolarList.add(new Pair<>(name, description));
+                    tableSeampleList.add(new Peace(name, description, quantity, material,length));
                 } else {
-                    tableSeampleList.add(new Peace(name, description, quantity, material));
+                    tableSeampleList.add(new Peace(name, description, quantity, material,0));
                 }
                 row = rowIteretor.next();
             }
@@ -108,7 +110,7 @@ public class CollectorPeace {
      * 
      * @return a set of Pair objects containing tubular code and description
      */
-    public Set<Pair<String, String>> getTableTubolarList() {
+   public Set<Pair<String, String>> getTableTubolarList() {
         return tableTubolarList;
     }
 

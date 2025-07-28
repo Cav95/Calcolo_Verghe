@@ -18,6 +18,11 @@ public class ControllerModel {
 
     private View view;
     private Optional<CollectorPeace> collector = Optional.empty();
+    
+    public Optional<CollectorPeace> getCollector() {
+        return collector;
+    }
+
     private TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     /**

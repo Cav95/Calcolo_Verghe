@@ -1,6 +1,7 @@
 package CalcoloTubolare.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Set;
 import org.javatuples.Pair;
 
 import CalcoloTubolare.controller.ControllerModel;
+import CalcoloTubolare.model.api.ExcludedTubolar;
+import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -121,9 +124,9 @@ public class TextOutputFactory {
 
     private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
         if (!collector.isEmpty()
-                && collector.get().getTableTubolarList().stream().anyMatch(t -> t.getValue0().equals(codeTubolar))) {
-            String ret = collector.get().getTableTubolarList().stream().filter(t -> t.getValue0() == codeTubolar)
-                    .map(t -> " (" + t.getValue1()).toList().getFirst() + ")";
+                && collector.get().getTableSeampleList().stream().anyMatch(t -> t.code().equals(codeTubolar))) {
+            String ret = collector.get().getTableSeampleList().stream().filter(t -> t.code() == codeTubolar)
+                    .map(t -> " (" + t.description()).toList().getFirst() + ")";
             return ret;
         } else {
             return "";
@@ -134,6 +137,9 @@ public class TextOutputFactory {
         String out = "";
         if (!collector.isEmpty()) {
             List<String> ret = collector.get().getTableSeampleList().stream()
+                    .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                            .noneMatch(t -> h.code().contains(t.name())))
+                    .filter(h -> h.lenght() == 0)
                     .map(t -> t.code() + " (" + t.description() + ") " + QUANTITÀ + t.quantity() + " \n").toList();
             for (var elem : ret) {
                 out = out + elem;
@@ -188,8 +194,8 @@ public class TextOutputFactory {
     /**
      * Generates a reduced result string for the tubular cutting calculation.
      * 
-     * @param siloCode  the code of the silo
-     * @param optimal   whether the calculation is optimal
+     * @param siloCode   the code of the silo
+     * @param optimal    whether the calculation is optimal
      * @param controller the ControllerModel containing calculation data
      * @return a formatted string representing the reduced result
      */
@@ -201,14 +207,25 @@ public class TextOutputFactory {
     /**
      * Generates an extended result string for the tubular cutting calculation.
      * 
-     * @param siloCode  the code of the silo
-     * @param optimal   whether the calculation is optimal
+     * @param siloCode   the code of the silo
+     * @param optimal    whether the calculation is optimal
      * @param controller the ControllerModel containing calculation data
      * @return a formatted string representing the extended result
      */
     public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
         return userName() + "\n" + structureCode(siloCode) + "\n" + ottimalOutputString(optimal)
                 + controller.totalCalcolateTubolar(optimal);
+    }
+
+    public static String conferOutPut(ControllerModel controller) {
+        return controller.getCollector().isEmpty() ? ""
+                : controller.getCollector().get().getTableSeampleList().stream()
+                        .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                                .noneMatch(t -> h.code().contains(t.name())))
+                        .filter(h -> h.lenght() != 0)
+                        .filter(h -> !h.code().contains(GroupMerceologiciTubolar.PIA.name()))
+                        .map(t -> t.description() + " (" + t.code() + ") " + QUANTITÀ + t.quantity() + " \n")
+                        .reduce("", (a, b) -> a + b);
     }
 
 }

@@ -50,6 +50,7 @@ public class MainMenuScene implements Scene {
     // Button for output of reduced calculation
     final JButton btCalcoloReduced = new JButton(TUBOLARI_UTILIZZATI);
     final JButton btCalcoloTotale = new JButton(LISTA_DI_TAGLIO);
+    final JButton btConfer = new JButton("Confer");
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
@@ -154,6 +155,8 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btCalcoloTotale);
         jpEast.add(Box.createVerticalStrut(5));
+        jpEast.add(btConfer);
+        jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(cbOttimale);
         jpEast.add(Box.createVerticalStrut(20));
 
@@ -224,6 +227,16 @@ public class MainMenuScene implements Scene {
             }
             var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
                     controller);
+            new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
+        });
+
+        btConfer.addActionListener(e -> {
+            if (lbResult.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(mainMenuPanel,
+                        NESSUN_TUBOLARE_PRESENTE);
+                return;
+            }
+            var result = TextOutputFactory.conferOutPut(controller);
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
