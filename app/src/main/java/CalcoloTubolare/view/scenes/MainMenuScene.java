@@ -19,7 +19,12 @@ import CalcoloTubolare.view.scenes.api.Scene;
  * data from Excel.
  */
 public class MainMenuScene implements Scene {
-    private static final String RULE_SITE = "https://github.com/Jackmo04/Progetto-BD/blob/main/report.pdf";
+
+    private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
+    private static final String LISTA_DI_TAGLIO = "Lista di taglio";
+    private static final String TUBOLARI_UTILIZZATI = "Tubolari Utilizzati";
+    // private static final String RULE_SITE =
+    // "https://github.com/Jackmo04/Progetto-BD/blob/main/report.pdf";
     private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
@@ -27,23 +32,35 @@ public class MainMenuScene implements Scene {
     private static final String NAME_FILE = "TABELLA.xlsx";
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
     private static final String SEP = System.getProperty("file.separator");
+    private static final String SOLO_VERGHE_6MT = "Solo Verghe 6mt";
+    private static final String FILE_SCELTO_EXCEL = "File scelto excel:";
 
+    // Fields for manual input
     final JTextField tfLenght = new JTextField("", 10);
     final JTextField tfQuantity = new JTextField("", 6);
-    final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6); // aggiungi questo campo
-    final JTextField tfCodeSilo = new JTextField("", 10); // campo per il codice silo
+    final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6);
+    final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
     final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
     final JButton btRemoveTubolar = new JButton("Rimuovi Tubolare");
-    final JButton btCalcoloReduced = new JButton("Tagli Ottimizzati");
-    final JButton btCalcoloTotale = new JButton("Tagli Totali");
+
+    // Button for output of reduced calculation
+    final JButton btCalcoloReduced = new JButton(TUBOLARI_UTILIZZATI);
+    final JButton btCalcoloTotale = new JButton(LISTA_DI_TAGLIO);
+
+    // Button to calculate from Excel
+    // It will read the file and add the tubulars to the list
     final JButton btCalcFromExcel = new JButton("Importa da Excel");
     final JButton btSelectExcel = new JButton("Scegli File Excel");
     final JButton istruction = new JButton("Istruzioni Excel");
-    final JButton btRestart = new JButton("Svuota Tutto");
     final JButton btOpenExcel = new JButton("Apri File Excel");
-    final JCheckBox cbOttimale = new JCheckBox("Solo Verghe 6mt", false);
+
+    // Button to delete all tubulars and reset the application
+    final JButton btRestart = new JButton("Svuota Tutto");
+
+    // Checkbox for optimal calculation
+    final JCheckBox cbOttimale = new JCheckBox(SOLO_VERGHE_6MT, false);
 
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
@@ -106,7 +123,7 @@ public class MainMenuScene implements Scene {
         JPanel jpSud = new JPanel();
         jpSud.setLayout(new BoxLayout(jpSud, BoxLayout.Y_AXIS));
         jpSud.setBorder(new EmptyBorder(0, 0, 0, 0));
-        jpSud.add(new JLabel("File scelto excel:"));
+        jpSud.add(new JLabel(FILE_SCELTO_EXCEL));
         jpSud.add(new JScrollPane(lbChosenExcelFile));
         jpSud.add(Box.createVerticalStrut(5));
         mainMenuPanel.add(jpSud, BorderLayout.SOUTH);
@@ -132,17 +149,22 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btCalcoloTotale);
         jpEast.add(Box.createVerticalStrut(5));
+        jpEast.add(cbOttimale);
+        jpEast.add(Box.createVerticalStrut(20));
+        // Add buttons for Excel operations
         jpEast.add(btCalcFromExcel);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btSelectExcel);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(istruction);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btRestart);
-        jpEast.add(Box.createVerticalStrut(10));
-        jpEast.add(cbOttimale);
-        jpEast.add(Box.createVerticalStrut(20));
         jpEast.add(btOpenExcel);
+        jpEast.add(Box.createVerticalStrut(20));
+
+        // Add button to restart the application
+        jpEast.add(btRestart);
+
+
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
         // Azioni pulsanti
@@ -178,25 +200,25 @@ public class MainMenuScene implements Scene {
         btCalcoloReduced.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
-                        "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
+                        NESSUN_TUBOLARE_PRESENTE);
                 return;
             }
             var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
                     controller);
             ;
 
-            new ResultPane(controller.getView(), "Calcolo Ridotto", true, result);
+            new ResultPane(controller.getView(), TUBOLARI_UTILIZZATI, true, result);
         });
 
         btCalcoloTotale.addActionListener(e -> {
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
-                        "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.");
+                        NESSUN_TUBOLARE_PRESENTE);
                 return;
             }
             var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
                     controller);
-            new ResultPane(controller.getView(), "Calcolo Totale", true, result);
+            new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
         btRestart.addActionListener(e -> {

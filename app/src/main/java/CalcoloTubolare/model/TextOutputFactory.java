@@ -20,6 +20,7 @@ import CalcoloTubolare.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
     private static final String QUANTITÀ = " Quantità=";
     private static final String CODICE_DELLA_STRUTURA = "Codice della strutura: ";
     private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
@@ -40,7 +41,7 @@ public class TextOutputFactory {
      * @param collector the collector peace containing tubular and sample data
      * @return a formatted string representing the cutted tubulars
      */
-    public static String printCuttedTubolar(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
+    public static String cuttedTubolarExtended(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
         String out = "";
         if (!mapCut.keySet().isEmpty()) {
@@ -71,13 +72,14 @@ public class TextOutputFactory {
     }
 
     /**
-     * Gets the name of the tubular based on its code.
+     * Gets the list of the tubular cutted in ottimization mode.
      * 
-     * @param codeTubolar the code of the tubular
-     * @param collector   the collector peace containing tubular data
-     * @return a string representing the name of the tubular
+     * @param mapCut    the map containing cutting results
+     * @param collector the collector peace containing tubular and sample data
+     * @return a formatted string representing the cutted tubulars in reduced form
+     * 
      */
-    public static String printCuttedTubolarReduced(
+    public static String cuttedTubolarReduced(
             HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
         String out = "";
@@ -86,9 +88,15 @@ public class TextOutputFactory {
             for (var elem : mapCut.entrySet()) {
                 out = out + elem.getKey() + getNameTubolar(elem.getKey(), collector) + "\n";
 
-                out = out + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + "\n";
+                out = out + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
+                        + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
+                        + elem.getValue().stream()
+                                .mapToDouble(t -> t.getValue1().stream()
+                                        .mapToDouble(j -> j.intValue())
+                                        .sum() / 1000)
+                                .sum()
+                        + "m" + "\n\n";
 
-                out = out + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + "\n\n";
             }
         } else {
             throw new IllegalArgumentException();
@@ -101,7 +109,7 @@ public class TextOutputFactory {
     /**
      * Provides rules for using the Excel file in the application.
      * 
-     * @return a string containing the rules for using the Excel file
+     * @return a string containing the rules for using the Excel file.
      */
     public static String rulesOfUseExcel() {
         return "Il file Excel deve provenire dalla tabella SolidWork \n"
@@ -137,12 +145,21 @@ public class TextOutputFactory {
         }
     }
 
-    public static String printAllQueue(TubolarMultiList multi, Optional<CollectorPeace> collector) {
+    /**
+     * Generates a string output for the inserted tubulars in the multi-list.
+     * 
+     * @param multi     the TubolarMultiList containing tubular data
+     * @param collector the optional CollectorPeace containing additional data
+     * @return a formatted string representing the inserted tubulars
+     */
+    public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
         String out = "";
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
                 out = out + elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + "\n";
-                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
+                out = out + elemEntry.getValue().stream()
+                        .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
+                        .map(t -> "[ " + t + " ] ")
                         .distinct().reduce("", (a, b) -> a + b);
                 out = out + "\n\n";
             }
@@ -168,11 +185,27 @@ public class TextOutputFactory {
         return "Autore: " + System.getProperty("user.name") + " " + LocalDate.now();
     }
 
+    /**
+     * Generates a reduced result string for the tubular cutting calculation.
+     * 
+     * @param siloCode  the code of the silo
+     * @param optimal   whether the calculation is optimal
+     * @param controller the ControllerModel containing calculation data
+     * @return a formatted string representing the reduced result
+     */
     public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
         return userName() + "\n" + structureCode(siloCode) + "\n" + ottimalOutputString(optimal)
                 + controller.partialCalcolateTubolar(optimal);
     }
 
+    /**
+     * Generates an extended result string for the tubular cutting calculation.
+     * 
+     * @param siloCode  the code of the silo
+     * @param optimal   whether the calculation is optimal
+     * @param controller the ControllerModel containing calculation data
+     * @return a formatted string representing the extended result
+     */
     public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
         return userName() + "\n" + structureCode(siloCode) + "\n" + ottimalOutputString(optimal)
                 + controller.totalCalcolateTubolar(optimal);

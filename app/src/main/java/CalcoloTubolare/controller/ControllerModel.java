@@ -76,7 +76,7 @@ public class ControllerModel extends SceneControllerImpl {
     }
 
     public String tubalarAdded() {
-        return TextOutputFactory.printAllQueue(tubolarList, collector);
+        return TextOutputFactory.tubolarInsertedOutput(tubolarList, collector);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ControllerModel extends SceneControllerImpl {
      * @return the collector peace.
      */
     public String partialCalcolateTubolar(final Boolean optimal) {
-        return TextOutputFactory.printCuttedTubolarReduced(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
+        return TextOutputFactory.cuttedTubolarReduced(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
                 collector);
     }
 
@@ -96,7 +96,7 @@ public class ControllerModel extends SceneControllerImpl {
      */
     public String totalCalcolateTubolar(final Boolean optimal) {
         return TextOutputFactory
-                .printCuttedTubolar(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), collector);
+                .cuttedTubolarExtended(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), collector);
     }
 
     /**
