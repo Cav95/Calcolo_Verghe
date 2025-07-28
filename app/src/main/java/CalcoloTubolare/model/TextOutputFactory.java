@@ -224,7 +224,8 @@ public class TextOutputFactory {
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() != 0)
                         .filter(h -> !h.code().contains(GroupMerceologiciTubolar.PIA.name()))
-                        .map(t -> t.description() + " (" + t.code() + ") " + QUANTITÀ + t.quantity() + " \n")
+                        .map(t -> t.description() + SEPARATOR + " (" + t.code() + ") " + SEPARATOR + QUANTITÀ
+                                + t.quantity() + " \n")
                         .reduce("", (a, b) -> a + b);
     }
 
