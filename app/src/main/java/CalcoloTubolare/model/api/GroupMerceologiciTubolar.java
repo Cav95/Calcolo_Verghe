@@ -5,5 +5,5 @@ package CalcoloTubolare.model.api;
  * Each group corresponds to a specific type of tubular.
  */
 public enum GroupMerceologiciTubolar {
-    TRB, TBQ, PIA, ANG;
+    TRB, TBQ, TUB, PIA, ANG;
 }

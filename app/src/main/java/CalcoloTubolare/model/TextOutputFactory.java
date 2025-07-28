@@ -223,9 +223,11 @@ public class TextOutputFactory {
                         .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() != 0)
-                        .filter(h -> !h.code().contains(GroupMerceologiciTubolar.PIA.name()))
-                        .map(t -> t.description() + SEPARATOR + " (" + t.code() + ") " + SEPARATOR + QUANTITÀ
-                                + t.quantity() + " \n")
+                        .filter(h -> !h.code().contains(GroupMerceologiciTubolar.PIA.name())
+                                && !h.code().contains(GroupMerceologiciTubolar.ANG.name())
+                                && !h.code().contains(GroupMerceologiciTubolar.TUB.name()))
+                        .map(t -> t.description() + " (" + t.code() + ") " + SEPARATOR + QUANTITÀ
+                                + t.quantity() + SEPARATOR + LUNGHEZZA_SINGOLO + t.lenght() + " \n")
                         .reduce("", (a, b) -> a + b);
     }
 
