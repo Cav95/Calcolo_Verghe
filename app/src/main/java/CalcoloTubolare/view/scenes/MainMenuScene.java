@@ -169,7 +169,7 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btOpenExcel);
         jpEast.add(Box.createVerticalStrut(20));
-        jpEast.add(btRulesofUse);
+        jpEast.add(btRulesofUse).setVisible(false); // Hide rules button for now
 
         // Add button to restart the application
         jpEast.add(btRestart);
@@ -243,17 +243,18 @@ public class MainMenuScene implements Scene {
         btRulesofUse.addActionListener(e -> {
             try {
                 // Ottieni il file HTML dalle risorse
-                File htmlFile = new File(MainMenuScene.class.getClassLoader().getResource("html/html.html").getFile());
+                // File htmlFile = new
+                // File(ClassLoader.getSystemResource("html/rules.html").getFile());
 
                 // Controlla se il Desktop è supportato
                 if (Desktop.isDesktopSupported()) {
-                    Desktop desktop = Desktop.getDesktop();
+                    // Desktop desktop = Desktop.getDesktop();
                     // Apri il file nel browser predefinito
-                    desktop.browse(htmlFile.toURI());
+                    Desktop.getDesktop().browse(ClassLoader.getSystemResource("html/rules.html").toURI());
                 } else {
                     System.out.println("Desktop non supportato!");
                 }
-            } catch (IOException | NullPointerException j) {
+            } catch (IOException | NullPointerException | URISyntaxException j) {
                 System.err.println("Errore durante l'apertura del file HTML: " + j.getMessage());
             }
         });
