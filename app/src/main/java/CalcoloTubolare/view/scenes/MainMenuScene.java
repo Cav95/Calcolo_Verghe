@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -26,11 +23,10 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class MainMenuScene implements Scene {
 
+    private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
     private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio";
     private static final String TUBOLARI_UTILIZZATI = "Tubolari Utilizzati";
-    // private static final String RULE_SITE =
-    // "https://github.com/Jackmo04/Progetto-BD/blob/main/report.pdf";
     private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
@@ -160,6 +156,7 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(cbOttimale);
         jpEast.add(Box.createVerticalStrut(20));
+
         // Add buttons for Excel operations
         jpEast.add(btCalcFromExcel);
         jpEast.add(Box.createVerticalStrut(5));
@@ -169,7 +166,7 @@ public class MainMenuScene implements Scene {
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btOpenExcel);
         jpEast.add(Box.createVerticalStrut(20));
-        jpEast.add(btRulesofUse).setVisible(false); // Hide rules button for now
+        jpEast.add(btRulesofUse).setVisible(true); // Hide rules button for now
 
         // Add button to restart the application
         jpEast.add(btRestart);
@@ -242,19 +239,12 @@ public class MainMenuScene implements Scene {
 
         btRulesofUse.addActionListener(e -> {
             try {
-                // Ottieni il file HTML dalle risorse
-                // File htmlFile = new
-                // File(ClassLoader.getSystemResource("html/rules.html").getFile());
-
-                // Controlla se il Desktop è supportato
                 if (Desktop.isDesktopSupported()) {
-                    // Desktop desktop = Desktop.getDesktop();
-                    // Apri il file nel browser predefinito
-                    Desktop.getDesktop().browse(ClassLoader.getSystemResource("html/rules.html").toURI());
+                    Desktop.getDesktop().open(new File(RULES_PATH));
                 } else {
                     System.out.println("Desktop non supportato!");
                 }
-            } catch (IOException | NullPointerException | URISyntaxException j) {
+            } catch (IOException | NullPointerException j) {
                 System.err.println("Errore durante l'apertura del file HTML: " + j.getMessage());
             }
         });

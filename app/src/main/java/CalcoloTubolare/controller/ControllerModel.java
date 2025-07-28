@@ -3,7 +3,6 @@ package CalcoloTubolare.controller;
 
 import java.util.Optional;
 
-import CalcoloTubolare.controller.scene.SceneControllerImpl;
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.CollectorPeace;
 import CalcoloTubolare.model.TextOutputFactory;
@@ -15,7 +14,7 @@ import CalcoloTubolare.view.View;
  * ControllerModel class that extends SceneControllerImpl to manage the model
  * and view of the application.
  */
-public class ControllerModel extends SceneControllerImpl {
+public class ControllerModel {
 
     private View view;
     private Optional<CollectorPeace> collector = Optional.empty();
@@ -36,7 +35,7 @@ public class ControllerModel extends SceneControllerImpl {
      * @param mainView the main view of the application.
      */
     public ControllerModel(final View mainView) {
-        super(mainView);
+        //super(mainView);
         this.view = mainView;
     }
 
