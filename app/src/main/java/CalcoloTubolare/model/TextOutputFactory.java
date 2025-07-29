@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
@@ -70,7 +69,6 @@ public class TextOutputFactory {
             throw new IllegalArgumentException();
         }
         out = out + noTubolarElement(collector);
-        System.out.print(out);
         return out;
     }
 
@@ -122,50 +120,6 @@ public class TextOutputFactory {
                 + "Il file deve essere salvato con estenzione .xlsx\n";
     }
 
-    private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
-        if (!collector.isEmpty()
-                && collector.get().getTableSeampleList().stream().anyMatch(t -> t.code().equals(codeTubolar))) {
-            String ret = collector.get().getTableSeampleList().stream().filter(t -> t.code() == codeTubolar)
-                    .map(t -> " (" + t.description()).toList().getFirst() + ")";
-            return ret;
-        } else {
-            return "";
-        }
-    }
-
-    private static String noTubolarElement(Optional<CollectorPeace> collector) {
-        String out = "";
-        if (!collector.isEmpty()) {
-            List<String> ret = collector.get().getTableSeampleList().stream()
-                    .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
-                            .noneMatch(t -> h.code().contains(t.name())))
-                    .filter(h -> h.lenght() == 0)
-                    .map(h -> h.code() + " (" + h.description() + ") " + QUANTITÀ
-                            + h.quantity() + " \n")
-                    .toList();
-
-            // ret.sort(Comparator.naturalOrder());
-
-            for (var elem : ret) {
-                out = out + elem;
-
-            }
-            return out;
-        } else {
-            return out;
-        }
-    }
-
-    private static final int sumQuantity(String code, Integer lenght, Optional<CollectorPeace> collector) {
-        if (!collector.isEmpty()) {
-            return collector.get().getTableSeampleList().stream()
-                    .filter(t -> t.code().equals(code) && t.lenght() == lenght)
-                    .mapToInt(t -> t.quantity()).sum();
-        } else {
-            return 0;
-        }
-    }
-
     /**
      * Generates a string output for the inserted tubulars in the multi-list.
      * 
@@ -180,7 +134,7 @@ public class TextOutputFactory {
                 out = out + elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + "\n";
                 out = out + elemEntry.getValue().stream()
                         .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
-                        .map(t -> "[ " + t + " ] ")
+                        .map(t -> "[ " + t + " ] ").map(t -> t.toUpperCase())
                         .distinct().reduce("", (a, b) -> a + b);
                 out = out + "\n\n";
             }
@@ -188,22 +142,7 @@ public class TextOutputFactory {
             throw new IllegalArgumentException();
         }
         out = out + noTubolarElement(collector);
-        System.out.print(out);
         return out;
-    }
-
-    private static String ottimalOutputString(Boolean optimal) {
-        return optimal ? CASO_OTTIMO_TUBOLARI_12M_6MT : CASO_PESSIMO_TUBOLARI_SOLO_6MT;
-
-    }
-
-    private static String structureCode(String codeSilo) {
-        return codeSilo.isBlank() ? "" : CODICE_DELLA_STRUTURA + codeSilo + " ";
-
-    }
-
-    private static String userName() {
-        return "Autore: " + System.getProperty("user.name") + " " + LocalDate.now();
     }
 
     /**
@@ -234,22 +173,68 @@ public class TextOutputFactory {
 
     /**
      * Generate output for provider Confert.
+     * 
      * @param controller
-     * @return
+     * @return a formatted string representing the tubular data.
      */
-    public static String confertOutPut(ControllerModel controller, String siloCode) {
-        return  controller.getCollector().isEmpty() ? ""
-                : structureCode(siloCode) + "\n\n" + controller.getCollector().get().getTableSeampleList().stream()
-                        .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
-                                .noneMatch(t -> h.code().contains(t.name())))
-                        .filter(h -> h.lenght() != 0)
-                        .filter(h -> h.code().contains(GroupMerceologiciTubolar.TBQ.name()))
-                        .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
-                                + sumQuantity(h.code(), h.lenght(), controller.getCollector()) + SEPARATOR
-                                + LUNGHEZZA_SINGOLO + h.lenght() + " \n").map(t -> t.toUpperCase())
+    public static String confertOutPut(ControllerModel controller, String siloCode , int numSilo) {
+        return controller.getCollector().isEmpty() ? ""
+                : structureCode(siloCode) + "\n\n" +
+                        controller.getCollector().get().getTableSeampleList().stream()
+                                .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                                        .noneMatch(t -> h.code().contains(t.name())))
+                                .filter(h -> h.lenght() != 0)
+                                .filter(h -> h.code().contains(GroupMerceologiciTubolar.TBQ.name()))
+                                .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
+                                        + sumQuantity(h.code(), h.lenght(),numSilo, controller.getCollector() ) + SEPARATOR
+                                        + LUNGHEZZA_SINGOLO + h.lenght() + " \n")
+                                .map(t -> t.toUpperCase())
                                 .sorted()
                                 .distinct()
+                                .reduce("", (a, b) -> a + b);
+    }
+
+    private static String ottimalOutputString(Boolean optimal) {
+        return optimal ? CASO_OTTIMO_TUBOLARI_12M_6MT : CASO_PESSIMO_TUBOLARI_SOLO_6MT;
+
+    }
+
+    private static String structureCode(String codeSilo) {
+        return codeSilo.isBlank() ? "" : CODICE_DELLA_STRUTURA + codeSilo + " ";
+
+    }
+
+    private static String userName() {
+        return "Autore: " + System.getProperty("user.name") + " " + LocalDate.now();
+    }
+
+    private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
+        if (!collector.isEmpty()
+                && collector.get().getTableSeampleList().stream().anyMatch(t -> t.code().equals(codeTubolar))) {
+            return collector.get().getTableSeampleList().stream().filter(t -> t.code() == codeTubolar)
+                    .map(t -> " (" + t.description()).toList().getFirst() + ")";
+        } else {
+            return "";
+        }
+    }
+
+    private static String noTubolarElement(Optional<CollectorPeace> collector) {
+        return collector.isEmpty() ? ""
+                : collector.get().getTableSeampleList().stream()
+                        .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                                .noneMatch(t -> h.code().contains(t.name())))
+                        .filter(h -> h.lenght() == 0)
+                        .map(h -> h.code() + " (" + h.description() + ") " + QUANTITÀ
+                                + h.quantity() + " \n")
                         .reduce("", (a, b) -> a + b);
+
+    }
+
+    private static final int sumQuantity(String code, Integer lenght,Integer numSilo, Optional<CollectorPeace> collector) {
+        return collector.isEmpty() ? 0
+                : collector.get().getTableSeampleList().stream()
+                        .filter(t -> t.code().equals(code) && t.lenght() == lenght)
+                        .mapToInt(t -> t.quantity()).sum() * numSilo;
     }
 
 }
