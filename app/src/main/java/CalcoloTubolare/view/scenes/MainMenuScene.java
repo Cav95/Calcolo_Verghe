@@ -50,7 +50,7 @@ public class MainMenuScene implements Scene {
     // Button for output of reduced calculation
     final JButton btCalcoloReduced = new JButton(TUBOLARI_UTILIZZATI);
     final JButton btCalcoloTotale = new JButton(LISTA_DI_TAGLIO);
-    final JButton btConfer = new JButton("Confer");
+    final JButton btConfer = new JButton("Confert");
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
@@ -207,6 +207,7 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcoloReduced.addActionListener(e -> {
+            noSiloCode(tfCodeSilo.getText());
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         NESSUN_TUBOLARE_PRESENTE);
@@ -220,6 +221,7 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcoloTotale.addActionListener(e -> {
+            noSiloCode(tfCodeSilo.getText());
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         NESSUN_TUBOLARE_PRESENTE);
@@ -231,11 +233,13 @@ public class MainMenuScene implements Scene {
         });
 
         btConfer.addActionListener(e -> {
+            
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         NESSUN_TUBOLARE_PRESENTE);
                 return;
             }
+            noSiloCode(tfCodeSilo.getText());
             var result = TextOutputFactory.confertOutPut(controller , tfCodeSilo.getText(), Integer.parseInt(tfNumSilo.getText()));
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
@@ -281,11 +285,17 @@ public class MainMenuScene implements Scene {
         btOpenExcel.addActionListener(e -> {
             try {
                 Desktop.getDesktop().open(new java.io.File(pathFile));
-                // Desktop.getDesktop().browse(new URI(RULE_SITE));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(mainMenuPanel, "Impossibile aprire il file:\n" + ex.getMessage());
             }
         });
+    }
+
+    private void noSiloCode ( String codeSilo){
+        if ( codeSilo.isBlank()
+        || !codeSilo.startsWith("ST")) {
+            JOptionPane.showMessageDialog(mainMenuPanel, "Inserire un codice Silo valido ST%.");
+        }
     }
 
     /**
