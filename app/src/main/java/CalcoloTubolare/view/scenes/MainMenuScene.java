@@ -236,7 +236,7 @@ public class MainMenuScene implements Scene {
                         NESSUN_TUBOLARE_PRESENTE);
                 return;
             }
-            var result = TextOutputFactory.conferOutPut(controller);
+            var result = TextOutputFactory.confertOutPut(controller , tfCodeSilo.getText());
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 

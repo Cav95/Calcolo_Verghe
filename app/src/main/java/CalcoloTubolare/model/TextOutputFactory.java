@@ -140,7 +140,12 @@ public class TextOutputFactory {
                     .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
                             .noneMatch(t -> h.code().contains(t.name())))
                     .filter(h -> h.lenght() == 0)
-                    .map(t -> t.code() + " (" + t.description() + ") " + QUANTITÀ + t.quantity() + " \n").toList();
+                    .map(h -> h.code() + " (" + h.description() + ") " + QUANTITÀ
+                            + h.quantity() + " \n")
+                    .toList();
+
+            // ret.sort(Comparator.naturalOrder());
+
             for (var elem : ret) {
                 out = out + elem;
 
@@ -148,6 +153,16 @@ public class TextOutputFactory {
             return out;
         } else {
             return out;
+        }
+    }
+
+    private static final int sumQuantity(String code, Integer lenght, Optional<CollectorPeace> collector) {
+        if (!collector.isEmpty()) {
+            return collector.get().getTableSeampleList().stream()
+                    .filter(t -> t.code().equals(code) && t.lenght() == lenght)
+                    .mapToInt(t -> t.quantity()).sum();
+        } else {
+            return 0;
         }
     }
 
@@ -217,17 +232,23 @@ public class TextOutputFactory {
                 + controller.totalCalcolateTubolar(optimal);
     }
 
-    public static String conferOutPut(ControllerModel controller) {
-        return controller.getCollector().isEmpty() ? ""
-                : controller.getCollector().get().getTableSeampleList().stream()
+    /**
+     * Generate output for provider Confert.
+     * @param controller
+     * @return
+     */
+    public static String confertOutPut(ControllerModel controller, String siloCode) {
+        return  controller.getCollector().isEmpty() ? ""
+                : structureCode(siloCode) + "\n\n" + controller.getCollector().get().getTableSeampleList().stream()
                         .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() != 0)
-                        .filter(h -> !h.code().contains(GroupMerceologiciTubolar.PIA.name())
-                                && !h.code().contains(GroupMerceologiciTubolar.ANG.name())
-                                && !h.code().contains(GroupMerceologiciTubolar.TUB.name()))
-                        .map(t -> t.description() + " (" + t.code() + ") " + SEPARATOR + QUANTITÀ
-                                + t.quantity() + SEPARATOR + LUNGHEZZA_SINGOLO + t.lenght() + " \n")
+                        .filter(h -> h.code().contains(GroupMerceologiciTubolar.TBQ.name()))
+                        .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
+                                + sumQuantity(h.code(), h.lenght(), controller.getCollector()) + SEPARATOR
+                                + LUNGHEZZA_SINGOLO + h.lenght() + " \n").map(t -> t.toUpperCase())
+                                .sorted()
+                                .distinct()
                         .reduce("", (a, b) -> a + b);
     }
 

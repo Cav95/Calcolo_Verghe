@@ -40,7 +40,6 @@ public class ControllerModel {
      * @param mainView the main view of the application.
      */
     public ControllerModel(final View mainView) {
-        //super(mainView);
         this.view = mainView;
     }
 
