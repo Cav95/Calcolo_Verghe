@@ -26,7 +26,6 @@ public class CollectorPeace {
 
     List<Peace> tableSeampleList = new LinkedList<>();
     Set<Pair<String, String>> tableTubolarList = new HashSet<>();
-
     TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     /**
@@ -52,13 +51,12 @@ public class CollectorPeace {
                 int length = (int) row.getCell(4).getNumericCellValue();
                 String material = row.getCell(5).getStringCellValue();
 
-                
-                if (Arrays.asList(GroupMerceologiciTubolar.values()).stream().anyMatch(t -> name.contains(t.name()))) {
+                if (Arrays.asList(GroupMerceologiciTubolar.values()).stream()
+                        .anyMatch(t -> name.contains(t.name()))) {
                     newTubolarList(name, length, quantity, description, material);
-                    //tableTubolarList.add(new Pair<>(name, description));
-                    tableSeampleList.add(new Peace(name, description, quantity, material,length));
+                    tableSeampleList.add(new Peace(name, description, quantity, material, length));
                 } else {
-                    tableSeampleList.add(new Peace(name, description, quantity, material,0));
+                    tableSeampleList.add(new Peace(name, description, quantity, material));
                 }
                 row = rowIteretor.next();
             }
@@ -110,7 +108,7 @@ public class CollectorPeace {
      * 
      * @return a set of Pair objects containing tubular code and description
      */
-   public Set<Pair<String, String>> getTableTubolarList() {
+    public Set<Pair<String, String>> getTableTubolarList() {
         return tableTubolarList;
     }
 

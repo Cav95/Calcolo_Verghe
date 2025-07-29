@@ -5,4 +5,8 @@ package CalcoloTubolare.model.api;
  */
 public record Peace(String code, String description, Integer quantity, String material , Integer lenght) {
 
+    public Peace(String code, String description, Integer quantity, String material) {
+        this(code, description, quantity, material, 0);
+    }
+
 }
