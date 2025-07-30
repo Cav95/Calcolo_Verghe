@@ -21,6 +21,7 @@ import CalcoloTubolare.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final int MM_TO_M = 1000;
     private static final String A_CAPO = "\n";
     private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
     private static final String QUANTITÀ = " Quantità=";
@@ -92,8 +93,7 @@ public class TextOutputFactory {
                 out = out + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
                         + elem.getValue().stream()
-                                .mapToDouble(t -> t.getValue1().stream()
-                                        .reduce(0, Integer::sum) / 1000)
+                                .mapToDouble(t -> t.getValue1().stream().mapToDouble(h -> h).sum() / MM_TO_M)
                                 .sum()
                         + "m" + "\n\n";
 
