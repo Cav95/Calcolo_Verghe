@@ -1,12 +1,16 @@
 package CalcoloTubolare.controller;
 
-
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import CalcoloTubolare.model.CalcolatorTubolar;
 import CalcoloTubolare.model.CollectorPeace;
 import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.TubolarMultiListImpl;
+import CalcoloTubolare.model.api.ExcludedTubolar;
+import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
+import CalcoloTubolare.model.api.Peace;
 import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.view.View;
 
@@ -18,7 +22,7 @@ public class ControllerModel {
 
     private View view;
     private Optional<CollectorPeace> collector = Optional.empty();
-    
+
     public Optional<CollectorPeace> getCollector() {
         return collector;
     }
@@ -113,8 +117,8 @@ public class ControllerModel {
     /**
      * Adds a tubolar from an Excel file.
      * 
-     * @param pathString   the path to the Excel file.
-     * @param quantySilo   the quantity of the silo.
+     * @param pathString the path to the Excel file.
+     * @param quantySilo the quantity of the silo.
      */
     public void addTubolarFromExcel(final String pathString, final Integer quantySilo) {
         this.collector = Optional.of(new CollectorPeace(pathString, quantySilo));
@@ -122,4 +126,23 @@ public class ControllerModel {
 
     }
 
+    public Stream<Peace> getPeaceStream(Integer numSilo) {
+        return this.getCollector().get().getTableSeampleList().stream()
+                .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                        .noneMatch(t -> h.code().contains(t.name())))
+                .filter(h -> h.lenght() != 0)
+                .filter(h -> h.code().contains(GroupMerceologiciTubolar.TBQ.name()))
+                .map(h -> new Peace(h.code(), h.description(),
+                        sumQuantity(h.code(), h.lenght(), numSilo, collector),
+                        h.material(), h.lenght()))
+                .distinct();
+    }
+
+    private final int sumQuantity(String code, Integer lenght, Integer numSilo,
+            Optional<CollectorPeace> collector) {
+        return collector.isEmpty() ? 0
+                : collector.get().getTableSeampleList().stream()
+                        .filter(t -> t.code().equals(code) && t.lenght().equals(lenght))
+                        .mapToInt(Peace::quantity).sum() * numSilo;
+    }
 }

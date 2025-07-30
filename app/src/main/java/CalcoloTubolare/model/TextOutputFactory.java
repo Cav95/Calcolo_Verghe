@@ -12,8 +12,6 @@ import org.javatuples.Pair;
 
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.api.ExcludedTubolar;
-import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
-import CalcoloTubolare.model.api.Peace;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -184,13 +182,9 @@ public class TextOutputFactory {
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
         return controller.getCollector().isEmpty() ? ""
                 : structureCode(siloCode) + "\n\n" +
-                        controller.getCollector().get().getTableSeampleList().stream()
-                                .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
-                                        .noneMatch(t -> h.code().contains(t.name())))
-                                .filter(h -> h.lenght() != 0)
-                                .filter(h -> h.code().contains(GroupMerceologiciTubolar.TBQ.name()))
+                        controller.getPeaceStream(numSilo)
                                 .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
-                                        + sumQuantity(h.code(), h.lenght(), numSilo, controller.getCollector())
+                                        + h.quantity()
                                         + SEPARATOR
                                         + LUNGHEZZA_SINGOLO + h.lenght() + A_CAPO)
                                 .map(t -> t.toUpperCase())
@@ -238,14 +232,6 @@ public class TextOutputFactory {
                                 + h.quantity() + A_CAPO)
                         .reduce("", (a, b) -> a + b);
 
-    }
-
-    private static final int sumQuantity(String code, Integer lenght, Integer numSilo,
-            Optional<CollectorPeace> collector) {
-        return collector.isEmpty() ? 0
-                : collector.get().getTableSeampleList().stream()
-                        .filter(t -> t.code().equals(code) && t.lenght().equals(lenght))
-                        .mapToInt(Peace::quantity).sum() * numSilo;
     }
 
 }
