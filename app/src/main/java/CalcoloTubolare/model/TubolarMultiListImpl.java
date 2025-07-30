@@ -1,8 +1,6 @@
 package CalcoloTubolare.model;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 import CalcoloTubolare.model.api.TubolarMultiList;
 import CalcoloTubolare.model.api.Tubolar;
 
@@ -16,14 +14,14 @@ import java.util.TreeSet;
  */
 public class TubolarMultiListImpl implements TubolarMultiList {
 
-    HashMap<String, Set<Tubolar>> multiQueue = new HashMap<>();
+    HashMap<String, Set<Tubolar>> cuttedTubolarMap = new HashMap<>();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public HashMap<String, Set<Tubolar>> getMultiQueue() {
-        return multiQueue;
+        return this.cuttedTubolarMap;
     }
 
     /**
@@ -31,7 +29,7 @@ public class TubolarMultiListImpl implements TubolarMultiList {
      */
     @Override
     public Set<String> availableQueues() {
-        return multiQueue.keySet();
+        return this.cuttedTubolarMap.keySet();
     }
 
     /**
@@ -41,7 +39,7 @@ public class TubolarMultiListImpl implements TubolarMultiList {
     public void openNewQueue(String queue) {
 
         if (!availableQueues().contains(queue)) {
-            multiQueue.put(queue, new TreeSet<>(
+            this.cuttedTubolarMap.put(queue, new TreeSet<>(
                     (o1, o2) -> Integer.compare(o1.getLenght(), o2.getLenght())));
         } else {
             throw new IllegalArgumentException();
@@ -55,15 +53,15 @@ public class TubolarMultiListImpl implements TubolarMultiList {
     public void addTubolar(Integer lenght, String code, Integer quantity) {
 
         if (availableQueues().contains(code)) {
-            if (multiQueue.get(code).contains(new Tubolar(lenght, quantity))) {
-                for (var myIterator = multiQueue.get(code).iterator(); myIterator.hasNext();) {
+            if (this.cuttedTubolarMap.get(code).contains(new Tubolar(lenght, quantity))) {
+                for (var myIterator = this.cuttedTubolarMap.get(code).iterator(); myIterator.hasNext();) {
                     var tub = myIterator.next();
                     if (tub.getLenght() == lenght) {
                         tub.setQuantity(tub.getQuantity() + quantity);
                     }
                 }
             } else {
-                multiQueue.get(code).add(new Tubolar(lenght, quantity));
+                this.cuttedTubolarMap.get(code).add(new Tubolar(lenght, quantity));
             }
         } else {
             throw new IllegalArgumentException();
@@ -79,33 +77,13 @@ public class TubolarMultiListImpl implements TubolarMultiList {
         if (availableQueues().contains(queue)) {
             getTubolarList(queue).removeIf(t -> t.getLenght() == lenght);
 
-            if (this.multiQueue.get(queue).isEmpty()) {
-                this.multiQueue.remove(queue);
+            if (this.cuttedTubolarMap.get(queue).isEmpty()) {
+                this.cuttedTubolarMap.remove(queue);
             }
         } else {
             throw new IllegalArgumentException();
         }
 
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String printAllQueue() {
-        String out = "";
-        if (!availableQueues().isEmpty()) {
-            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
-                out = out + elemEntry.getKey() + "\n";
-                out = out + elemEntry.getValue().stream().map(t -> " L=" + t.getLenght() + " QT=" + t.getQuantity())
-                        .distinct().reduce("", (a, b) -> a + b);
-                out = out + "\n";
-            }
-        } else {
-            throw new IllegalArgumentException();
-        }
-        System.out.print(out);
-        return out;
     }
 
     /**
@@ -113,7 +91,7 @@ public class TubolarMultiListImpl implements TubolarMultiList {
      */
     @Override
     public Set<Tubolar> getTubolarList(String queue) {
-        return multiQueue.get(queue);
+        return this.cuttedTubolarMap.get(queue);
     }
 
 }

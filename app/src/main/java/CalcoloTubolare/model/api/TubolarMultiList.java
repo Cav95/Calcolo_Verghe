@@ -36,15 +36,6 @@ public interface TubolarMultiList {
     void removeTubolar(String code, Integer lenght);
 
     /**
-     * Empties a queue and move all of its elements in some other available queue.
-     * 
-     * @throws IllegalArgumentException if queue is not available.
-     * @throws IllegalStateException    if there's no alternative queue for moving
-     *                                  elements to.
-     */
-    String printAllQueue();
-
-    /**
      * Get list of my same tubolare cut
      * 
      * @param , the queue to be cheched.
