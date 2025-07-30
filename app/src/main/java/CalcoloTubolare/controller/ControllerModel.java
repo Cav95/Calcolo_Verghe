@@ -143,6 +143,6 @@ public class ControllerModel {
         return collector.isEmpty() ? 0
                 : collector.get().getTableSeampleList().stream()
                         .filter(t -> t.code().equals(code) && t.lenght().equals(lenght))
-                        .mapToInt(Peace::quantity).sum() * numSilo;
+                        .mapToInt(Peace::quantity).sum();
     }
 }
