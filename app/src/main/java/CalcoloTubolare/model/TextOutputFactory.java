@@ -95,8 +95,7 @@ public class TextOutputFactory {
                         + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
                         + elem.getValue().stream()
                                 .mapToDouble(t -> t.getValue1().stream()
-                                        .mapToInt(j -> j)
-                                        .sum() / 1000)
+                                        .reduce(0, Integer::sum) / 1000)
                                 .sum()
                         + "m" + "\n\n";
 
