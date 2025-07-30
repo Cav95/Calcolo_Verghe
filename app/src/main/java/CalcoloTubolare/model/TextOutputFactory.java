@@ -13,6 +13,7 @@ import org.javatuples.Pair;
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.api.ExcludedTubolar;
 import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
+import CalcoloTubolare.model.api.Peace;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -219,7 +220,7 @@ public class TextOutputFactory {
                         .anyMatch(t -> t.code()
                                 .equals(codeTubolar))) {
             return collector.get().getTableSeampleList().stream()
-                    .filter(t -> t.code() == codeTubolar)
+                    .filter(t -> t.code().equals(codeTubolar))
                     .map(t -> " (" + t.description())
                     .limit(1)
                     .reduce("", (a, b) -> a + b) + ")";
@@ -244,8 +245,8 @@ public class TextOutputFactory {
             Optional<CollectorPeace> collector) {
         return collector.isEmpty() ? 0
                 : collector.get().getTableSeampleList().stream()
-                        .filter(t -> t.code().equals(code) && t.lenght() == lenght)
-                        .mapToInt(t -> t.quantity()).sum() * numSilo;
+                        .filter(t -> t.code().equals(code) && t.lenght().equals(lenght))
+                        .mapToInt(Peace::quantity).sum() * numSilo;
     }
 
 }
