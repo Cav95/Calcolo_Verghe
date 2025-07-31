@@ -23,11 +23,12 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class MainMenuScene implements Scene {
 
+    private static final String PER_ROMBO = "per Rombo";
     private static final String PNG = ".png";
     private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
     private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio";
-    private static final String TUBOLARI_UTILIZZATI = "Tubolari Utilizzati";
+    private static final String TUBOLARI_UTILIZZATI = "per Acquisti";
     private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
@@ -53,7 +54,7 @@ public class MainMenuScene implements Scene {
     // Button for output of reduced calculation
     final JButton btUsedTubolarList = new JButton(TUBOLARI_UTILIZZATI);
     final JButton btCuttedList = new JButton(LISTA_DI_TAGLIO);
-    final JButton btConfert = new JButton("Confert");
+    final JButton btConfert = new JButton(PER_ROMBO);
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
@@ -172,25 +173,25 @@ public class MainMenuScene implements Scene {
         JPanel jpEast = new JPanel();
         jpEast.setLayout(new BoxLayout(jpEast, BoxLayout.Y_AXIS));
         jpEast.setBorder(new EmptyBorder(0, 10, 0, 0));
-        jpEast.add(btUsedTubolarList);
+
+        jpEast.add(btSelectExcel);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btCuttedList);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btConfert);
+        jpEast.add(btCalcFromExcel);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(cbOttimale);
         jpEast.add(Box.createVerticalStrut(20));
-
-        // Add buttons for Excel operations
-        jpEast.add(btCalcFromExcel);
+        jpEast.add(btUsedTubolarList);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btSelectExcel);
+        jpEast.add(btConfert);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(istruction);
+        jpEast.add(btCuttedList);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(btOpenExcel);
         jpEast.add(Box.createVerticalStrut(20));
-        jpEast.add(btRulesofUse).setVisible(true); // Hide rules button for now
+        jpEast.add(istruction);
+        jpEast.add(Box.createVerticalStrut(5));
+
+        jpEast.add(btRulesofUse); // Hide rules button for now
 
         // Add button to restart the application
         jpEast.add(btRestart);
