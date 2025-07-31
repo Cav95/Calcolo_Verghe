@@ -26,7 +26,7 @@ public class MainMenuScene implements Scene {
     private static final String SEP = System.getProperty("file.separator");
     private static final String FILE_SCELTO_EXCEL = "File scelto excel:";
 
-    private Integer tempNumSilo = 1;
+    private Integer tempNumSilo = Integer.parseInt(STD_NUM_SILO);
 
     public String getPathFile() {
         return pathFile;
