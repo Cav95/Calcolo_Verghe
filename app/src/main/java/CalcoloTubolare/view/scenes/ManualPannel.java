@@ -1,4 +1,4 @@
-package CalcoloTubolare.view.scenes.api;
+package CalcoloTubolare.view.scenes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,14 +18,14 @@ public class ManualPannel extends JPanel {
     private static final String PNG = ".png";
 
     private JLabel imageLabel = new JLabel();
-    private JLabel tipe = new JLabel("Type:");
+    private JLabel tipe = new JLabel("Tipo:");
     JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
-    private JLabel lenght = new JLabel("Length:");
+    private JLabel lenght = new JLabel("Lunghezza:");
     private JTextField tfLenght = new JTextField();
-    private JLabel quantity = new JLabel("Quantity:");
+    private JLabel quantity = new JLabel("Quantità:");
     private JTextField tfQuantity = new JTextField();
-    private JButton btAddTubolar = new JButton("Add Tubolar");
-    private JButton btRemoveTubolar = new JButton("Remove Tubolar");
+    private JButton btAddTubolar = new JButton("Aggiungi Tubolare");
+    private JButton btRemoveTubolar = new JButton("Remuvi Tubolare");
 
     public ManualPannel(final ControllerModel controller) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

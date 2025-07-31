@@ -12,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.api.NameTubolar;
-import CalcoloTubolare.view.scenes.api.ManualPannel;
 import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
@@ -201,7 +200,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller, Integer.parseInt(tfNumSilo.getText()));
+                    controller, tempNumSilo);
 
             new ResultPane(controller.getView(), TUBOLARI_UTILIZZATI, true, result);
         });
@@ -215,7 +214,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller,Integer.parseInt(tfNumSilo.getText()));
+                    controller,tempNumSilo);
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
@@ -228,7 +227,7 @@ public class MainMenuScene implements Scene {
             }
             noSiloCode(tfCodeSilo.getText());
             var result = TextOutputFactory.confertOutPut(controller, tfCodeSilo.getText(),
-                    Integer.parseInt(tfNumSilo.getText()));
+                    tempNumSilo);
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
