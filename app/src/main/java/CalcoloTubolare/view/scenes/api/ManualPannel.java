@@ -27,10 +27,7 @@ public class ManualPannel extends JPanel {
     private JButton btAddTubolar = new JButton("Add Tubolar");
     private JButton btRemoveTubolar = new JButton("Remove Tubolar");
 
-    private final ControllerModel controller;
-
     public ManualPannel(final ControllerModel controller) {
-        this.controller = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(0, 0, 0, 10));
         imageLabel.setPreferredSize(new Dimension(200, 200));
@@ -75,7 +72,7 @@ public class ManualPannel extends JPanel {
                     Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
                     // jpWest.setVisible(cbManualInput.isSelected());
-                    
+
                 } catch (Exception l) {
                     imageLabel.setIcon(null);
                 }

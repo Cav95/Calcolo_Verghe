@@ -25,12 +25,10 @@ import CalcoloTubolare.view.scenes.api.Scene;
 public class MainMenuScene implements Scene {
 
     private static final String PER_ROMBO = "per Rombo";
-    private static final String PNG = ".png";
     private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
     private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio";
     private static final String TUBOLARI_UTILIZZATI = "per Acquisti";
-    private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
     private static final Integer TIME_TO_LAMP = 6;
@@ -49,8 +47,6 @@ public class MainMenuScene implements Scene {
     final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
-    final JButton btAddTubolar = new JButton("Aggiungi Tubolare");
-    final JButton btRemoveTubolar = new JButton("Rimuovi Tubolare");
 
     // Button for output of reduced calculation
     final JButton btUsedTubolarList = new JButton(TUBOLARI_UTILIZZATI);
@@ -83,9 +79,6 @@ public class MainMenuScene implements Scene {
     final JLabel imageLabel = new JLabel();
 
     // label text
-    JLabel lenght = new JLabel("Lunghezza: ");
-    JLabel quantity = new JLabel("Quantità: ");
-    JLabel tipe = new JLabel("Tipo: ");
     JLabel numSilo = new JLabel("Numero Silo: ");
     JLabel siloCode = new JLabel("Codice Silo: ");
     JLabel tubolarList = new JLabel("Lista Tubolari: ");
@@ -126,26 +119,6 @@ public class MainMenuScene implements Scene {
 
         // Ovest: Immagine
         JPanel jpWest = new ManualPannel(controller);
-       /*  jpWest.setLayout(new BoxLayout(jpWest, BoxLayout.Y_AXIS));
-        jpWest.setBorder(new EmptyBorder(0, 0, 0, 10));
-        imageLabel.setPreferredSize(new Dimension(200, 200));
-        jpWest.add(tipe);
-        jpWest.add(jComboBox);
-        jpWest.add(Box.createHorizontalStrut(5));
-        jpWest.add(imageLabel);
-        jpWest.add(Box.createHorizontalStrut(5));
-        tfLenght.setSize(new Dimension(80, 10));
-        jpWest.add(lenght);
-        jpWest.add(tfLenght);
-        jpWest.add(Box.createHorizontalStrut(5));
-        tfQuantity.setSize(new Dimension(80, 10));
-        jpWest.add(quantity);
-        jpWest.add(tfQuantity);
-        jpWest.add(Box.createHorizontalStrut(5));
-        jpWest.add(btAddTubolar);
-        jpWest.add(Box.createHorizontalStrut(5));
-        jpWest.add(btRemoveTubolar);*/
-
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
 
         // Sud: Posizione file
@@ -200,18 +173,6 @@ public class MainMenuScene implements Scene {
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
         // Azioni pulsanti
-        btAddTubolar.addActionListener(e -> {
-            String s = String.valueOf(jComboBox.getSelectedItem());
-
-            controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
-            lbResult.setText(controller.tubolarAdded());
-        });
-
-        btRemoveTubolar.addActionListener(e -> {
-            controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
-                    Integer.parseInt(tfLenght.getText()));
-            lbResult.setText(controller.tubolarAdded());
-        });
 
         btCalcFromExcel.addActionListener(e -> {
             tempNumSilo = Integer.parseInt(tfNumSilo.getText());
@@ -299,16 +260,6 @@ public class MainMenuScene implements Scene {
             public void actionPerformed(ActionEvent e) {
                 lbResult.setText(controller.tubolarAdded());
                 jpWest.setVisible(cbManualInput.isSelected());
-             /*   try {
-                    var image = new ImageIcon(
-                            ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + PNG));
-                    Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-                    imageLabel.setIcon(new ImageIcon(newimg));
-                    jpWest.setVisible(cbManualInput.isSelected());
-                    lbResult.setText(controller.tubalarAdded());
-                } catch (Exception l) {
-                    imageLabel.setIcon(null);
-                }*/
             }
         });
         timerWest.start();
