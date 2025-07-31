@@ -184,7 +184,8 @@ public class TextOutputFactory {
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
         return controller.getCollector().isEmpty() ? ""
-                : structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
+                : userName() + A_CAPO 
+                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
                         + A_CAPO
                         + controller.getPeaceStream(numSilo)
                                 .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ

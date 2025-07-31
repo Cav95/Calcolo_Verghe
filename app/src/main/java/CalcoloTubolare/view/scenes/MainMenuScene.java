@@ -3,15 +3,10 @@ package CalcoloTubolare.view.scenes;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.model.TextOutputFactory;
-import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
@@ -23,59 +18,61 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class MainMenuScene implements Scene {
 
-    private static final String PER_ROMBO = "per Rombo";
-    private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
-    private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
-    private static final String LISTA_DI_TAGLIO = "Lista di taglio";
-    private static final String TUBOLARI_UTILIZZATI = "per Acquisti";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
     private static final Integer TIME_TO_LAMP = 6;
     private static final String NAME_FILE = "TABELLA.xlsx";
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
     private static final String SEP = System.getProperty("file.separator");
-    private static final String SOLO_VERGHE_6MT = "Solo Verghe 6mt";
     private static final String FILE_SCELTO_EXCEL = "File scelto excel:";
 
-    private Integer tempNumSilo;
+    private Integer tempNumSilo = 1;
+
+    public String getPathFile() {
+        return pathFile;
+    }
+
+    public Integer getTfNumSilo() {
+        return Integer.parseInt(tfNumSilo.getText());
+    }
+
+    public String getTfCodeSilo() {
+        return tfCodeSilo.getText();
+    }
+
+    public Integer gettempNumSilo() {
+        return tempNumSilo;
+    }
+
+    public void setLbChosenExcelFile(String text) {
+        lbChosenExcelFile.setText(text);
+    }
 
     // Fields for manual input
-    final JTextField tfLenght = new JTextField("", 10);
-    final JTextField tfQuantity = new JTextField("", 6);
+    /*
+     * final JTextField tfLenght = new JTextField("", 10);
+     * final JTextField tfQuantity = new JTextField("", 6);
+     */
+
+    public void setPathFile(String pathFile) {
+        this.pathFile = pathFile;
+    }
+
+    public void setTempNumSilo(Integer tempNumSilo) {
+        this.tempNumSilo = tempNumSilo;
+    }
+
     final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6);
     final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
+
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
-
-    // Button for output of reduced calculation
-    final JButton btUsedTubolarList = new JButton(TUBOLARI_UTILIZZATI);
-    final JButton btCuttedList = new JButton(LISTA_DI_TAGLIO);
-    final JButton btConfert = new JButton(PER_ROMBO);
-
-    // Button to calculate from Excel
-    // It will read the file and add the tubulars to the list
-    final JButton btCalcFromExcel = new JButton("Importa da Excel");
-    final JButton btSelectExcel = new JButton("Scegli File Excel");
-    final JButton istruction = new JButton("Istruzioni Excel");
-    final JButton btOpenExcel = new JButton("Apri File Excel");
-
-    // ComboBox for selecting the type of tubular
-    JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
-
-    // Button to show rules of use
-    final JButton btRulesofUse = new JButton("Regole di Utilizzo");
-
-    // Button to delete all tubulars and reset the application
-    final JButton btRestart = new JButton("Svuota Tutto");
-
-    // Checkbox for optimal calculation
-    final JCheckBox cbOttimale = new JCheckBox(SOLO_VERGHE_6MT, false);
 
     // Checkbox for manual input
     final JCheckBox cbManualInput = new JCheckBox("Inserimento Manuale", false);
 
     final JPanel mainMenuPanel;
-    final JLabel imageLabel = new JLabel();
+    // final JLabel imageLabel = new JLabel();
 
     // label text
     JLabel numSilo = new JLabel("Numero Silo: ");
@@ -143,147 +140,18 @@ public class MainMenuScene implements Scene {
         mainMenuPanel.add(jpCenter, BorderLayout.CENTER);
 
         // Est: Pulsanti azione
-        JPanel jpEast = new JPanel();
-        jpEast.setLayout(new BoxLayout(jpEast, BoxLayout.Y_AXIS));
-        jpEast.setBorder(new EmptyBorder(0, 10, 0, 0));
-
-        jpEast.add(btSelectExcel);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btCalcFromExcel);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(cbOttimale);
-        jpEast.add(Box.createVerticalStrut(20));
-        jpEast.add(btUsedTubolarList);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btConfert);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btCuttedList);
-        jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btOpenExcel);
-        jpEast.add(Box.createVerticalStrut(20));
-        jpEast.add(istruction);
-        jpEast.add(Box.createVerticalStrut(5));
-
-        jpEast.add(btRulesofUse); // Hide rules button for now
-
-        // Add button to restart the application
-        jpEast.add(btRestart);
-
+        JPanel jpEast = new ButtonActionPannel(controller, this);
         mainMenuPanel.add(jpEast, BorderLayout.EAST);
 
-        // Azioni pulsanti
-
-        btCalcFromExcel.addActionListener(e -> {
-            tempNumSilo = Integer.parseInt(tfNumSilo.getText());
-            controller.addTubolarFromExcel(pathFile, tempNumSilo);
-            lbResult.setText(controller.tubolarAdded());
-        });
-
-        btSelectExcel.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            fileChooser.setDialogTitle("Seleziona file Excel");
-            int result = fileChooser.showOpenDialog(mainMenuPanel);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                pathFile = fileChooser.getSelectedFile().toPath().toString();
-                JOptionPane.showMessageDialog(mainMenuPanel, "File selezionato: " + pathFile);
-            }
-            lbChosenExcelFile.setText(pathFile);
-        });
-
-        btUsedTubolarList.addActionListener(e -> {
-            noSiloCode(tfCodeSilo.getText());
-            siloNumberDifferent();
-            if (lbResult.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(mainMenuPanel,
-                        NESSUN_TUBOLARE_PRESENTE);
-                return;
-            }
-            var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller, tempNumSilo);
-
-            new ResultPane(controller.getView(), TUBOLARI_UTILIZZATI, true, result);
-        });
-
-        btCuttedList.addActionListener(e -> {
-            siloNumberDifferent();
-            noSiloCode(tfCodeSilo.getText());
-            if (lbResult.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(mainMenuPanel,
-                        NESSUN_TUBOLARE_PRESENTE);
-                return;
-            }
-            var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller,tempNumSilo);
-            new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
-        });
-
-        btConfert.addActionListener(e -> {
-            siloNumberDifferent();
-            if (lbResult.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(mainMenuPanel,
-                        NESSUN_TUBOLARE_PRESENTE);
-                return;
-            }
-            noSiloCode(tfCodeSilo.getText());
-            var result = TextOutputFactory.confertOutPut(controller, tfCodeSilo.getText(),
-                    tempNumSilo);
-            new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
-        });
-
-        btRestart.addActionListener(e -> {
-            controller.restart();
-            lbResult.setText("");
-        });
-
-        istruction.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainMenuPanel, TextOutputFactory.rulesOfUseExcel(),
-                    "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        btRulesofUse.addActionListener(e -> {
-            try {
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(new File(RULES_PATH));
-                } else {
-                    System.out.println("Desktop non supportato!");
-                }
-            } catch (IOException | NullPointerException j) {
-                System.err.println("Errore durante l'apertura del file HTML: " + j.getMessage());
-            }
-        });
-
         // Timer per aggiornare l'immagine
-        final Timer timerWest = new Timer(TIME_TO_LAMP, new ActionListener() {
+        final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 lbResult.setText(controller.tubolarAdded());
                 jpWest.setVisible(cbManualInput.isSelected());
             }
         });
-        timerWest.start();
-
-        btOpenExcel.addActionListener(e -> {
-            try {
-                Desktop.getDesktop().open(new java.io.File(pathFile));
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(mainMenuPanel, "Impossibile aprire il file:\n" + ex.getMessage());
-            }
-        });
-    }
-
-    private void noSiloCode(String codeSilo) {
-        if (codeSilo.isBlank()
-                || !codeSilo.startsWith("ST")) {
-            JOptionPane.showMessageDialog(mainMenuPanel, "Inserire un codice Silo valido ES: STX4848CM0001.");
-        }
-    }
-
-    private void siloNumberDifferent() {
-        if (Integer.parseInt(tfNumSilo.getText()) != tempNumSilo) {
-            JOptionPane.showMessageDialog(mainMenuPanel,
-                    "Il numero dei silo deve essere lo stesso di quello \nusato per l'importazione da Excel.");
-        }
+        timer.start();
     }
 
     /**
