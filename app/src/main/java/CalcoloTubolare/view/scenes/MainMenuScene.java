@@ -23,6 +23,7 @@ import CalcoloTubolare.view.scenes.api.Scene;
  */
 public class MainMenuScene implements Scene {
 
+    private static final String PNG = ".png";
     private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
     private static final String NESSUN_TUBOLARE_PRESENTE = "Nessun tubolare presente.\nAggiungi tubolari prima di calcolare.";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio";
@@ -37,6 +38,8 @@ public class MainMenuScene implements Scene {
     private static final String SOLO_VERGHE_6MT = "Solo Verghe 6mt";
     private static final String FILE_SCELTO_EXCEL = "File scelto excel:";
 
+    private Integer tempNumSilo;
+
     // Fields for manual input
     final JTextField tfLenght = new JTextField("", 10);
     final JTextField tfQuantity = new JTextField("", 6);
@@ -48,9 +51,9 @@ public class MainMenuScene implements Scene {
     final JButton btRemoveTubolar = new JButton("Rimuovi Tubolare");
 
     // Button for output of reduced calculation
-    final JButton btCalcoloReduced = new JButton(TUBOLARI_UTILIZZATI);
-    final JButton btCalcoloTotale = new JButton(LISTA_DI_TAGLIO);
-    final JButton btConfer = new JButton("Confert");
+    final JButton btUsedTubolarList = new JButton(TUBOLARI_UTILIZZATI);
+    final JButton btCuttedList = new JButton(LISTA_DI_TAGLIO);
+    final JButton btConfert = new JButton("Confert");
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
@@ -58,6 +61,9 @@ public class MainMenuScene implements Scene {
     final JButton btSelectExcel = new JButton("Scegli File Excel");
     final JButton istruction = new JButton("Istruzioni Excel");
     final JButton btOpenExcel = new JButton("Apri File Excel");
+
+    // ComboBox for selecting the type of tubular
+    JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
 
     // Button to show rules of use
     final JButton btRulesofUse = new JButton("Regole di Utilizzo");
@@ -68,8 +74,19 @@ public class MainMenuScene implements Scene {
     // Checkbox for optimal calculation
     final JCheckBox cbOttimale = new JCheckBox(SOLO_VERGHE_6MT, false);
 
+    // Checkbox for manual input
+    final JCheckBox cbManualInput = new JCheckBox("Inserimento Manuale", false);
+
     final JPanel mainMenuPanel;
     final JLabel imageLabel = new JLabel();
+
+    // label text
+    JLabel lenght = new JLabel("Lunghezza: ");
+    JLabel quantity = new JLabel("Quantità: ");
+    JLabel tipe = new JLabel("Tipo: ");
+    JLabel numSilo = new JLabel("Numero Silo: ");
+    JLabel siloCode = new JLabel("Codice Silo: ");
+    JLabel tubolarList = new JLabel("Lista Tubolari: ");
 
     private final ControllerModel controller;
 
@@ -94,25 +111,13 @@ public class MainMenuScene implements Scene {
         JPanel jpNORTH = new JPanel();
         jpNORTH.setLayout(new BoxLayout(jpNORTH, BoxLayout.X_AXIS));
         jpNORTH.setBorder(new EmptyBorder(0, 0, 10, 0));
-        JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
-        jpNORTH.add(new JLabel("Tipo: "));
-        jpNORTH.add(jComboBox);
-        jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(new JLabel("Lunghezza: "));
-        jpNORTH.add(tfLenght);
-        jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(new JLabel("Quantità: "));
-        jpNORTH.add(tfQuantity);
-        jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(btAddTubolar);
-        jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(btRemoveTubolar);
+        jpNORTH.add(cbManualInput);
         jpNORTH.add(Box.createHorizontalStrut(15));
-        jpNORTH.add(new JLabel("Numero Silo: "));
-        jpNORTH.add(tfNumSilo);
-        jpNORTH.add(Box.createHorizontalStrut(5));
-        jpNORTH.add(new JLabel("Codice Silo: "));
+        jpNORTH.add(siloCode);
         jpNORTH.add(tfCodeSilo);
+        jpNORTH.add(Box.createHorizontalStrut(5));
+        jpNORTH.add(numSilo);
+        jpNORTH.add(tfNumSilo);
         jpNORTH.add(Box.createHorizontalStrut(5));
 
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
@@ -122,7 +127,23 @@ public class MainMenuScene implements Scene {
         jpWest.setLayout(new BoxLayout(jpWest, BoxLayout.Y_AXIS));
         jpWest.setBorder(new EmptyBorder(0, 0, 0, 10));
         imageLabel.setPreferredSize(new Dimension(200, 200));
+        jpWest.add(tipe);
+        jpWest.add(jComboBox);
+        jpWest.add(Box.createHorizontalStrut(5));
         jpWest.add(imageLabel);
+        jpWest.add(Box.createHorizontalStrut(5));
+        tfLenght.setSize(new Dimension(80, 10));
+        jpWest.add(lenght);
+        jpWest.add(tfLenght);
+        jpWest.add(Box.createHorizontalStrut(5));
+        tfQuantity.setSize(new Dimension(80, 10));
+        jpWest.add(quantity);
+        jpWest.add(tfQuantity);
+        jpWest.add(Box.createHorizontalStrut(5));
+        jpWest.add(btAddTubolar);
+        jpWest.add(Box.createHorizontalStrut(5));
+        jpWest.add(btRemoveTubolar);
+
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
 
         // Sud: Posizione file
@@ -142,7 +163,7 @@ public class MainMenuScene implements Scene {
         lbChosenExcelFile.setEditable(false);
         lbChosenExcelFile.setText(pathFile);
         lbChosenExcelFile.setSize(1, NUM_COLUMN);
-        jpCenter.add(new JLabel("Lista Tubolari:"));
+        jpCenter.add(tubolarList);
         jpCenter.add(new JScrollPane(lbResult));
         jpCenter.add(Box.createVerticalStrut(10));
         mainMenuPanel.add(jpCenter, BorderLayout.CENTER);
@@ -151,11 +172,11 @@ public class MainMenuScene implements Scene {
         JPanel jpEast = new JPanel();
         jpEast.setLayout(new BoxLayout(jpEast, BoxLayout.Y_AXIS));
         jpEast.setBorder(new EmptyBorder(0, 10, 0, 0));
-        jpEast.add(btCalcoloReduced);
+        jpEast.add(btUsedTubolarList);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btCalcoloTotale);
+        jpEast.add(btCuttedList);
         jpEast.add(Box.createVerticalStrut(5));
-        jpEast.add(btConfer);
+        jpEast.add(btConfert);
         jpEast.add(Box.createVerticalStrut(5));
         jpEast.add(cbOttimale);
         jpEast.add(Box.createVerticalStrut(20));
@@ -179,6 +200,7 @@ public class MainMenuScene implements Scene {
         // Azioni pulsanti
         btAddTubolar.addActionListener(e -> {
             String s = String.valueOf(jComboBox.getSelectedItem());
+
             controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
             lbResult.setText(controller.tubalarAdded());
         });
@@ -190,7 +212,8 @@ public class MainMenuScene implements Scene {
         });
 
         btCalcFromExcel.addActionListener(e -> {
-            controller.addTubolarFromExcel(pathFile, Integer.valueOf(tfNumSilo.getText()));
+            tempNumSilo = Integer.parseInt(tfNumSilo.getText());
+            controller.addTubolarFromExcel(pathFile, tempNumSilo);
             lbResult.setText(controller.tubalarAdded());
         });
 
@@ -206,8 +229,9 @@ public class MainMenuScene implements Scene {
             lbChosenExcelFile.setText(pathFile);
         });
 
-        btCalcoloReduced.addActionListener(e -> {
+        btUsedTubolarList.addActionListener(e -> {
             noSiloCode(tfCodeSilo.getText());
+            siloNumberDifferent();
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         NESSUN_TUBOLARE_PRESENTE);
@@ -215,12 +239,12 @@ public class MainMenuScene implements Scene {
             }
             var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
                     controller);
-            ;
 
             new ResultPane(controller.getView(), TUBOLARI_UTILIZZATI, true, result);
         });
 
-        btCalcoloTotale.addActionListener(e -> {
+        btCuttedList.addActionListener(e -> {
+            siloNumberDifferent();
             noSiloCode(tfCodeSilo.getText());
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
@@ -232,15 +256,16 @@ public class MainMenuScene implements Scene {
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
-        btConfer.addActionListener(e -> {
-            
+        btConfert.addActionListener(e -> {
+            siloNumberDifferent();
             if (lbResult.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(mainMenuPanel,
                         NESSUN_TUBOLARE_PRESENTE);
                 return;
             }
             noSiloCode(tfCodeSilo.getText());
-            var result = TextOutputFactory.confertOutPut(controller , tfCodeSilo.getText(), Integer.parseInt(tfNumSilo.getText()));
+            var result = TextOutputFactory.confertOutPut(controller, tfCodeSilo.getText(),
+                    Integer.parseInt(tfNumSilo.getText()));
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 
@@ -272,9 +297,10 @@ public class MainMenuScene implements Scene {
             public void actionPerformed(ActionEvent e) {
                 try {
                     var image = new ImageIcon(
-                            ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + ".png"));
+                            ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + PNG));
                     Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
+                    jpWest.setVisible(cbManualInput.isSelected());
                 } catch (Exception l) {
                     imageLabel.setIcon(null);
                 }
@@ -291,10 +317,17 @@ public class MainMenuScene implements Scene {
         });
     }
 
-    private void noSiloCode ( String codeSilo){
-        if ( codeSilo.isBlank()
-        || !codeSilo.startsWith("ST")) {
-            JOptionPane.showMessageDialog(mainMenuPanel, "Inserire un codice Silo valido ST%.");
+    private void noSiloCode(String codeSilo) {
+        if (codeSilo.isBlank()
+                || !codeSilo.startsWith("ST")) {
+            JOptionPane.showMessageDialog(mainMenuPanel, "Inserire un codice Silo valido ES: STX4848CM0001.");
+        }
+    }
+
+    private void siloNumberDifferent() {
+        if (Integer.parseInt(tfNumSilo.getText()) != tempNumSilo) {
+            JOptionPane.showMessageDialog(mainMenuPanel,
+                    "Il numero dei silo deve essere lo stesso di quello \nusato per l'importazione da Excel.");
         }
     }
 
