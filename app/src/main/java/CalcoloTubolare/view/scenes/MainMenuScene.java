@@ -201,7 +201,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = TextOutputFactory.reducedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller);
+                    controller, Integer.parseInt(tfNumSilo.getText()));
 
             new ResultPane(controller.getView(), TUBOLARI_UTILIZZATI, true, result);
         });
@@ -215,7 +215,7 @@ public class MainMenuScene implements Scene {
                 return;
             }
             var result = TextOutputFactory.extendedResultString(tfCodeSilo.getText(), !cbOttimale.isSelected(),
-                    controller);
+                    controller,Integer.parseInt(tfNumSilo.getText()));
             new ResultPane(controller.getView(), LISTA_DI_TAGLIO, true, result);
         });
 

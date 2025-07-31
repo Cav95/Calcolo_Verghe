@@ -152,8 +152,10 @@ public class TextOutputFactory {
      * @param controller the ControllerModel containing calculation data
      * @return a formatted string representing the reduced result
      */
-    public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
-        return userName() + A_CAPO + structureCode(siloCode) + A_CAPO
+    public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller,
+            Integer numSilo) {
+        return userName() + A_CAPO
+                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
                 + controller.partialCalcolateTubolar(optimal);
     }
@@ -166,9 +168,10 @@ public class TextOutputFactory {
      * @param controller the ControllerModel containing calculation data
      * @return a formatted string representing the extended result
      */
-    public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller) {
+    public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller,
+            Integer numSilo) {
         return userName() + A_CAPO
-                + structureCode(siloCode) + A_CAPO
+                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
                 + controller.totalCalcolateTubolar(optimal);
     }
@@ -181,8 +184,9 @@ public class TextOutputFactory {
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
         return controller.getCollector().isEmpty() ? ""
-                : structureCode(siloCode) + "\n\n" +
-                        controller.getPeaceStream(numSilo)
+                : structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
+                        + A_CAPO
+                        + controller.getPeaceStream(numSilo)
                                 .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
                                         + h.quantity()
                                         + SEPARATOR
@@ -232,6 +236,10 @@ public class TextOutputFactory {
                                 + h.quantity() + A_CAPO + A_CAPO)
                         .reduce("", (a, b) -> a + b);
 
+    }
+
+    private static String numSilOuput(Integer numSilo) {
+        return "Numero Silo: " + numSilo + A_CAPO;
     }
 
 }
