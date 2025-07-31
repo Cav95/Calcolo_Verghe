@@ -229,7 +229,7 @@ public class TextOutputFactory {
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() == 0)
                         .map(h -> h.code() + " (" + h.description() + ") " + QUANTITÀ
-                                + h.quantity() + A_CAPO)
+                                + h.quantity() + A_CAPO + A_CAPO)
                         .reduce("", (a, b) -> a + b);
 
     }

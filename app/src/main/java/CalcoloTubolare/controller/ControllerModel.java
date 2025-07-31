@@ -82,8 +82,13 @@ public class ControllerModel {
         tubolarList.removeTubolar(nameTubolar, lengthTubolar);
     }
 
-    public String tubalarAdded() {
-        return TextOutputFactory.tubolarInsertedOutput(tubolarList, collector);
+    public String tubolarAdded() {
+        try {
+            return TextOutputFactory.tubolarInsertedOutput(tubolarList, collector);
+        } catch (Exception e) {
+            
+        }
+        return "";
     }
 
     /**

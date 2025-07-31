@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.TextOutputFactory;
 import CalcoloTubolare.model.api.NameTubolar;
+import CalcoloTubolare.view.scenes.api.ManualPannel;
 import CalcoloTubolare.view.scenes.api.Scene;
 
 /**
@@ -32,7 +33,7 @@ public class MainMenuScene implements Scene {
     private static final String TUBOLAR_IMG_DYR = "tubolar/";
     private static final int NUM_COLUMN = 30;
     private static final String STD_NUM_SILO = "1";
-    private static final Integer TIME_TO_LAMP = 5;
+    private static final Integer TIME_TO_LAMP = 6;
     private static final String NAME_FILE = "TABELLA.xlsx";
     private String pathFile = System.getProperty("user.home") + SEP + NAME_FILE;
     private static final String SEP = System.getProperty("file.separator");
@@ -124,8 +125,8 @@ public class MainMenuScene implements Scene {
         mainMenuPanel.add(jpNORTH, BorderLayout.NORTH);
 
         // Ovest: Immagine
-        JPanel jpWest = new JPanel();
-        jpWest.setLayout(new BoxLayout(jpWest, BoxLayout.Y_AXIS));
+        JPanel jpWest = new ManualPannel(controller);
+       /*  jpWest.setLayout(new BoxLayout(jpWest, BoxLayout.Y_AXIS));
         jpWest.setBorder(new EmptyBorder(0, 0, 0, 10));
         imageLabel.setPreferredSize(new Dimension(200, 200));
         jpWest.add(tipe);
@@ -143,7 +144,7 @@ public class MainMenuScene implements Scene {
         jpWest.add(Box.createHorizontalStrut(5));
         jpWest.add(btAddTubolar);
         jpWest.add(Box.createHorizontalStrut(5));
-        jpWest.add(btRemoveTubolar);
+        jpWest.add(btRemoveTubolar);*/
 
         mainMenuPanel.add(jpWest, BorderLayout.WEST);
 
@@ -203,19 +204,19 @@ public class MainMenuScene implements Scene {
             String s = String.valueOf(jComboBox.getSelectedItem());
 
             controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
-            lbResult.setText(controller.tubalarAdded());
+            lbResult.setText(controller.tubolarAdded());
         });
 
         btRemoveTubolar.addActionListener(e -> {
             controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
                     Integer.parseInt(tfLenght.getText()));
-            lbResult.setText(controller.tubalarAdded());
+            lbResult.setText(controller.tubolarAdded());
         });
 
         btCalcFromExcel.addActionListener(e -> {
             tempNumSilo = Integer.parseInt(tfNumSilo.getText());
             controller.addTubolarFromExcel(pathFile, tempNumSilo);
-            lbResult.setText(controller.tubalarAdded());
+            lbResult.setText(controller.tubolarAdded());
         });
 
         btSelectExcel.addActionListener(e -> {
@@ -293,21 +294,24 @@ public class MainMenuScene implements Scene {
         });
 
         // Timer per aggiornare l'immagine
-        final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
+        final Timer timerWest = new Timer(TIME_TO_LAMP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                lbResult.setText(controller.tubolarAdded());
+                jpWest.setVisible(cbManualInput.isSelected());
+             /*   try {
                     var image = new ImageIcon(
                             ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + PNG));
                     Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
                     jpWest.setVisible(cbManualInput.isSelected());
+                    lbResult.setText(controller.tubalarAdded());
                 } catch (Exception l) {
                     imageLabel.setIcon(null);
-                }
+                }*/
             }
         });
-        timer.start();
+        timerWest.start();
 
         btOpenExcel.addActionListener(e -> {
             try {

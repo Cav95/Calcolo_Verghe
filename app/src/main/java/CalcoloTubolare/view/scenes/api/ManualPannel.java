@@ -1,0 +1,87 @@
+package CalcoloTubolare.view.scenes.api;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import CalcoloTubolare.controller.ControllerModel;
+import CalcoloTubolare.model.api.NameTubolar;
+
+import java.awt.*;
+
+public class ManualPannel extends JPanel {
+
+    private static final Integer TIME_TO_LAMP = 5;
+    private static final String TUBOLAR_IMG_DYR = "tubolar/";
+    private static final String PNG = ".png";
+
+    private JLabel imageLabel = new JLabel();
+    private JLabel tipe = new JLabel("Type:");
+    JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
+    private JLabel lenght = new JLabel("Length:");
+    private JTextField tfLenght = new JTextField();
+    private JLabel quantity = new JLabel("Quantity:");
+    private JTextField tfQuantity = new JTextField();
+    private JButton btAddTubolar = new JButton("Add Tubolar");
+    private JButton btRemoveTubolar = new JButton("Remove Tubolar");
+
+    private final ControllerModel controller;
+
+    public ManualPannel(final ControllerModel controller) {
+        this.controller = controller;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(new EmptyBorder(0, 0, 0, 10));
+        imageLabel.setPreferredSize(new Dimension(200, 200));
+        this.add(tipe);
+        this.add(jComboBox);
+        this.add(Box.createHorizontalStrut(5));
+        this.add(imageLabel);
+        this.add(Box.createHorizontalStrut(5));
+        tfLenght.setPreferredSize(new Dimension(80, 10));
+        this.add(lenght);
+        this.add(tfLenght);
+        this.add(Box.createHorizontalStrut(5));
+        tfQuantity.setPreferredSize(new Dimension(80, 10));
+        this.add(quantity);
+        this.add(tfQuantity);
+        this.add(Box.createHorizontalStrut(5));
+        this.add(btAddTubolar);
+        this.add(Box.createHorizontalStrut(5));
+        this.add(btRemoveTubolar);
+
+        // Azioni pulsanti
+        btAddTubolar.addActionListener(e -> {
+            String s = String.valueOf(jComboBox.getSelectedItem());
+
+            controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
+            // lbResult.setText(controller.tubalarAdded());
+        });
+
+        btRemoveTubolar.addActionListener(e -> {
+            controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
+                    Integer.parseInt(tfLenght.getText()));
+            // lbResult.setText(controller.tubalarAdded());
+        });
+
+        // Timer per aggiornare l'immagine
+        final Timer timer = new Timer(TIME_TO_LAMP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    var image = new ImageIcon(
+                            ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + PNG));
+                    Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                    imageLabel.setIcon(new ImageIcon(newimg));
+                    // jpWest.setVisible(cbManualInput.isSelected());
+                    
+                } catch (Exception l) {
+                    imageLabel.setIcon(null);
+                }
+            }
+        });
+        timer.start();
+
+    }
+}
