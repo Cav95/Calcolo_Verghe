@@ -12,6 +12,7 @@ import org.javatuples.Pair;
 
 import CalcoloTubolare.controller.ControllerModel;
 import CalcoloTubolare.model.api.ExcludedTubolar;
+import CalcoloTubolare.model.api.NameTubolar;
 import CalcoloTubolare.model.api.Tubolar;
 import CalcoloTubolare.model.api.TubolarMultiList;
 
@@ -155,7 +156,7 @@ public class TextOutputFactory {
     public static String reducedResultString(String siloCode, Boolean optimal, ControllerModel controller,
             Integer numSilo) {
         return userName() + A_CAPO
-                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
+                + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
                 + controller.partialCalcolateTubolar(optimal);
     }
@@ -171,7 +172,7 @@ public class TextOutputFactory {
     public static String extendedResultString(String siloCode, Boolean optimal, ControllerModel controller,
             Integer numSilo) {
         return userName() + A_CAPO
-                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
+                + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
                 + controller.totalCalcolateTubolar(optimal);
     }
@@ -184,15 +185,15 @@ public class TextOutputFactory {
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
         return controller.getCollector().isEmpty() ? ""
-                : userName() + A_CAPO 
-                + structureCode(siloCode) + " " + numSilOuput(numSilo) + A_CAPO
+                : userName() + A_CAPO
+                        + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO
                         + controller.getPeaceStream(numSilo)
                                 .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
                                         + h.quantity()
                                         + SEPARATOR
                                         + LUNGHEZZA_SINGOLO + h.lenght() + A_CAPO)
-                                .map(t -> t.toUpperCase())
+                                .map(String::toUpperCase)
                                 .sorted()
                                 .distinct()
                                 .reduce("", (a, b) -> a + b);
@@ -223,6 +224,13 @@ public class TextOutputFactory {
                     .limit(1)
                     .reduce("", (a, b) -> a + b) + ")";
         } else {
+            try {
+                return " (" + Arrays.asList(NameTubolar.values()).stream().filter(t -> t.name().equals(codeTubolar))
+                        .map(NameTubolar::getActualName)
+                        .findFirst().get() + ")";
+            } catch (Exception e) {
+                System.out.println("NameTubolar not found for code: " + codeTubolar);
+            }
             return "";
         }
     }
@@ -241,6 +249,10 @@ public class TextOutputFactory {
 
     private static String numSilOuput(Integer numSilo) {
         return "Numero Silo: " + numSilo + A_CAPO;
+    }
+
+    private static String siloPropretiesOutput(String siloCode, Integer numSilo) {
+        return structureCode(siloCode) + "  " + numSilOuput(numSilo);
     }
 
 }

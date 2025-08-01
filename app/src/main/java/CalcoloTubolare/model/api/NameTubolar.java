@@ -27,7 +27,7 @@ public enum NameTubolar {
      * 
      * @return the name of the tubular.
      */
-    public String getactualName() {
+    public String getActualName() {
         return actualName;
     }
 
@@ -41,7 +41,7 @@ public enum NameTubolar {
         String[] optionsToChoose = new String[NameTubolar.values().length];
 
         for (NameTubolar elem : NameTubolar.values()) {
-            optionsToChoose[elem.ordinal()] = elem.getactualName();
+            optionsToChoose[elem.ordinal()] = elem.getActualName();
         }
         return optionsToChoose;
     }
@@ -54,5 +54,6 @@ public enum NameTubolar {
     NameTubolar(String actualName) {
         this.actualName = actualName;
     }
+    
 
 }

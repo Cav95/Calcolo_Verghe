@@ -50,16 +50,14 @@ public class ManualPannel extends JPanel {
 
         // Azioni pulsanti
         btAddTubolar.addActionListener(e -> {
+            noLenghtandQuantity();
             String s = String.valueOf(jComboBox.getSelectedItem());
-
             controller.newTubolarList(s, Integer.parseInt(tfLenght.getText()), Integer.parseInt(tfQuantity.getText()));
-            // lbResult.setText(controller.tubalarAdded());
         });
 
         btRemoveTubolar.addActionListener(e -> {
             controller.getTubolarList().removeTubolar(String.valueOf(jComboBox.getSelectedItem()),
                     Integer.parseInt(tfLenght.getText()));
-            // lbResult.setText(controller.tubalarAdded());
         });
 
         // Timer per aggiornare l'immagine
@@ -80,5 +78,12 @@ public class ManualPannel extends JPanel {
         });
         timer.start();
 
+    }
+
+        private void noLenghtandQuantity() {
+        if (tfLenght.getText().isBlank()
+                || tfQuantity.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Inserire lunghezza e quantità.");
+        }
     }
 }
