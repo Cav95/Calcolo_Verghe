@@ -1,4 +1,4 @@
-package CalcoloTubolare.view.scenes;
+package verghe.view.scenes;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.view.scenes.api.Scene;
+import verghe.controller.ControllerModel;
+import verghe.view.scenes.api.Scene;
 
 /**
  * MainMenuScene class that implements the Scene interface to create the main
@@ -65,6 +65,10 @@ public class MainMenuScene implements Scene {
     final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6);
     final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
+
+    public JTextArea getLbResult() {
+        return lbResult;
+    }
 
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
 

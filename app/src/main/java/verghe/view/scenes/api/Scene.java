@@ -1,4 +1,4 @@
-package CalcoloTubolare.view.scenes.api;
+package verghe.view.scenes.api;
 
 import javax.swing.JPanel;
 

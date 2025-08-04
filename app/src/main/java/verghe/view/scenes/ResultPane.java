@@ -1,4 +1,4 @@
-package CalcoloTubolare.view.scenes;
+package verghe.view.scenes;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -8,13 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import verghe.view.View;
+
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
-
-import CalcoloTubolare.view.View;
 
 /**
  * ResultPane class that extends JDialog to display the results of the tubular

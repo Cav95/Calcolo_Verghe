@@ -3,8 +3,8 @@ package calcolo_verghe;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
-import CalcoloTubolare.model.TubolarMultiListImpl;
-import CalcoloTubolare.model.api.TubolarMultiList;
+import verghe.model.TubolarMultiListImpl;
+import verghe.model.api.TubolarMultiList;
 
 
 public class TestVerghe {

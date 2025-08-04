@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.view.ViewImpl;
+import verghe.controller.ControllerModel;
+import verghe.view.ViewImpl;
 
 /**
  * Test class for MainMenuController.

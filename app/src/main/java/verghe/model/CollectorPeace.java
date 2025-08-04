@@ -1,4 +1,4 @@
-package CalcoloTubolare.model;
+package verghe.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.javatuples.Pair;
 
-import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
-import CalcoloTubolare.model.api.Peace;
-import CalcoloTubolare.model.api.TubolarMultiList;
+import verghe.model.api.GroupMerceologiciTubolar;
+import verghe.model.api.Peace;
+import verghe.model.api.TubolarMultiList;
 
 /**
  * CollectorPeace class for collecting and managing tubulars and sample peace

@@ -60,7 +60,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("CalcoloTubolare.MainCalcoloTubolare")
+    mainClass.set("verghe.MainCalcoloTubolare")
 }
 
 tasks.test {

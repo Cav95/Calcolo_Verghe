@@ -1,4 +1,4 @@
-package CalcoloTubolare.model;
+package verghe.model;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -10,11 +10,11 @@ import java.util.Set;
 
 import org.javatuples.Pair;
 
-import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.model.api.ExcludedTubolar;
-import CalcoloTubolare.model.api.NameTubolar;
-import CalcoloTubolare.model.api.Tubolar;
-import CalcoloTubolare.model.api.TubolarMultiList;
+import verghe.controller.ControllerModel;
+import verghe.model.api.ExcludedTubolar;
+import verghe.model.api.NameTubolar;
+import verghe.model.api.Tubolar;
+import verghe.model.api.TubolarMultiList;
 
 /**
  * TextOutputFactory class for generating text output for tubular cutting

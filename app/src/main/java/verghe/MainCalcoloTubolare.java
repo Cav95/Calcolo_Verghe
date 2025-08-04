@@ -1,6 +1,6 @@
-package CalcoloTubolare;
+package verghe;
 
-import CalcoloTubolare.view.ViewImpl;
+import verghe.view.ViewImpl;
 
 /**
  * Main class for the Calcolo Tubolare application.

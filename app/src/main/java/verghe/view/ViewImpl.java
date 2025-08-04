@@ -1,4 +1,4 @@
-package CalcoloTubolare.view;
+package verghe.view;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.view.scenes.MainMenuScene;
-import CalcoloTubolare.view.scenes.api.Scene;
+import verghe.controller.ControllerModel;
+import verghe.view.scenes.MainMenuScene;
+import verghe.view.scenes.api.Scene;
 
 /**
  * The main view of the application.

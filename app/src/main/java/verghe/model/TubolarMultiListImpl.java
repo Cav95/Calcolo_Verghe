@@ -1,11 +1,11 @@
-package CalcoloTubolare.model;
+package verghe.model;
 
 import java.util.HashMap;
-import CalcoloTubolare.model.api.TubolarMultiList;
-import CalcoloTubolare.model.api.Tubolar;
-
 import java.util.Set;
 import java.util.TreeSet;
+
+import verghe.model.api.Tubolar;
+import verghe.model.api.TubolarMultiList;
 
 /**
  * TubolarMultiListImpl class implementing the TubolarMultiList interface.

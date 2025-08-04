@@ -1,18 +1,18 @@
-package CalcoloTubolare.controller;
+package verghe.controller;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import CalcoloTubolare.model.CalcolatorTubolar;
-import CalcoloTubolare.model.CollectorPeace;
-import CalcoloTubolare.model.TextOutputFactory;
-import CalcoloTubolare.model.TubolarMultiListImpl;
-import CalcoloTubolare.model.api.ExcludedTubolar;
-import CalcoloTubolare.model.api.GroupMerceologiciTubolar;
-import CalcoloTubolare.model.api.Peace;
-import CalcoloTubolare.model.api.TubolarMultiList;
-import CalcoloTubolare.view.View;
+import verghe.model.CalcolatorTubolar;
+import verghe.model.CollectorPeace;
+import verghe.model.TextOutputFactory;
+import verghe.model.TubolarMultiListImpl;
+import verghe.model.api.ExcludedTubolar;
+import verghe.model.api.GroupMerceologiciTubolar;
+import verghe.model.api.Peace;
+import verghe.model.api.TubolarMultiList;
+import verghe.view.View;
 
 /**
  * ControllerModel class that extends SceneControllerImpl to manage the model

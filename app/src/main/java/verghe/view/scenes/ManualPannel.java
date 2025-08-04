@@ -1,14 +1,13 @@
-package CalcoloTubolare.view.scenes;
+package verghe.view.scenes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import verghe.controller.ControllerModel;
+import verghe.model.api.NameTubolar;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import CalcoloTubolare.controller.ControllerModel;
-import CalcoloTubolare.model.api.NameTubolar;
-
 import java.awt.*;
 
 public class ManualPannel extends JPanel {

@@ -1,4 +1,4 @@
-package CalcoloTubolare.model;
+package verghe.model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,8 +8,8 @@ import java.util.TreeSet;
 
 import org.javatuples.Pair;
 
-import CalcoloTubolare.model.api.Tubolar;
-import CalcoloTubolare.model.api.TubolarMultiList;
+import verghe.model.api.Tubolar;
+import verghe.model.api.TubolarMultiList;
 
 /**
  * CalcolatorTubolar class for calculating the optimal cutting of tubulars.

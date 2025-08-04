@@ -1,8 +1,8 @@
-package CalcoloTubolare.view;
+package verghe.view;
 
 import javax.swing.JFrame;
 
-import CalcoloTubolare.view.scenes.api.Scene;
+import verghe.view.scenes.api.Scene;
 
 /**
  * The main view for the application.

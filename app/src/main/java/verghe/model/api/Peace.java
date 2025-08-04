@@ -1,4 +1,4 @@
-package CalcoloTubolare.model.api;
+package verghe.model.api;
 
 /**
  * Peace class representing a peace with its code, description, quantity, and material.

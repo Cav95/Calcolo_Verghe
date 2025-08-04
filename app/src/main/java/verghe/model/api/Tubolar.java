@@ -1,4 +1,4 @@
-package CalcoloTubolare.model.api;
+package verghe.model.api;
 
 /**
  * Tubolar class representing a tubular with its code, length, quantity,
