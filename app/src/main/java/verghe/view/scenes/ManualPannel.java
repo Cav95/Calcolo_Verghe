@@ -26,6 +26,11 @@ public class ManualPannel extends JPanel {
     private JButton btAddTubolar = new JButton("Aggiungi Tubolare");
     private JButton btRemoveTubolar = new JButton("Remuvi Tubolare");
 
+    /**
+     * Constructor for ManualPannel.
+     * 
+     * @param controller the controller model to manage the application logic
+     */
     public ManualPannel(final ControllerModel controller) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(0, 0, 0, 10));

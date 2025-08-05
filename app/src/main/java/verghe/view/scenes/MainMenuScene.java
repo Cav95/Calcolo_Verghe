@@ -28,47 +28,9 @@ public class MainMenuScene implements Scene {
 
     private Integer tempNumSilo = Integer.parseInt(STD_NUM_SILO);
 
-    public String getPathFile() {
-        return pathFile;
-    }
-
-    public Integer getTfNumSilo() {
-        return Integer.parseInt(tfNumSilo.getText());
-    }
-
-    public String getTfCodeSilo() {
-        return tfCodeSilo.getText();
-    }
-
-    public Integer gettempNumSilo() {
-        return tempNumSilo;
-    }
-
-    public void setLbChosenExcelFile(String text) {
-        lbChosenExcelFile.setText(text);
-    }
-
-    // Fields for manual input
-    /*
-     * final JTextField tfLenght = new JTextField("", 10);
-     * final JTextField tfQuantity = new JTextField("", 6);
-     */
-
-    public void setPathFile(String pathFile) {
-        this.pathFile = pathFile;
-    }
-
-    public void setTempNumSilo(Integer tempNumSilo) {
-        this.tempNumSilo = tempNumSilo;
-    }
-
     final JTextField tfNumSilo = new JTextField(STD_NUM_SILO, 6);
     final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
-
-    public JTextArea getLbResult() {
-        return lbResult;
-    }
 
     final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
 
@@ -156,6 +118,78 @@ public class MainMenuScene implements Scene {
             }
         });
         timer.start();
+    }
+
+    /**
+     * Gets the path of the Excel file.
+     * 
+     * @return the path of the Excel file
+     */
+    public String getPathFile() {
+        return pathFile;
+    }
+
+    /**
+     * Gets the number of the silo from the text field.
+     * 
+     * @return the number of the silo as an Integer
+     */
+    public Integer getTfNumSilo() {
+        return Integer.parseInt(tfNumSilo.getText());
+    }
+
+    /**
+     * Gets the code of the silo from the text field.
+     * 
+     * @return the code of the silo as a String
+     */
+    public String getTfCodeSilo() {
+        return tfCodeSilo.getText();
+    }
+
+    /**
+     * Gets the temporary number of the silo.
+     * 
+     * @return the temporary number of the silo as an Integer
+     */
+    public Integer gettempNumSilo() {
+        return tempNumSilo;
+    }
+
+    /**
+     * Sets the label for the chosen Excel file.
+     * 
+     * @param text the text to set in the label
+     */
+    public void setLbChosenExcelFile(String text) {
+        lbChosenExcelFile.setText(text);
+    }
+
+    /**
+     * Sets the path of the Excel file.
+     * 
+     * @param pathFile the path of the Excel file to set
+     */
+    public void setPathFile(String pathFile) {
+        this.pathFile = pathFile;
+    }
+
+    /**
+     * Sets the temporary number of the silo.
+     * 
+     * @param tempNumSilo the temporary number of the silo to set.
+     */
+    public void setTempNumSilo(Integer tempNumSilo) {
+        this.tempNumSilo = tempNumSilo;
+    }
+
+    /**
+     * Gets the text area for displaying results.
+     * 
+     * @return the JTextArea for results.
+     */
+    public JTextArea getLbResult() {
+        return lbResult;
     }
 
     /**
