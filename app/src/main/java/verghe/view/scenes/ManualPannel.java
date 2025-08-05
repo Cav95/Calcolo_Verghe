@@ -18,7 +18,7 @@ public class ManualPannel extends JPanel {
 
     private JLabel imageLabel = new JLabel();
     private JLabel tipe = new JLabel("Tipo:");
-    JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
+    private JComboBox<NameTubolar> jComboBox = new JComboBox<>(NameTubolar.values());
     private JLabel lenght = new JLabel("Lunghezza:");
     private JTextField tfLenght = new JTextField();
     private JLabel quantity = new JLabel("Quantità:");
@@ -84,7 +84,7 @@ public class ManualPannel extends JPanel {
 
     }
 
-        private void noLenghtandQuantity() {
+    private void noLenghtandQuantity() {
         if (tfLenght.getText().isBlank()
                 || tfQuantity.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Inserire lunghezza e quantità.");

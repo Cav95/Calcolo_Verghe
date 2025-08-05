@@ -30,7 +30,7 @@ public class ResultPane extends JDialog {
          * @param removeMode whether to remove the dialog after displaying results
          * @param result     the result string to be displayed
          */
-        public ResultPane(View view, String title, boolean removeMode, String result) {
+        public ResultPane(final View view, final String title, boolean removeMode, String result) {
                 super(view.getMainFrame(), title, ModalityType.APPLICATION_MODAL);
                 this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 this.setSize(800, 500);
@@ -62,7 +62,7 @@ public class ResultPane extends JDialog {
                 JButton stampaButton = new JButton("Stampa");
                 stampaButton.addActionListener(new ActionListener() {
                         @Override
-                        public void actionPerformed(ActionEvent e) {
+                        public void actionPerformed(final ActionEvent e) {
                                 try {
                                         boolean printed = lbResultFinal.print();
                                         if (printed) {

@@ -21,8 +21,8 @@ public interface TubolarMultiList {
     void openNewQueue(String code);
 
     /**
-     * @param lenght, is the element to add.
-     * @param code,   is the queue where the element is to be added.
+     * @param lenght is the element to add.
+     * @param code   is the queue where the element is to be added.
      * @throws IllegalArgumentException if queue is not available.
      */
     public void addTubolar(Integer lenght, String code, Integer quantity);
@@ -36,9 +36,10 @@ public interface TubolarMultiList {
     void removeTubolar(String code, Integer lenght);
 
     /**
-     * Get list of my same tubolare cut
+     * Get list of my same tubolare cut.
      * 
-     * @param , the queue to be cheched.
+     * @param code the code of the tubolar.
+     * @return a set of Tubolar objects.
      * @throws IllegalArgumentException if queue is not available.
      */
     Set<Tubolar> getTubolarList(String code);

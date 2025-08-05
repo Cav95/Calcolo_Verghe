@@ -32,18 +32,18 @@ public class MainMenuScene implements Scene {
     final JTextField tfCodeSilo = new JTextField("", 10);
     final JTextArea lbResult = new JTextArea(10, NUM_COLUMN);
 
-    final JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
+    final private JTextArea lbChosenExcelFile = new JTextArea(1, NUM_COLUMN);
 
     // Checkbox for manual input
-    final JCheckBox cbManualInput = new JCheckBox("Inserimento Manuale", false);
+    final private JCheckBox cbManualInput = new JCheckBox("Inserimento Manuale", false);
 
-    final JPanel mainMenuPanel;
+    final private JPanel mainMenuPanel;
     // final JLabel imageLabel = new JLabel();
 
     // label text
-    JLabel numSilo = new JLabel("Numero Silo: ");
-    JLabel siloCode = new JLabel("Codice Silo: ");
-    JLabel tubolarList = new JLabel("Lista Tubolari: ");
+    private JLabel numSilo = new JLabel("Numero Silo: ");
+    private JLabel siloCode = new JLabel("Codice Silo: ");
+    private JLabel tubolarList = new JLabel("Lista Tubolari: ");
 
     private final ControllerModel controller;
 

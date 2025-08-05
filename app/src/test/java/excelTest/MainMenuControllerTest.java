@@ -13,6 +13,11 @@ import verghe.view.ViewImpl;
  */
 public class MainMenuControllerTest {
 
+    /**
+     * Tests the addition of a tubular from an Excel file.
+     * It checks if the tubular with code "PIA180150000000" is present in the
+     * tubolar list after adding from the Excel file.
+     */
     @Test
     public void testAddTubolarFromExcel() {
         ControllerModel controller = new ControllerModel(new ViewImpl(false));

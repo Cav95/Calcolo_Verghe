@@ -25,7 +25,7 @@ public class TextOutputFactory {
     private static final int MM_TO_M = 1000;
     private static final String A_CAPO = "\n";
     private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
-    private static final String QUANTITÀ = " Quantità=";
+    private static final String QUANTITA = " Quantità=";
     private static final String CODICE_DELLA_STRUTURA = "Codice della strutura: ";
     private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
     private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12m\\6mt\n\n";
@@ -37,6 +37,10 @@ public class TextOutputFactory {
     private static final String LUNGHEZZA_VERGA = "Lunghezza Verga:";
     private static final String NUMERO_TUBOLARI_TOTALI = "Quantità Verghe:";
     private static final String SEPARATOR = " -> ";
+
+    private TextOutputFactory() {
+        // Private constructor to prevent instantiation
+    }
 
     /**
      * Prints the cutted tubulars in a formatted string.
@@ -189,7 +193,7 @@ public class TextOutputFactory {
                         + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO
                         + controller.getPeaceStream(numSilo)
-                                .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITÀ
+                                .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITA
                                         + h.quantity()
                                         + SEPARATOR
                                         + LUNGHEZZA_SINGOLO + h.lenght() + A_CAPO)
@@ -241,7 +245,7 @@ public class TextOutputFactory {
                         .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() == 0)
-                        .map(h -> h.code() + " (" + h.description() + ") " + QUANTITÀ
+                        .map(h -> h.code() + " (" + h.description() + ") " + QUANTITA
                                 + h.quantity() + A_CAPO + A_CAPO)
                         .reduce("", (a, b) -> a + b);
 

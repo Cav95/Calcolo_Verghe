@@ -137,6 +137,10 @@ public class ViewImpl implements View {
         return this.frame.getWindowListeners().length > 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public JFrame getMainFrame() {
         return this.frame;
     }

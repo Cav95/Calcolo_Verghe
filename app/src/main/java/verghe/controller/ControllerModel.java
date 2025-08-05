@@ -23,6 +23,11 @@ public class ControllerModel {
     private View view;
     private Optional<CollectorPeace> collector = Optional.empty();
 
+    /**
+     * Gets the collector peace.
+     * 
+     * @return the collector peace as an Optional.
+     */
     public Optional<CollectorPeace> getCollector() {
         return collector;
     }
@@ -82,11 +87,16 @@ public class ControllerModel {
         tubolarList.removeTubolar(nameTubolar, lengthTubolar);
     }
 
+    /**
+     * Gets the message when a tubolar is added.
+     * 
+     * @return the message indicating the tubolar has been added.
+     */
     public String tubolarAdded() {
         try {
             return TextOutputFactory.tubolarInsertedOutput(tubolarList, collector);
         } catch (Exception e) {
-            
+
         }
         return "";
     }
@@ -131,6 +141,13 @@ public class ControllerModel {
 
     }
 
+    /**
+     * Gets a stream of Peace objects filtered by ExcludedTubolar and
+     * GroupMerceologiciTubolar.
+     * 
+     * @param numSilo the number of the silo.
+     * @return a stream of Peace objects.
+     */
     public Stream<Peace> getPeaceStream(Integer numSilo) {
         return this.getCollector().get().getTableSeampleList().stream()
                 .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()

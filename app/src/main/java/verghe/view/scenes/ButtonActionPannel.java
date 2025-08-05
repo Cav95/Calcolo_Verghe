@@ -31,27 +31,27 @@ public class ButtonActionPannel extends JPanel {
     private static final String RULES_PATH = "\\\\srvut\\ut\\FogliElettronici-Modelli\\Verghe\\rules.html";
 
     // Button for output of reduced calculation
-    final JButton btUsedTubolarList = new JButton(USED_TUBOLAR);
-    final JButton btCuttedList = new JButton(CUT_LIST);
-    final JButton btConfert = new JButton(PER_ROMBO);
+    final private JButton btUsedTubolarList = new JButton(USED_TUBOLAR);
+    final private JButton btCuttedList = new JButton(CUT_LIST);
+    final private JButton btConfert = new JButton(PER_ROMBO);
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
-    final JButton btCalcFromExcel = new JButton("Importa da Excel");
-    final JButton btSelectExcel = new JButton("Scegli File Excel");
-    final JButton istruction = new JButton("Istruzioni Excel");
-    final JButton btOpenExcel = new JButton("Apri File Excel");
+    final private JButton btCalcFromExcel = new JButton("Importa da Excel");
+    final private JButton btSelectExcel = new JButton("Scegli File Excel");
+    final private JButton istruction = new JButton("Istruzioni Excel");
+    final private JButton btOpenExcel = new JButton("Apri File Excel");
 
     // Checkbox for optimal calculation
-    final JCheckBox cbOttimale = new JCheckBox(SOLO_VERGHE_6MT, false);
+    final private JCheckBox cbOttimale = new JCheckBox(SOLO_VERGHE_6MT, false);
 
     // Button to show rules of use
-    final JButton btRulesofUse = new JButton("Regole di Utilizzo");
+    final private JButton btRulesofUse = new JButton("Regole di Utilizzo");
 
     // Button to delete all tubulars and reset the application
-    final JButton btRestart = new JButton("Svuota Tutto");
+    final private JButton btRestart = new JButton("Svuota Tutto");
 
-    MainMenuScene mainMenuPanel;
+    private MainMenuScene mainMenuPanel;
 
     public ButtonActionPannel(final ControllerModel controller, MainMenuScene mainMenuPanel) {
         this.mainMenuPanel = mainMenuPanel;
@@ -116,7 +116,7 @@ public class ButtonActionPannel extends JPanel {
             controllEmptyResulPannel();
 
             var result = TextOutputFactory.extendedResultString(mainMenuPanel.getTfCodeSilo(),
-            !cbOttimale.isSelected(),
+                    !cbOttimale.isSelected(),
                     controller, mainMenuPanel.gettempNumSilo());
             new ResultPane(controller.getView(), CUT_LIST, true, result);
         });
@@ -137,7 +137,7 @@ public class ButtonActionPannel extends JPanel {
 
         istruction.addActionListener(e -> {
             JOptionPane.showMessageDialog(mainMenuPanel.getPanel(),
-            TextOutputFactory.rulesOfUseExcel(),
+                    TextOutputFactory.rulesOfUseExcel(),
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
         });
 

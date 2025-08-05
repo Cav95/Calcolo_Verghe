@@ -20,6 +20,10 @@ public class CalcolatorTubolar {
     private static final int EXTENDED_TUB = 12000;
     private static final int LAMA = 2;
 
+    private CalcolatorTubolar() {
+        // Private constructor to prevent instantiation
+    }
+
     /**
      * Calculates the total cutting of tubulars based on the provided
      * TubolarMultiList.

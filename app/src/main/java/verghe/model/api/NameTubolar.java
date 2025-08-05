@@ -33,8 +33,8 @@ public enum NameTubolar {
 
     /**
      * Gets the name of the tubular based on the key.
+     * * @param key the key of the tubular.
      * 
-     * @param key the key of the tubular.
      * @return the name of the tubular.
      */
     public static String[] stringEnum() {
@@ -54,6 +54,5 @@ public enum NameTubolar {
     NameTubolar(String actualName) {
         this.actualName = actualName;
     }
-    
 
 }

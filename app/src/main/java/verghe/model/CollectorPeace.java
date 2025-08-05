@@ -24,9 +24,9 @@ import verghe.model.api.TubolarMultiList;
  */
 public class CollectorPeace {
 
-    List<Peace> tableSeampleList = new LinkedList<>();
-    Set<Pair<String, String>> tableTubolarList = new HashSet<>();
-    TubolarMultiList tubolarList = new TubolarMultiListImpl();
+    final private List<Peace> tableSeampleList = new LinkedList<>();
+    final private Set<Pair<String, String>> tableTubolarList = new HashSet<>();
+    final private TubolarMultiList tubolarList = new TubolarMultiListImpl();
 
     /**
      * Constructor for CollectorPeace.
@@ -73,6 +73,8 @@ public class CollectorPeace {
      * @param nameTubolar   the name of the tubular
      * @param lengthTubolar the length of the tubular
      * @param quantity      the quantity of the tubular
+     * @param description   the description of the tubular
+     * @param material      the material of the tubular
      */
     public void newTubolarList(String nameTubolar, int lengthTubolar, int quantity, String description,
             String material) {
