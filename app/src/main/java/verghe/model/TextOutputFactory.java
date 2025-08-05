@@ -22,6 +22,7 @@ import verghe.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final String M = "m";
     private static final int MM_TO_M = 1000;
     private static final String A_CAPO = "\n";
     private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
@@ -51,31 +52,31 @@ public class TextOutputFactory {
      */
     public static String cuttedTubolarExtended(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
-        String out = "";
+        StringBuffer out = new StringBuffer();
         if (!mapCut.keySet().isEmpty()) {
 
             for (var elemEntry : mapCut.entrySet()) {
-                out = out + elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + SEPARATOR
+                out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elemEntry.getValue().size()
-                        + A_CAPO;
+                        + A_CAPO);
                 for (var elem : elemEntry.getValue()) {
-                    out = out + LUNGHEZZA_VERGA + elem.getValue0() + A_CAPO;
-                    out = out + VERGA_UTILIZZATA + elem.getValue1().stream().mapToInt(t -> t).sum() + A_CAPO;
-                    out = out + LISTA_DI_TAGLIO + A_CAPO;
-                    out = out
+                    out.append(LUNGHEZZA_VERGA + elem.getValue0() + A_CAPO
+                            + VERGA_UTILIZZATA + elem.getValue1().stream().mapToInt(t -> t).sum() + A_CAPO
+                            + LISTA_DI_TAGLIO + A_CAPO
                             + elem.getValue1().stream()
                                     .map(t -> LUNGHEZZA_SINGOLO + t + SEP + NUMERO
                                             + elem.getValue1().stream().mapToInt(e -> e).filter(g -> g == t).sum() / t)
                                     .distinct().toList()
-                            + "\n\n";
+                            + A_CAPO +
+                            A_CAPO);
                 }
-                out = out + A_CAPO;
+                out.append(A_CAPO);
             }
         } else {
             throw new IllegalArgumentException();
         }
-        out = out + noTubolarElement(collector);
-        return out;
+        out.append(noTubolarElement(collector));
+        return out.toString();
     }
 
     /**
@@ -89,26 +90,24 @@ public class TextOutputFactory {
     public static String cuttedTubolarReduced(
             HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
             Optional<CollectorPeace> collector) {
-        String out = "";
+        StringBuffer out = new StringBuffer();
         if (!mapCut.keySet().isEmpty()) {
 
             for (var elem : mapCut.entrySet()) {
-                out = out + elem.getKey() + getNameTubolar(elem.getKey(), collector) + A_CAPO;
-
-                out = out + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
+                out.append(elem.getKey() + getNameTubolar(elem.getKey(), collector) + A_CAPO
+                        + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
                         + elem.getValue().stream()
                                 .mapToDouble(t -> t.getValue1().stream().mapToDouble(h -> h).sum() / MM_TO_M)
                                 .sum()
-                        + "m" + "\n\n";
+                        + M + "\n\n");
 
             }
         } else {
             throw new IllegalArgumentException();
         }
-        out = out + noTubolarElement(collector);
-        System.out.print(out);
-        return out;
+        out.append(noTubolarElement(collector));
+        return out.toString();
     }
 
     /**
@@ -132,21 +131,21 @@ public class TextOutputFactory {
      * @return a formatted string representing the inserted tubulars
      */
     public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
-        String out = "";
+        StringBuffer out = new StringBuffer();
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
-                out = out + elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + A_CAPO;
-                out = out + elemEntry.getValue().stream()
-                        .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
-                        .map(t -> "[ " + t + " ] ").map(t -> t.toUpperCase())
-                        .distinct().reduce("", (a, b) -> a + b);
-                out = out + "\n\n";
+                out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + A_CAPO +
+                        elemEntry.getValue().stream()
+                                .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
+                                .map(t -> "[ " + t + " ] ").map(String::toUpperCase)
+                                .distinct().reduce("", (a, b) -> a + b)
+                        + "\n\n");
             }
         } else {
             throw new IllegalArgumentException();
         }
-        out = out + noTubolarElement(collector);
-        return out;
+        out.append(noTubolarElement(collector));
+        return out.toString();
     }
 
     /**
@@ -214,7 +213,7 @@ public class TextOutputFactory {
     }
 
     private static String userName() {
-        return "Autore: " + System.getProperty("user.name") + " " + LocalDate.now();
+        return "Autore: " + System.getProperty("user.name").toUpperCase() + " - " + LocalDate.now();
     }
 
     private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
@@ -256,7 +255,7 @@ public class TextOutputFactory {
     }
 
     private static String siloPropretiesOutput(String siloCode, Integer numSilo) {
-        return structureCode(siloCode) + "  " + numSilOuput(numSilo);
+        return structureCode(siloCode) + numSilOuput(numSilo);
     }
 
 }
