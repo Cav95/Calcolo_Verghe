@@ -2,7 +2,6 @@ package verghe.model;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -51,12 +50,12 @@ public class CalcolatorTubolar {
         var multiQueue = tubolarlist.getMultiQueue();
 
         if (optimal) {
-            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
+            for (var elemEntry : multiQueue.entrySet()) {
                 mapCut.put(elemEntry.getKey(), calcoloVergaOttimale(multiQueue, elemEntry.getKey()));
             }
 
         } else {
-            for (Entry<String, Set<Tubolar>> elemEntry : multiQueue.entrySet()) {
+            for (var elemEntry : multiQueue.entrySet()) {
                 mapCut.put(elemEntry.getKey(), listOfTubolarByLenght(multiQueue.get(elemEntry.getKey()), STARDARD_TUB));
             }
         }
@@ -68,15 +67,15 @@ public class CalcolatorTubolar {
      * Calculates the optimal cutting of tubulars based on the provided multiQueue
      * and queue.
      * 
-     * @param multiQueue the multiQueue containing the tubulars
-     * @param queue      the queue to be processed
+     * @param mapTubolar  the multiQueue containing the tubulars
+     * @param codeTubolar the queue to be processed
      * @return a LinkedList containing the cutting results
      */
     private LinkedList<Pair<Integer, LinkedList<Integer>>> calcoloVergaOttimale(
-            HashMap<String, Set<Tubolar>> multiQueue, String queue) {
+            HashMap<String, Set<Tubolar>> mapTubolar, String codeTubolar) {
 
-        var listShort = listOfTubolarByLenght(multiQueue.get(queue), STARDARD_TUB);
-        var listLong = listOfTubolarByLenght(multiQueue.get(queue), EXTENDED_TUB);
+        var listShort = listOfTubolarByLenght(mapTubolar.get(codeTubolar), STARDARD_TUB);
+        var listLong = listOfTubolarByLenght(mapTubolar.get(codeTubolar), EXTENDED_TUB);
         return listShort.size() <= (listLong.size() * (EXTENDED_TUB / STARDARD_TUB)) ? listShort : listLong;
     }
 
