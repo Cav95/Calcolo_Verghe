@@ -2,13 +2,9 @@ package verghe.model;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-
-import org.javatuples.Pair;
 
 import verghe.controller.ControllerModel;
 import verghe.model.api.ExcludedTubolar;
@@ -50,12 +46,12 @@ public class TextOutputFactory {
      * @param collector the collector peace containing tubular and sample data
      * @return a formatted string representing the cutted tubulars
      */
-    public static String cuttedTubolarExtended(HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
+    public static String cuttedTubolarExtended(CalcolatorTubolar calcolator,
             Optional<CollectorPeace> collector) {
         StringBuffer out = new StringBuffer();
-        if (!mapCut.keySet().isEmpty()) {
+        if (!calcolator.getMapCut().keySet().isEmpty()) {
 
-            for (var elemEntry : mapCut.entrySet()) {
+            for (var elemEntry : calcolator.getMapCut().entrySet()) {
                 out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elemEntry.getValue().size()
                         + A_CAPO);
@@ -88,19 +84,20 @@ public class TextOutputFactory {
      * 
      */
     public static String cuttedTubolarReduced(
-            HashMap<String, LinkedList<Pair<Integer, LinkedList<Integer>>>> mapCut,
+            CalcolatorTubolar calcolator,
             Optional<CollectorPeace> collector) {
         StringBuffer out = new StringBuffer();
-        if (!mapCut.keySet().isEmpty()) {
+        if (!calcolator.getMapCut().keySet().isEmpty()) {
 
-            for (var elem : mapCut.entrySet()) {
+            for (var elem : calcolator.getMapCut().entrySet()) {
                 out.append(elem.getKey() + getNameTubolar(elem.getKey(), collector) + A_CAPO
                         + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
                         + elem.getValue().stream()
                                 .mapToDouble(t -> t.getValue1().stream().mapToDouble(h -> h).sum() / MM_TO_M)
                                 .sum()
-                        + M + "\n\n");
+                        + M + A_CAPO
+                        + A_CAPO);
 
             }
         } else {

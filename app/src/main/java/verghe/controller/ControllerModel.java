@@ -107,7 +107,7 @@ public class ControllerModel {
      * @return the collector peace.
      */
     public String partialCalcolateTubolar(final Boolean optimal) {
-        return TextOutputFactory.cuttedTubolarReduced(CalcolatorTubolar.calcoloTotal(tubolarList, optimal),
+        return TextOutputFactory.cuttedTubolarReduced(new CalcolatorTubolar(tubolarList, optimal),
                 collector);
     }
 
@@ -118,7 +118,7 @@ public class ControllerModel {
      */
     public String totalCalcolateTubolar(final Boolean optimal) {
         return TextOutputFactory
-                .cuttedTubolarExtended(CalcolatorTubolar.calcoloTotal(tubolarList, optimal), collector);
+                .cuttedTubolarExtended(new CalcolatorTubolar(tubolarList, optimal), collector);
     }
 
     /**
