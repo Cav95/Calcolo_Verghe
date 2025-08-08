@@ -131,12 +131,14 @@ public class TextOutputFactory {
         StringBuffer out = new StringBuffer();
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
-                out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + A_CAPO +
-                        elemEntry.getValue().stream()
+                out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + A_CAPO
+                        + elemEntry.getValue().stream()
                                 .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
                                 .map(t -> "[ " + t + " ] ").map(String::toUpperCase)
-                                .distinct().reduce("", (a, b) -> a + b)
-                        + "\n\n");
+                                .distinct()
+                                .reduce("", (a, b) -> a + b)
+                        + A_CAPO
+                        + A_CAPO);
             }
         } else {
             throw new IllegalArgumentException();
@@ -184,7 +186,7 @@ public class TextOutputFactory {
      * @return a formatted string representing the tubular data.
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
-        return controller.getCollector().isEmpty() ? ""
+        return controller.getCollector().isEmpty() ? new String()
                 : userName() + A_CAPO
                         + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO
@@ -205,7 +207,7 @@ public class TextOutputFactory {
     }
 
     private static String structureCode(String codeSilo) {
-        return codeSilo.isBlank() ? "" : CODICE_DELLA_STRUTURA + codeSilo + " ";
+        return codeSilo.isBlank() ? new String() : CODICE_DELLA_STRUTURA + codeSilo + " ";
 
     }
 
@@ -231,12 +233,12 @@ public class TextOutputFactory {
             } catch (Exception e) {
                 System.out.println("NameTubolar not found for code: " + codeTubolar);
             }
-            return "";
+            return new String();
         }
     }
 
     private static String noTubolarElement(Optional<CollectorPeace> collector) {
-        return collector.isEmpty() ? ""
+        return collector.isEmpty() ? new String()
                 : collector.get().getTableSeampleList().stream()
                         .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
                                 .noneMatch(t -> h.code().contains(t.name())))
