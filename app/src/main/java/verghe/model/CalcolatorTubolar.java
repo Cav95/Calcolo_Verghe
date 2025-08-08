@@ -77,7 +77,7 @@ public class CalcolatorTubolar {
 
         var listShort = listOfTubolarByLenght(multiQueue.get(queue), STARDARD_TUB);
         var listLong = listOfTubolarByLenght(multiQueue.get(queue), EXTENDED_TUB);
-        return listShort.size() <= (listLong.size() * 2) ? listShort : listLong;
+        return listShort.size() <= (listLong.size() * (EXTENDED_TUB / STARDARD_TUB)) ? listShort : listLong;
     }
 
     /**
