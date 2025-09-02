@@ -94,9 +94,9 @@ public class TextOutputFactory {
                 out.append(elem.getKey() + getNameTubolar(elem.getKey(), collector) + A_CAPO
                         + LUNGHEZZA_VERGA + elem.getValue().getFirst().getValue0() + SEPARATOR
                         + NUMERO_TUBOLARI_TOTALI + elem.getValue().size() + SEPARATOR + TUBOLARE_UTILIZZATO
-                        + elem.getValue().stream()
+                        + String.format("%.2f", elem.getValue().stream()
                                 .mapToDouble(t -> t.getValue1().stream().mapToDouble(h -> h).sum() / MM_TO_M)
-                                .sum()
+                                .sum())
                         + M + A_CAPO
                         + A_CAPO);
 
@@ -128,7 +128,7 @@ public class TextOutputFactory {
      * @param collector the optional CollectorPeace containing additional data
      * @return a formatted string representing the inserted tubulars
      */
-     public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
+    public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
         StringBuffer out = new StringBuffer();
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
@@ -202,7 +202,7 @@ public class TextOutputFactory {
                                 .sorted()
                                 .distinct()
                                 .reduce("", (a, b) -> a + b)
-                                + EMPTY_LINE;
+                        + EMPTY_LINE;
     }
 
     private static String ottimalOutputString(Boolean optimal) {
