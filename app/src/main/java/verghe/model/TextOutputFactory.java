@@ -34,6 +34,7 @@ public class TextOutputFactory {
     private static final String LUNGHEZZA_VERGA = "Lunghezza Verga:";
     private static final String NUMERO_TUBOLARI_TOTALI = "Quantità Verghe:";
     private static final String SEPARATOR = " -> ";
+    private static final String EMPTY_LINE = "-";
 
     private TextOutputFactory() {
         // Private constructor to prevent instantiation
@@ -127,7 +128,7 @@ public class TextOutputFactory {
      * @param collector the optional CollectorPeace containing additional data
      * @return a formatted string representing the inserted tubulars
      */
-    public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
+     public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
         StringBuffer out = new StringBuffer();
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
@@ -160,7 +161,8 @@ public class TextOutputFactory {
         return userName() + A_CAPO
                 + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
-                + controller.partialCalcolateTubolar(optimal);
+                + controller.partialCalcolateTubolar(optimal)
+                + EMPTY_LINE;
     }
 
     /**
@@ -176,7 +178,8 @@ public class TextOutputFactory {
         return userName() + A_CAPO
                 + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                 + ottimalOutputString(optimal)
-                + controller.totalCalcolateTubolar(optimal);
+                + controller.totalCalcolateTubolar(optimal)
+                + EMPTY_LINE;
     }
 
     /**
@@ -198,7 +201,8 @@ public class TextOutputFactory {
                                 .map(String::toUpperCase)
                                 .sorted()
                                 .distinct()
-                                .reduce("", (a, b) -> a + b);
+                                .reduce("", (a, b) -> a + b)
+                                + EMPTY_LINE;
     }
 
     private static String ottimalOutputString(Boolean optimal) {
