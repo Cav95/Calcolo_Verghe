@@ -36,17 +36,25 @@ public class CollectorPeace {
      */
     public CollectorPeace(String path, Integer quantitySilo) {
 
-        try (FileInputStream fis = new FileInputStream(path)) {
-            Workbook workbook = WorkbookFactory.create(fis); // gestisce sia .xls che .xlsx
+        try (FileInputStream fis = new FileInputStream(path);
+                Workbook workbook = WorkbookFactory.create(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
-            var rowIteretor = sheet.iterator();
+            var rowIterator = sheet.iterator();
 
-            Row row = rowIteretor.next();
-            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().trim().toUpperCase().equals("CODICE")
-                    || row.getCell(2).getStringCellValue().isEmpty()) {
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                var codeCell = row.getCell(2);
+                if (codeCell == null) {
+                    continue;
+                }
+
+                String code = codeCell.getStringCellValue().trim();
+                if (code.isEmpty() || code.equalsIgnoreCase("CODICE")) {
+                    continue;
+                }
 
                 int quantity = (int) row.getCell(1).getNumericCellValue() * quantitySilo;
-                String name = row.getCell(2).getStringCellValue().trim();
+                String name = code;
                 String description = row.getCell(3).getStringCellValue().trim();
                 int length = (int) row.getCell(4).getNumericCellValue();
                 String material = row.getCell(5).getStringCellValue().trim();
@@ -58,9 +66,7 @@ public class CollectorPeace {
                 } else {
                     tableSeampleList.add(new Peace(name, description, quantity, material));
                 }
-                row = rowIteretor.next();
             }
-            workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +87,6 @@ public class CollectorPeace {
         try {
             tubolarList.openNewQueue(nameTubolar);
         } catch (IllegalArgumentException e) {
-            System.out.println("");
         }
 
         tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);

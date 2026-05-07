@@ -39,7 +39,7 @@ public class ButtonActionPannel extends JPanel {
     // It will read the file and add the tubulars to the list
     final private JButton btCalcFromExcel = new JButton("Importa da Excel");
     final private JButton btSelectExcel = new JButton("Scegli File Excel");
-    final private JButton istruction = new JButton("Istruzioni Excel");
+    final private JButton btInstructions = new JButton("Istruzioni Excel");
     final private JButton btOpenExcel = new JButton("Apri File Excel");
 
     // Checkbox for optimal calculation
@@ -73,7 +73,7 @@ public class ButtonActionPannel extends JPanel {
         this.add(Box.createVerticalStrut(5));
         this.add(btOpenExcel);
         this.add(Box.createVerticalStrut(20));
-        this.add(istruction);
+        this.add(btInstructions);
         this.add(Box.createVerticalStrut(5));
         this.add(btRulesofUse); // Hide rules button for now
 
@@ -135,7 +135,7 @@ public class ButtonActionPannel extends JPanel {
             controller.restart();
         });
 
-        istruction.addActionListener(e -> {
+        btInstructions.addActionListener(e -> {
             JOptionPane.showMessageDialog(mainMenuPanel.getPanel(),
                     TextOutputFactory.rulesOfUseExcel(),
                     "Regole Excel", JOptionPane.INFORMATION_MESSAGE);
@@ -145,8 +145,6 @@ public class ButtonActionPannel extends JPanel {
             try {
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(new File(RULES_PATH));
-                } else {
-                    System.out.println("Desktop non supportato!");
                 }
             } catch (IOException | NullPointerException j) {
                 System.err.println("Errore durante l'apertura del file HTML: " + j.getMessage());

@@ -1,15 +1,14 @@
 ## Calcolo_Verghe
-Aplication to calcolate **Tubolar** best cut between 6mt and 12mt
-tubolar.
-In the correct version we can only check perpedicura cut. 
+Application to calculate the best **Tubolar** cut between 6 m and 12 m.
+In the current version we can only check perpendicular cuts.
 
 ## TO DO
-- Inserire scelta calcolo Ottimo 12m & 6m metri
+- Inserire scelta calcolo ottimo 12 m e 6 m
 	- Ripensare il model per renderlo variabile
-- Creare Static Factory per Testi , esportando li tutta la creazione di Testi
-	- Correggere testi in OutPut
-- Creare Classe per concretizzare ciò che è stato letto da Tabella
-- Metodo per completare Tagli dando in input una ListofPiece
-- Creare una Factory di Action per la View
-- Inserire Test Per nuovi metodi model
-- Inserire manuale interno.
+	- Creare una static factory per i testi, esportando tutta la creazione dei testi
+	- Correggere i testi in output
+	- Creare una classe per concretizzare ciò che è stato letto da tabella
+	- Metodo per completare i tagli dando in input una ListOfPiece
+	- Creare una factory di action per la view
+	- Inserire test per i nuovi metodi del model
+	- Inserire manuale interno.

@@ -53,15 +53,16 @@ public class TubolarMultiListImpl implements TubolarMultiList {
     public void addTubolar(Integer lenght, String code, Integer quantity) {
 
         if (availableQueues().contains(code)) {
-            if (this.cuttedTubolarMap.get(code).contains(new Tubolar(lenght, quantity))) {
-                for (var myIterator = this.cuttedTubolarMap.get(code).iterator(); myIterator.hasNext();) {
+            var queue = this.cuttedTubolarMap.get(code);
+            if (queue.contains(new Tubolar(lenght, quantity))) {
+                for (var myIterator = queue.iterator(); myIterator.hasNext();) {
                     var tub = myIterator.next();
                     if (tub.getLenght() == lenght) {
                         tub.setQuantity(tub.getQuantity() + quantity);
                     }
                 }
             } else {
-                this.cuttedTubolarMap.get(code).add(new Tubolar(lenght, quantity));
+                queue.add(new Tubolar(lenght, quantity));
             }
         } else {
             throw new IllegalArgumentException();
@@ -75,9 +76,10 @@ public class TubolarMultiListImpl implements TubolarMultiList {
     @Override
     public void removeTubolar(String queue, Integer lenght) {
         if (availableQueues().contains(queue)) {
-            getTubolarList(queue).removeIf(t -> t.getLenght() == lenght);
+            var tubolarQueue = getTubolarList(queue);
+            tubolarQueue.removeIf(t -> t.getLenght() == lenght);
 
-            if (this.cuttedTubolarMap.get(queue).isEmpty()) {
+            if (tubolarQueue.isEmpty()) {
                 this.cuttedTubolarMap.remove(queue);
             }
         } else {

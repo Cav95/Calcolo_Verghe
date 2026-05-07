@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import verghe.controller.ControllerModel;
 import verghe.model.api.ExcludedTubolar;
@@ -24,8 +25,8 @@ public class TextOutputFactory {
     private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
     private static final String QUANTITA = " Quantità=";
     private static final String CODICE_DELLA_STRUTURA = "Codice della struttura: ";
-    private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
-    private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12m\\6mt\n\n";
+    private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6 mt\n\n";
+    private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12 m e 6 mt\n\n";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
     private static final String VERGA_UTILIZZATA = "Somma Millimetri Utilizzati: ";
     private static final String NUMERO = "Q.TA=";
@@ -49,7 +50,7 @@ public class TextOutputFactory {
      */
     public static String cuttedTubolarExtended(CalcolatorTubolar calcolator,
             Optional<CollectorPeace> collector) {
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
         if (!calcolator.getMapCut().keySet().isEmpty()) {
 
             for (var elemEntry : calcolator.getMapCut().entrySet()) {
@@ -57,12 +58,14 @@ public class TextOutputFactory {
                         + NUMERO_TUBOLARI_TOTALI + elemEntry.getValue().size()
                         + A_CAPO);
                 for (var elem : elemEntry.getValue()) {
+                    var lengths = elem.getValue1();
+                    var countByLength = lengths.stream()
+                        .collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
                     out.append(LUNGHEZZA_VERGA + elem.getValue0() + A_CAPO
-                            + VERGA_UTILIZZATA + elem.getValue1().stream().mapToInt(t -> t).sum() + A_CAPO
+                        + VERGA_UTILIZZATA + lengths.stream().mapToInt(t -> t).sum() + A_CAPO
                             + LISTA_DI_TAGLIO + A_CAPO
-                            + elem.getValue1().stream()
-                                    .map(t -> LUNGHEZZA_SINGOLO + t + SEP + NUMERO
-                                            + elem.getValue1().stream().mapToInt(e -> e).filter(g -> g == t).sum() / t)
+                        + lengths.stream()
+                            .map(t -> LUNGHEZZA_SINGOLO + t + SEP + NUMERO + countByLength.get(t))
                                     .distinct().toList()
                             + A_CAPO +
                             A_CAPO);
@@ -87,7 +90,7 @@ public class TextOutputFactory {
     public static String cuttedTubolarReduced(
             CalcolatorTubolar calcolator,
             Optional<CollectorPeace> collector) {
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
         if (!calcolator.getMapCut().keySet().isEmpty()) {
 
             for (var elem : calcolator.getMapCut().entrySet()) {
@@ -114,11 +117,11 @@ public class TextOutputFactory {
      * @return a string containing the rules for using the Excel file.
      */
     public static String rulesOfUseExcel() {
-        return "Il file Excel deve provenire dalla tabella SolidWork \n"
+        return "Il file Excel deve provenire dalla tabella SolidWorks \n"
                 + "Il file Excel deve avere le colonne: \n"
                 + "Codice, Lunghezza, Quantità, Diametro, Spessore\n"
-                + "In questo Ordine\n"
-                + "Il file deve essere salvato con estenzione .xlsx\n";
+                + "In questo ordine\n"
+                + "Il file deve essere salvato con estensione .xlsx\n";
     }
 
     /**
@@ -129,15 +132,17 @@ public class TextOutputFactory {
      * @return a formatted string representing the inserted tubulars
      */
     public static String tubolarInsertedOutput(TubolarMultiList multi, Optional<CollectorPeace> collector) {
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
         if (!multi.availableQueues().isEmpty()) {
             for (Entry<String, Set<Tubolar>> elemEntry : multi.getMultiQueue().entrySet()) {
+                var tubularList = elemEntry.getValue().stream()
+                        .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
+                        .map(t -> "[ " + t + " ] ")
+                        .map(String::toUpperCase)
+                        .distinct()
+                        .collect(Collectors.joining());
                 out.append(elemEntry.getKey() + getNameTubolar(elemEntry.getKey(), collector) + A_CAPO
-                        + elemEntry.getValue().stream()
-                                .map(t -> LUNGHEZZA_SINGOLO + t.getLenght() + " " + NUMERO + t.getQuantity())
-                                .map(t -> "[ " + t + " ] ").map(String::toUpperCase)
-                                .distinct()
-                                .reduce("", (a, b) -> a + b)
+                        + tubularList
                         + A_CAPO
                         + A_CAPO);
             }
@@ -200,7 +205,7 @@ public class TextOutputFactory {
                                 .map(String::toUpperCase)
                                 .sorted()
                                 .distinct()
-                                .reduce("", (a, b) -> a + b)
+                                .collect(Collectors.joining())
                         + EMPTY_LINE;
     }
 
@@ -210,45 +215,41 @@ public class TextOutputFactory {
     }
 
     private static String structureCode(String codeSilo) {
-        return codeSilo.isBlank() ? new String() : CODICE_DELLA_STRUTURA + codeSilo + " ";
+        return codeSilo.isBlank() ? "" : CODICE_DELLA_STRUTURA + codeSilo + " ";
 
     }
 
     private static String userName() {
-        return "Autore: " + System.getProperty("user.name").toUpperCase() + " - " + LocalDate.now();
+        return "Autore: " + System.getProperty("user.name", "").toUpperCase() + " - " + LocalDate.now();
     }
 
     private static String getNameTubolar(String codeTubolar, Optional<CollectorPeace> collector) {
-        if (!collector.isEmpty()
-                && collector.get().getTableSeampleList().stream()
-                        .anyMatch(t -> t.code()
-                                .equals(codeTubolar))) {
-            return collector.get().getTableSeampleList().stream()
+        if (collector.isPresent()) {
+            var sampleDescription = collector.get().getTableSeampleList().stream()
                     .filter(t -> t.code().equals(codeTubolar))
-                    .map(t -> " (" + t.description())
-                    .limit(1)
-                    .reduce("", (a, b) -> a + b) + ")";
-        } else {
-            try {
-                return " (" + Arrays.asList(NameTubolar.values()).stream().filter(t -> t.name().equals(codeTubolar))
-                        .map(NameTubolar::getActualName)
-                        .findFirst().get() + ")";
-            } catch (Exception e) {
-                System.out.println("NameTubolar not found for code: " + codeTubolar);
+                    .map(t -> t.description())
+                    .findFirst();
+            if (sampleDescription.isPresent()) {
+                return " (" + sampleDescription.get() + ")";
             }
-            return new String();
         }
+        return Arrays.stream(NameTubolar.values())
+                .filter(t -> t.name().equals(codeTubolar))
+                .map(NameTubolar::getActualName)
+                .findFirst()
+                .map(name -> " (" + name + ")")
+                .orElse("");
     }
 
     private static String noTubolarElement(Optional<CollectorPeace> collector) {
-        return collector.isEmpty() ? new String()
+        return collector.isEmpty() ? ""
                 : collector.get().getTableSeampleList().stream()
-                        .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                        .filter(h -> Arrays.stream(ExcludedTubolar.values())
                                 .noneMatch(t -> h.code().contains(t.name())))
                         .filter(h -> h.lenght() == 0)
                         .map(h -> h.code() + " (" + h.description() + ") " + QUANTITA
                                 + h.quantity() + A_CAPO + A_CAPO)
-                        .reduce("", (a, b) -> a + b);
+                        .collect(Collectors.joining());
 
     }
 

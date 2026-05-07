@@ -70,7 +70,6 @@ public class ControllerModel {
         try {
             tubolarList.openNewQueue(nameTubolar);
         } catch (IllegalArgumentException e) {
-            System.out.println("");
         }
 
         tubolarList.addTubolar(lengthTubolar, nameTubolar, quantity);
@@ -96,9 +95,8 @@ public class ControllerModel {
         try {
             return TextOutputFactory.tubolarInsertedOutput(tubolarList, collector);
         } catch (Exception e) {
-
+            return "";
         }
-        return "";
     }
 
     /**

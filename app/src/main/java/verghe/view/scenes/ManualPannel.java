@@ -24,7 +24,7 @@ public class ManualPannel extends JPanel {
     private JLabel quantity = new JLabel("Quantità:");
     private JTextField tfQuantity = new JTextField();
     private JButton btAddTubolar = new JButton("Aggiungi Tubolare");
-    private JButton btRemoveTubolar = new JButton("Remuvi Tubolare");
+    private JButton btRemoveTubolar = new JButton("Rimuovi Tubolare");
 
     /**
      * Constructor for ManualPannel.
@@ -73,8 +73,6 @@ public class ManualPannel extends JPanel {
                             ClassLoader.getSystemResource(TUBOLAR_IMG_DYR + jComboBox.getSelectedItem() + PNG));
                     Image newimg = image.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                     imageLabel.setIcon(new ImageIcon(newimg));
-                    // jpWest.setVisible(cbManualInput.isSelected());
-
                 } catch (Exception l) {
                     imageLabel.setIcon(null);
                 }
