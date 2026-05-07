@@ -189,8 +189,7 @@ public class TextOutputFactory {
      * @return a formatted string representing the tubular data.
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo){
-        return controller.getCollector().isEmpty()? new String()
-                : userName() + A_CAPO
+        return userName() + A_CAPO
                         + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO
                         + controller.getPeaceStream(numSilo)
