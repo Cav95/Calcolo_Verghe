@@ -188,8 +188,8 @@ public class TextOutputFactory {
      * @param controller
      * @return a formatted string representing the tubular data.
      */
-    public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo , CalcolatorTubolar calcolator) {
-        return calcolator.getMapCut().keySet().isEmpty() ? new String()
+    public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo){
+        return controller.getCollector().isEmpty()? new String()
                 : userName() + A_CAPO
                         + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO
