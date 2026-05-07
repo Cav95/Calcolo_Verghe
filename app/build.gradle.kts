@@ -15,6 +15,12 @@ plugins {
     id("org.danilopianini.gradle-java-qa") version "1.75.0"
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 repositories { // Where to search for dependencies
     mavenCentral()
 }

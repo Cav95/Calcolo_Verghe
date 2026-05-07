@@ -127,6 +127,7 @@ public class ControllerModel {
      */
     public void restart() {
         this.tubolarList = new TubolarMultiListImpl();
+        this.collector = Optional.empty();
     }
 
     /**
