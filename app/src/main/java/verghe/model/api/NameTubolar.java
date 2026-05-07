@@ -1,16 +1,23 @@
 package verghe.model.api;
 
+import java.util.Arrays;
+
 /**
- * Enum representing the names of tubulars.
+ * Enum representing the names of tubulars.         
  */
 public enum NameTubolar {
     TBQ15003("Tubolare 150x150 sp3"),
     TBQ15004("Tubolare 150x150 sp4"),
+    TBQ15005("Tubolare 150x150 sp5"),
+    TBQ15006("Tubolare 150x150 sp6"),
+    TBQ15008("Tubolare 150x150 sp8"),
     TBQ14003("Tubolare 140x140 sp3"),
     TBQ14002("Tubolare 140x140 sp2"),
+    TBQ14004("Tubolare 140x140 sp4"),
     TBQ12003("Tubolare 120x120 sp3"),
     TBQ12004("Tubolare 120x120 sp4"),
     TBQ11003("Tubolare 110x110 sp3"),
+    TBQ10004("Tubolare 100x100 sp4"),
     TBQ10003("Tubolare 100x100 sp3"),
     TBQ09003("Tubolare 90x90 sp3"),
     TBQ08004("Tubolare 80x80 sp4"),
@@ -43,6 +50,7 @@ public enum NameTubolar {
         for (NameTubolar elem : NameTubolar.values()) {
             optionsToChoose[elem.ordinal()] = elem.getActualName();
         }
+        Arrays.sort(optionsToChoose);
         return optionsToChoose;
     }
 
