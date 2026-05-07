@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import java.util.Comparator;
 import verghe.controller.ControllerModel;
 import verghe.model.api.ExcludedTubolar;
 import verghe.model.api.NameTubolar;
@@ -19,6 +19,7 @@ import verghe.model.api.TubolarMultiList;
  */
 public class TextOutputFactory {
 
+    private static final String EMPTY_LINE = "-";
     private static final String M = "m";
     private static final int MM_TO_M = 1000;
     private static final String A_CAPO = "\n";
@@ -35,7 +36,6 @@ public class TextOutputFactory {
     private static final String LUNGHEZZA_VERGA = "Lunghezza Verga:";
     private static final String NUMERO_TUBOLARI_TOTALI = "Quantità Verghe:";
     private static final String SEPARATOR = " -> ";
-    private static final String EMPTY_LINE = "-";
 
     private TextOutputFactory() {
         // Private constructor to prevent instantiation
@@ -194,21 +194,37 @@ public class TextOutputFactory {
      * @return a formatted string representing the tubular data.
      */
     public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo){
-        return userName() + A_CAPO
-                        + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
-                        + A_CAPO
-                        + controller.getPeaceStream(numSilo)
-                                .map(h -> h.description() + " (" + h.code() + ") " + SEPARATOR + QUANTITA
-                                        + h.quantity()
-                                        + SEPARATOR
-                                        + LUNGHEZZA_SINGOLO + h.lenght() + A_CAPO)
-                                .map(String::toUpperCase)
-                                .sorted()
-                                .distinct()
-                                .collect(Collectors.joining())
-                        + EMPTY_LINE;
-    }
+        var out = new StringBuilder()
+            .append(userName())
+            .append(A_CAPO)
+            .append(siloPropretiesOutput(siloCode, numSilo))
+            .append(A_CAPO)
+            .append(A_CAPO);
 
+            if(controller.getTubolarList().availableQueues().isEmpty()){
+                throw new IllegalArgumentException();
+            }
+        controller.getTubolarList().getMultiQueue().entrySet().stream()
+            .sorted(Entry.comparingByKey())
+            .forEach(entry -> entry.getValue().stream()
+                .sorted(Comparator.comparingInt(Tubolar::getLenght))
+                .forEach(tubolar -> out.append(confertLine(entry.getKey(), tubolar.getQuantity(),
+                    tubolar.getLenght(), controller.getCollector()))));
+
+        return out.append(EMPTY_LINE).toString();
+        }
+
+        private static String confertLine(String codeTubolar, int quantity, int lenght,
+            Optional<CollectorPeace> collector) {
+        var tubolarName = getNameTubolar(codeTubolar, collector);
+        if (tubolarName.isEmpty()) {
+            return "";
+        }
+        return (tubolarName
+            + " (" + codeTubolar + ")"
+            + SEPARATOR + QUANTITA + quantity
+            + SEPARATOR + LUNGHEZZA_SINGOLO + lenght + A_CAPO).toUpperCase();
+    }
     private static String ottimalOutputString(Boolean optimal) {
         return optimal ? CASO_OTTIMO_TUBOLARI_12M_6MT : CASO_PESSIMO_TUBOLARI_SOLO_6MT;
 
