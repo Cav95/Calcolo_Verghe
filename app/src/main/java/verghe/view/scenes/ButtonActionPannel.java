@@ -33,7 +33,7 @@ public class ButtonActionPannel extends JPanel {
     // Button for output of reduced calculation
     final private JButton btUsedTubolarList = new JButton(USED_TUBOLAR);
     final private JButton btCuttedList = new JButton(CUT_LIST);
-    final private JButton btConfert = new JButton(PER_ROMBO);
+    final private JButton btRombo = new JButton(PER_ROMBO);
 
     // Button to calculate from Excel
     // It will read the file and add the tubulars to the list
@@ -67,7 +67,7 @@ public class ButtonActionPannel extends JPanel {
         this.add(Box.createVerticalStrut(20));
         this.add(btUsedTubolarList);
         this.add(Box.createVerticalStrut(5));
-        this.add(btConfert);
+        this.add(btRombo);
         this.add(Box.createVerticalStrut(5));
         this.add(btCuttedList);
         this.add(Box.createVerticalStrut(5));
@@ -101,7 +101,7 @@ public class ButtonActionPannel extends JPanel {
         btUsedTubolarList.addActionListener(e -> {
             noSiloCode(mainMenuPanel.getTfCodeSilo());
             siloNumberDifferent();
-            controllEmptyResulPannel();
+            controllEmptyResultPannel();
 
             var result = TextOutputFactory.reducedResultString(mainMenuPanel.getTfCodeSilo(),
                     !cbOttimale.isSelected(),
@@ -113,7 +113,7 @@ public class ButtonActionPannel extends JPanel {
         btCuttedList.addActionListener(e -> {
             siloNumberDifferent();
             noSiloCode(mainMenuPanel.getTfCodeSilo());
-            controllEmptyResulPannel();
+            controllEmptyResultPannel();
 
             var result = TextOutputFactory.extendedResultString(mainMenuPanel.getTfCodeSilo(),
                     !cbOttimale.isSelected(),
@@ -121,11 +121,11 @@ public class ButtonActionPannel extends JPanel {
             new ResultPane(controller.getView(), CUT_LIST, true, result);
         });
 
-        btConfert.addActionListener(e -> {
+        btRombo.addActionListener(e -> {
             siloNumberDifferent();
-            controllEmptyResulPannel();
-
+            controllEmptyResultPannel();
             noSiloCode(mainMenuPanel.getTfCodeSilo());
+
             var result = TextOutputFactory.confertOutPut(controller, mainMenuPanel.getTfCodeSilo(),
                     mainMenuPanel.gettempNumSilo());
             new ResultPane(controller.getView(), CUT_LIST, true, result);
@@ -176,7 +176,7 @@ public class ButtonActionPannel extends JPanel {
         }
     }
 
-    private void controllEmptyResulPannel() {
+    private void controllEmptyResultPannel() {
         if (mainMenuPanel.getLbResult().getText().isEmpty()) {
             JOptionPane.showMessageDialog(mainMenuPanel.getPanel(),
                     NO_TUBOLAR_SELECTED);

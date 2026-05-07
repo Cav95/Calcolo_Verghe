@@ -23,7 +23,7 @@ public class TextOutputFactory {
     private static final String A_CAPO = "\n";
     private static final String TUBOLARE_UTILIZZATO = "Tubolare Utilizzato:";
     private static final String QUANTITA = " Quantità=";
-    private static final String CODICE_DELLA_STRUTURA = "Codice della strutura: ";
+    private static final String CODICE_DELLA_STRUTURA = "Codice della struttura: ";
     private static final String CASO_PESSIMO_TUBOLARI_SOLO_6MT = "Con solo verghe da 6mt \n\n";
     private static final String CASO_OTTIMO_TUBOLARI_12M_6MT = "Con verghe da 12m\\6mt\n\n";
     private static final String LISTA_DI_TAGLIO = "Lista di taglio:";
@@ -188,8 +188,8 @@ public class TextOutputFactory {
      * @param controller
      * @return a formatted string representing the tubular data.
      */
-    public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo) {
-        return controller.getCollector().isEmpty() ? new String()
+    public static String confertOutPut(ControllerModel controller, String siloCode, int numSilo , CalcolatorTubolar calcolator) {
+        return calcolator.getMapCut().keySet().isEmpty() ? new String()
                 : userName() + A_CAPO
                         + siloPropretiesOutput(siloCode, numSilo) + A_CAPO
                         + A_CAPO

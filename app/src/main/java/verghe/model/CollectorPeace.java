@@ -42,14 +42,14 @@ public class CollectorPeace {
             var rowIteretor = sheet.iterator();
 
             Row row = rowIteretor.next();
-            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().equals("CODICE")
+            while (rowIteretor.hasNext() || !row.getCell(2).getStringCellValue().trim().toUpperCase().equals("CODICE")
                     || row.getCell(2).getStringCellValue().isEmpty()) {
 
                 int quantity = (int) row.getCell(1).getNumericCellValue() * quantitySilo;
-                String name = row.getCell(2).getStringCellValue();
-                String description = row.getCell(3).getStringCellValue();
+                String name = row.getCell(2).getStringCellValue().trim();
+                String description = row.getCell(3).getStringCellValue().trim();
                 int length = (int) row.getCell(4).getNumericCellValue();
-                String material = row.getCell(5).getStringCellValue();
+                String material = row.getCell(5).getStringCellValue().trim();
 
                 if (Arrays.asList(GroupMerceologiciTubolar.values()).stream()
                         .anyMatch(t -> name.contains(t.name()))) {
