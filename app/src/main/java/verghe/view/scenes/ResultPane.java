@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * ResultPane class that extends JDialog to display the results of the tubular
@@ -81,12 +83,11 @@ public class ResultPane extends JDialog {
                                     // Generate PDF with selected settings
                                     PdfDocumentGenerator generator = new PdfDocumentGenerator(selectedSettings);
                                     
-                                    // Create temporary file path
-                                    String timestamp = java.time.LocalDateTime.now()
-                                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+                                    // Generate filename: NomeSilo_TipoStampa_hash
+                                    String filename = generatePdfFilename(title, lbResultFinal.getText());
                                     String outputPath = System.getProperty("user.home") 
                                         + File.separator + "Downloads" 
-                                        + File.separator + "calcolo_verghe_" + timestamp + ".pdf";
+                                        + File.separator + filename + ".pdf";
                                     
                                     if (generator.generatePdf(lbResultFinal.getText(), outputPath, title)) {
                                         // Apri il PDF automaticamente
@@ -95,7 +96,8 @@ public class ResultPane extends JDialog {
                                             if (Desktop.isDesktopSupported()) {
                                                 Desktop.getDesktop().open(pdfFile);
                                             }
-                                        } catch (IOException ex) {
+                                        }
+                                        catch (IOException ex) {
                                             // Se non riesce ad aprire, continua comunque
                                             System.err.println("Impossibile aprire il PDF: " + ex.getMessage());
                                         }
@@ -136,6 +138,67 @@ public class ResultPane extends JDialog {
                 });
                 bottomPanel.add(stampaButton);
                 this.setVisible(removeMode);
-        };
+        }
 
-}
+        /**
+         * Generate filename with format: NomeSilo_TipoStampa_hash
+         * 
+         * @param title the title/silo name from the result pane
+         * @param content the PDF content
+         * @return formatted filename without extension
+         */
+        private String generatePdfFilename(String title, String content) {
+                // Extract silo name from title (remove unwanted prefixes/suffixes)
+                String siloName = title.replaceAll("(?i)(risultato|ridotto|esteso|confert|results|out).*", "")
+                                       .trim()
+                                       .replaceAll("[^a-zA-Z0-9_-]", "_");
+                
+                if (siloName.isEmpty()) {
+                        siloName = "calcolo";
+                }
+                
+                // Determine print type from title
+                String printType = "standard";
+                if (title.toLowerCase().contains("ridotto")) {
+                        printType = "ridotto";
+                } else if (title.toLowerCase().contains("esteso")) {
+                        printType = "esteso";
+                } else if (title.toLowerCase().contains("confert")) {
+                        printType = "confert";
+                }
+                
+                // Generate hash from content and timestamp
+                String hash = generateHash(content + System.currentTimeMillis());
+                
+                return siloName + "_" + printType + "_" + hash;
+        }
+        
+        /**
+         * Generate MD5 hash of input string
+         * 
+         * @param input the string to hash
+         * @return first 8 characters of MD5 hash in hex
+         */
+        private String generateHash(String input) {
+                try {
+                        MessageDigest md = MessageDigest.getInstance("MD5");
+                        byte[] messageDigest = md.digest(input.getBytes());
+                        StringBuilder hexString = new StringBuilder();
+                        
+                        for (byte b : messageDigest) {
+                                String hex = Integer.toHexString(0xff & b);
+                                if (hex.length() == 1) {
+                                        hexString.append('0');
+                                }
+                                hexString.append(hex);
+                        }
+                        
+                        // Return first 8 characters of hash
+                        return hexString.toString().substring(0, 8);
+                } catch (NoSuchAlgorithmException e) {
+                        // Fallback to timestamp hash
+                        return String.format("%08x", System.currentTimeMillis() & 0xffffffffL);
+
+                }
+                }
+        }
