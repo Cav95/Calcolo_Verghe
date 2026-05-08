@@ -15,10 +15,12 @@ import verghe.view.View;
 
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * ResultPane class that extends JDialog to display the results of the tubular
@@ -87,6 +89,17 @@ public class ResultPane extends JDialog {
                                         + File.separator + "calcolo_verghe_" + timestamp + ".pdf";
                                     
                                     if (generator.generatePdf(lbResultFinal.getText(), outputPath, title)) {
+                                        // Apri il PDF automaticamente
+                                        try {
+                                            File pdfFile = new File(outputPath);
+                                            if (Desktop.isDesktopSupported()) {
+                                                Desktop.getDesktop().open(pdfFile);
+                                            }
+                                        } catch (IOException ex) {
+                                            // Se non riesce ad aprire, continua comunque
+                                            System.err.println("Impossibile aprire il PDF: " + ex.getMessage());
+                                        }
+                                        
                                         JOptionPane.showMessageDialog(ResultPane.this,
                                             "PDF generato con successo:\n" + outputPath,
                                             "Stampa Completata",
