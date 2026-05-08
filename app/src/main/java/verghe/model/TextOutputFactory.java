@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.Comparator;
 import verghe.controller.ControllerModel;
 import verghe.model.api.ExcludedTubolar;
+import verghe.model.api.GroupMerceologiciTubolar;
 import verghe.model.api.NameTubolar;
 import verghe.model.api.Tubolar;
 import verghe.model.api.TubolarMultiList;
@@ -205,7 +206,9 @@ public class TextOutputFactory {
                 throw new IllegalArgumentException();
             }
         controller.getTubolarList().getMultiQueue().entrySet().stream()
-            .sorted(Entry.comparingByKey())
+            .sorted(Entry.comparingByKey()).filter(tubolar -> tubolar.getKey().contains(GroupMerceologiciTubolar.TBQ.name()))
+            .filter(h -> Arrays.asList(ExcludedTubolar.values()).stream()
+                        .noneMatch(t -> h.getKey().contains(t.name())))
             .forEach(entry -> entry.getValue().stream()
                 .sorted(Comparator.comparingInt(Tubolar::getLenght))
                 .forEach(tubolar -> out.append(confertLine(entry.getKey(), tubolar.getQuantity(),
@@ -225,6 +228,8 @@ public class TextOutputFactory {
             + SEPARATOR + QUANTITA + quantity
             + SEPARATOR + LUNGHEZZA_SINGOLO + lenght + A_CAPO).toUpperCase();
     }
+
+
     private static String ottimalOutputString(Boolean optimal) {
         return optimal ? CASO_OTTIMO_TUBOLARI_12M_6MT : CASO_PESSIMO_TUBOLARI_SOLO_6MT;
 
