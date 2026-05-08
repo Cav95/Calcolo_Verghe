@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import verghe.model.print.PdfDocumentGenerator;
+import verghe.model.print.PrintSettings;
 import verghe.view.View;
 
 import javax.swing.JScrollPane;
@@ -16,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.io.File;
 
 /**
  * ResultPane class that extends JDialog to display the results of the tubular
@@ -45,7 +48,7 @@ public class ResultPane extends JDialog {
                 mainPanel.setBorder(BorderFactory.createEmptyBorder(50, 20, 20, 20));
                 this.add(mainPanel, BorderLayout.CENTER);
 
-                // Correggi il nome del pannello
+                // Panel for buttons
                 JPanel bottomPanel = new JPanel();
                 bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
                 mainPanel.add(bottomPanel, BorderLayout.EAST);
@@ -53,13 +56,54 @@ public class ResultPane extends JDialog {
                 final JTextArea lbResultFinal = new JTextArea(result);
                 lbResultFinal.setLineWrap(true);
                 lbResultFinal.setWrapStyleWord(true);
-                lbResultFinal.setEditable(false); // opzionale: rende la textarea di sola lettura
+                lbResultFinal.setEditable(false);
 
                 JScrollPane scrollPane = new JScrollPane(lbResultFinal);
                 mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-                // Pulsante "Stampa"
-                JButton stampaButton = new JButton("Stampa");
+                // Modern PDF Print Button
+                JButton stampaPdfButton = new JButton("Stampa PDF");
+                stampaPdfButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(final ActionEvent e) {
+                                // Show print settings dialog
+                                PrintSettings defaultSettings = new PrintSettings();
+                                PrintSettingsDialog settingsDialog = new PrintSettingsDialog(
+                                    (java.awt.Frame) ResultPane.this.getOwner(),
+                                    defaultSettings
+                                );
+                                
+                                PrintSettings selectedSettings = settingsDialog.showDialog();
+                                
+                                if (selectedSettings != null) {
+                                    // Generate PDF with selected settings
+                                    PdfDocumentGenerator generator = new PdfDocumentGenerator(selectedSettings);
+                                    
+                                    // Create temporary file path
+                                    String timestamp = java.time.LocalDateTime.now()
+                                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+                                    String outputPath = System.getProperty("user.home") 
+                                        + File.separator + "Downloads" 
+                                        + File.separator + "calcolo_verghe_" + timestamp + ".pdf";
+                                    
+                                    if (generator.generatePdf(lbResultFinal.getText(), outputPath, title)) {
+                                        JOptionPane.showMessageDialog(ResultPane.this,
+                                            "PDF generato con successo:\n" + outputPath,
+                                            "Stampa Completata",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                    } else {
+                                        JOptionPane.showMessageDialog(ResultPane.this,
+                                            "Errore durante la generazione del PDF",
+                                            "Errore",
+                                            JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                        }
+                });
+                bottomPanel.add(stampaPdfButton);
+
+                // Classic Print Button (for backward compatibility)
+                JButton stampaButton = new JButton("Stampa (Classica)");
                 stampaButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(final ActionEvent e) {
@@ -76,7 +120,6 @@ public class ResultPane extends JDialog {
                                                         "Errore durante la stampa: " + ex.getMessage());
                                 }
                         }
-
                 });
                 bottomPanel.add(stampaButton);
                 this.setVisible(removeMode);
