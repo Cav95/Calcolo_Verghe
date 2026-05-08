@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * ResultPane class that extends JDialog to display the results of the tubular
@@ -36,8 +37,9 @@ public class ResultPane extends JDialog {
          * @param title      the title of the dialog
          * @param removeMode whether to remove the dialog after displaying results
          * @param result     the result string to be displayed
+         * @param siloName   the name of the silo
          */
-        public ResultPane(final View view, final String title, boolean removeMode, String result) {
+        public ResultPane(final View view, final String title, boolean removeMode, String result , String siloName) {
                 super(view.getMainFrame(), title, ModalityType.APPLICATION_MODAL);
                 this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 this.setSize(800, 500);
@@ -84,7 +86,7 @@ public class ResultPane extends JDialog {
                                     PdfDocumentGenerator generator = new PdfDocumentGenerator(selectedSettings);
                                     
                                     // Generate filename: NomeSilo_TipoStampa_hash
-                                    String filename = generatePdfFilename(title, lbResultFinal.getText());
+                                    String filename = generatePdfFilename(title, lbResultFinal.getText(), siloName);
                                     String outputPath = System.getProperty("user.home") 
                                         + File.separator + "Downloads" 
                                         + File.separator + filename + ".pdf";
@@ -147,14 +149,14 @@ public class ResultPane extends JDialog {
          * @param content the PDF content
          * @return formatted filename without extension
          */
-        private String generatePdfFilename(String title, String content) {
+        private String generatePdfFilename(String title, String content , String siloName) {
                 // Extract silo name from title (remove unwanted prefixes/suffixes)
-                String siloName = title.replaceAll("(?i)(risultato|ridotto|esteso|confert|results|out).*", "")
+                String out = title.replaceAll("(?i)(risultato|ridotto|esteso|confert|results|out).*", "")
                                        .trim()
                                        .replaceAll("[^a-zA-Z0-9_-]", "_");
                 
-                if (siloName.isEmpty()) {
-                        siloName = "calcolo";
+                if (out.isEmpty()) {
+                        out = "calcolo";
                 }
                 
                 // Determine print type from title
@@ -170,7 +172,7 @@ public class ResultPane extends JDialog {
                 // Generate hash from content and timestamp
                 String hash = generateHash(content + System.currentTimeMillis());
                 
-                return siloName + "_" + printType + "_" + hash;
+                return siloName + "_" + out + "_" + printType + "_" + hash;
         }
         
         /**

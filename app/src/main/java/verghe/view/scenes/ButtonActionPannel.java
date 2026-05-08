@@ -107,7 +107,7 @@ public class ButtonActionPannel extends JPanel {
                     !cbOttimale.isSelected(),
                     controller, mainMenuPanel.gettempNumSilo());
 
-            new ResultPane(controller.getView(), USED_TUBOLAR, true, result);
+            new ResultPane(controller.getView(), USED_TUBOLAR, true, result, mainMenuPanel.getTfCodeSilo());
         });
 
         btCuttedList.addActionListener(e -> {
@@ -118,7 +118,7 @@ public class ButtonActionPannel extends JPanel {
             var result = TextOutputFactory.extendedResultString(mainMenuPanel.getTfCodeSilo(),
                     !cbOttimale.isSelected(),
                     controller, mainMenuPanel.gettempNumSilo());
-            new ResultPane(controller.getView(), CUT_LIST, true, result);
+            new ResultPane(controller.getView(), CUT_LIST, true, result, mainMenuPanel.getTfCodeSilo());
         });
 
         btRombo.addActionListener(e -> {
@@ -128,7 +128,7 @@ public class ButtonActionPannel extends JPanel {
 
             var result = TextOutputFactory.confertOutPut(controller, mainMenuPanel.getTfCodeSilo(),
                     mainMenuPanel.gettempNumSilo());
-            new ResultPane(controller.getView(), CUT_LIST, true, result);
+            new ResultPane(controller.getView(), CUT_LIST, true, result, mainMenuPanel.getTfCodeSilo());
         });
 
         btRestart.addActionListener(e -> {
